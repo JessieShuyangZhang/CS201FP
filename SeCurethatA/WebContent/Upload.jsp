@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Upload</title>
-
 <style type="text/css">
 	body{
 		margin: 0px;
@@ -74,7 +73,6 @@
 		margin-right: 10%;
 	}
 </style>
-
 </head>
 <body>
 	<div id="header">	
@@ -95,7 +93,6 @@
 					Course
 				</label>
 			</div>
-
 			<a href="RegisterPage.jsp"><div id="right-button"> Register </div></a>
 			<a href="Homepage.jsp"><div id="left-button"> Homepage </div></a>
 		</form>
@@ -104,25 +101,10 @@
 		<div class='clear-float'></div>
 	</div>
 	
-	<%-- <div class="header">
-		<table>
-			<tr>
-				<td><a href="HomePage.jsp"><h1 style="color:pink">SeCureThatA</h1></a>
-				<td>
-					<form name="myform" method="GET" action="SearchResult">
-						<input type="text" class="input-field" name="keywords" placeholder="Search a course" >
-				<td>	<button type="submit" name="submit" value = "Search" class="button"/></button>
-					</form>
-				<td> <span style="float:right;padding:10px;"><a href="Logout" >Sign Out</a></span>
-				<td> <h4><%=session.getAttribute("username")%></h1>
-			</tr>
-		</table>
-	</div> --%>
-	
 	<h3 style="text-align:center">Upload Your GPA</h3>
 	<hr class="line" style="width:100%; position:relative;left:0%;"></hr>
 	
-	<form style="padding-left:60px;"name="login" method="POST" action="LoginServlet">
+	<form style="padding-left:60px;"name="upload" method="POST" action="UploadServlet">
 		<h4 style="color:grey">Select a Course</h4>
 		<select name="course">
 		    <option value="CSCI 102">CSCI 102</option>
@@ -163,7 +145,12 @@
   			<input type="radio" name="challenging" value="no">No
   			
 		<br /><br /><br />
-		<input class="button" type="submit" value="Upload">
+		<input class="button" type="submit">
+		
+		<script type="text/javascript"> 
+				alert('<%=session.getAttribute("message")%>');
+		</script>
+		
 	</form>
 </body>
 </html>
