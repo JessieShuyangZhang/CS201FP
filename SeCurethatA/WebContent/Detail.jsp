@@ -5,10 +5,104 @@
 <head>
 <meta charset="UTF-8">
 <title>Detail</title>
-<link rel="stylesheet" href="template.css" type="text/css">
+
+<style type="text/css">
+	body{
+		margin: 0px;
+		background-color: #FFF4F4;
+	}
+
+	#header{
+		height: 100px;
+		background-color: #000;
+		color: #D56AA0;
+	}
+
+	.clear-float{
+		clear: both;
+	}
+
+	#search{
+		float: left;
+		line-height: 100px;
+		text-align: center;
+		margin-left: 10%;
+	}
+
+	#search-button{
+		margin-left: 10px;
+		height: 30px;
+		width: 70px;
+		color: #FFF;
+		font-size: 13px;
+		border-radius: 5px;
+		background-color: #D56AA0;
+	}
+
+	#input{
+		margin-left: 10px;
+		height: 25px;
+		width: 400px;
+		font-size: 13px;
+		border-radius: 5px;
+	}
+
+	#choice{
+		float: left;
+		text-align: center;
+		line-height: 100px;
+		font-size: 17px;
+		margin-left: 40px;
+		color: #FFC7D4;
+	}
+	
+	.radio{
+		margin-right: 15px;
+	}
+
+	#left-button{
+		float: right;
+		line-height: 100px;
+		color: #FFC7D4;
+		margin-right: 50px;
+	}
+
+	#right-button{
+		float: right;
+		line-height: 100px;
+		color: #FFC7D4;
+		margin-right: 10%;
+	}
+</style>
 </head>
 <body>
-	<div class="header">
+<div id="header">	
+		<form name="myform">
+			<div id="search">
+				<input id="search-button" type="submit" name="submit" value="Sumbit" />
+				<input id="input" type="text" name="search-bar" placeholder=" Search...">
+			</div>
+
+			<div id="choice">		
+				<label class="radio"> 
+					<input type="radio" name="radio-button" value="Name" id="radio1">
+					Professor 
+				</label>
+				
+				<label class="radio"> 
+					<input type="radio" name="radio-button" value="ISBN" id="radio2"> 
+					Course
+				</label>
+			</div>
+
+			<a href="RegisterPage.jsp"><div id="right-button"> Register </div></a>
+			<a href="Homepage.jsp"><div id="left-button"> Homepage </div></a>
+		</form>
+			
+			
+		<div class='clear-float'></div>
+	</div>
+<%-- 	<div class="header">
 		<table>
 			<tr>
 				<td><a href="HomePage.jsp"><h1 style="color:pink">SeCureThatA</h1></a>
@@ -21,7 +115,7 @@
 				<td> <h4><%=session.getAttribute("username")%></h4>
 			</tr>
 		</table>
-	</div>
+	</div> --%>
 	
 	<div>
 		<h1><%=session.getAttribute("courseName")%></h1>

@@ -9,7 +9,36 @@
 <link rel="stylesheet" type="text/css" href="searchresults.css" />
 </head>
 <body>
-	<div id="topbar">
+	<div id="header">
+	
+		<form name="myform">
+			<div id="search">
+				<input id="search-button" type="submit" name="submit" value="Sumbit" />
+				<input id="input" type="text" name="search-bar" placeholder=" Search...">
+			</div>
+
+			<div id="choice">		
+				<label class="radio"> 
+					<input type="radio" name="radio-button" value="Name" id="radio1">
+					Professor 
+				</label>
+				
+				<label class="radio"> 
+					<input type="radio" name="radio-button" value="ISBN" id="radio2"> 
+					Course
+				</label>
+			</div>
+
+			<a href="RegisterPage.jsp"><div id="right-button"> Register </div></a>
+			<a href="Homepage.jsp"><div id="left-button"> Homepage </div></a>
+		</form>
+			
+			
+		<div class='clear-float'></div>
+
+	</div>
+	
+	<!-- <div id="topbar">
 		<form name="form" method="GET" action="BookServlet">
 			<table>
 				<tr>
@@ -36,7 +65,7 @@
 		</form>
 
 		<br />
-	</div>
+	</div> -->
 
 
 
