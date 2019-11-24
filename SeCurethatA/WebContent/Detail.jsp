@@ -2,81 +2,52 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Detail</title>
+	<head>
+		<meta charset="UTF-8">
+		<title>Detail Page</title>
 
-<style type="text/css">
-	body{
-		margin: 0px;
-		background-color: #FFF4F4;
-	}
+		<link rel="stylesheet" type="text/css" href="DetailPage.css" />
 
-	#header{
-		height: 100px;
-		background-color: #000;
-		color: #D56AA0;
-	}
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    	<script type="text/javascript">
+      		google.charts.load("current", {packages:['corechart']});
+      		google.charts.setOnLoadCallback(drawChart);
+      		function drawChart() {
+        		var data = google.visualization.arrayToDataTable([
+          			["Professor", "GPA", { role: "style" } ],
+          			["Mark Redekopp", 4.0, "#809BCE"],
+          			["Olivera Grujic", 2.5, "#95B8D1"],
+          			["Jeffrey Miller", 3.5, "#B8E0D2"],
+          			["Andrew Goodney", 3.3, "#D6EADF"]
+        		]);
 
-	.clear-float{
-		clear: both;
-	}
-
-	#search{
-		float: left;
-		line-height: 100px;
-		text-align: center;
-		margin-left: 10%;
-	}
-
-	#search-button{
-		margin-left: 10px;
-		height: 30px;
-		width: 70px;
-		color: #FFF;
-		font-size: 13px;
-		border-radius: 5px;
-		background-color: #D56AA0;
-	}
-
-	#input{
-		margin-left: 10px;
-		height: 25px;
-		width: 400px;
-		font-size: 13px;
-		border-radius: 5px;
-	}
-
-	#choice{
-		float: left;
-		text-align: center;
-		line-height: 100px;
-		font-size: 17px;
-		margin-left: 40px;
-		color: #FFC7D4;
-	}
+        		data.addRows([["Average", 3.0, "#EAC4D5"]]);
 	
-	.radio{
-		margin-right: 15px;
-	}
-
-	#left-button{
-		float: right;
-		line-height: 100px;
-		color: #FFC7D4;
-		margin-right: 50px;
-	}
-
-	#right-button{
-		float: right;
-		line-height: 100px;
-		color: #FFC7D4;
-		margin-right: 10%;
-	}
-</style>
-</head>
+       			var view = new google.visualization.DataView(data);
+        		view.setColumns(
+	        	[0, 1,
+	            	{ 
+	        			calc: "stringify",
+	                	sourceColumn: 1,
+	                	type: "string",
+	                	role: "annotation" 
+	                },
+	            2]);
+	
+		        var options = {
+		        	title: "GPA of CSCI201 in Fall 2019",
+		        	width: 600,
+		        	height: 400,
+		        	bar: {groupWidth: "90%"},
+		        	legend: { position: "none" },
+		        };
+	      		var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+	      		chart.draw(view, options);
+  			}
+		</script>
+	</head>
 <body>
-<div id="header">	
+	<div id="header">	
 		<form name="myform">
 			<div id="search">
 				<input id="search-button" type="submit" name="submit" value="Sumbit" />
@@ -102,20 +73,6 @@
 			
 		<div class='clear-float'></div>
 	</div>
-<%-- 	<div class="header">
-		<table>
-			<tr>
-				<td><a href="HomePage.jsp"><h1 style="color:pink">SeCureThatA</h1></a>
-				<td>
-					<form name="myform" method="GET" action="SearchResult">
-						<input type="text" class="input-field" name="keywords" placeholder="Search a course" >
-				<td>	<button type="submit" name="submit" value = "Search" class="button"/></button>
-					</form>
-				<td> <span style="float:right;padding:10px;"><a href="Logout" >Sign Out</a></span>
-				<td> <h4><%=session.getAttribute("username")%></h4>
-			</tr>
-		</table>
-	</div> --%>
 	
 	<div>
 		<h1><%=session.getAttribute("courseName")%></h1>
@@ -147,12 +104,9 @@
 	<h1>The average GPA for <%=session.getAttribute("term")%> by <%=session.getAttribute("professor")%> is</h1>
 	<div><%=session.getAttribute("avgGPA")%></div>
 	<h1><%=session.getAttribute("percentage")%> of the students think the course with this professor is challenging</h1>
-	<table>
-		<tr>
-			<td><img src="histogram.png">
-			<td><img src="line_chart.png">
-		</tr>
-	</table>
+	
+	<div id="columnchart_values"></div>
+	
 	<script>
 		function selectTerm(){
 			
