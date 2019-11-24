@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -47,24 +47,24 @@
 		</script>
 	</head>
 <body>
-	<div id="header">	
-		<form name="myform">
-			<div id="search">
-				<input id="search-button" type="submit" name="submit" value="Sumbit" />
-				<input id="input" type="text" name="search-bar" placeholder=" Search...">
-			</div>
+<div id="header">	
+	<form name="myform">
+		<div id="search">
+			<input id="search-button" type="submit" name="submit" value="Sumbit" />
+			<input id="input" type="text" name="search-bar" placeholder=" Search...">
+		</div>
 
-			<div id="choice">		
-				<label class="radio"> 
-					<input type="radio" name="radio-button" value="Name" id="radio1">
-					Professor 
-				</label>
-				
-				<label class="radio"> 
-					<input type="radio" name="radio-button" value="ISBN" id="radio2"> 
-					Course
-				</label>
-			</div>
+		<div id="choice">		
+			<label class="radio"> 
+				<input type="radio" name="radio-button" value="Name" id="radio1">
+				Professor 
+			</label>
+			
+			<label class="radio"> 
+				<input type="radio" name="radio-button" value="ISBN" id="radio2"> 
+				Course
+			</label>
+		</div>
 <%
 	String n = (String)session.getAttribute("username");
 	if(n!=null){ //someone logged in
@@ -79,10 +79,10 @@
 <%
 	}
 %>
-		</form>
+	</form>
 			
 			
-		<div class='clear-float'></div>
+	<div class='clear-float'></div>
 	</div>
 	
 	<div>
@@ -97,26 +97,46 @@
 				<h4 style="color:grey">Term</h4>
 				<select name="term" onchange="select()">
 					<option value="none">Select a Term</option>
-					<option value="201803">2018 Fall</option>
-				    <option value="201901">2019 Spring</option>
-				    <option value="201902">2019 Summer</option>
-				    <option value="201903">2019 Fall</option>
+					<%
+						ArrayList<String> terms = (ArrayList<String>)(session.getAttribute("terms"));
+						for(int i = 0; i < terms.size(); i++){
+					%>
+						<option value="<%=terms.get(i)%>"><%=terms.get(i)%></option>
+					<% 
+						}
+					%>
 		  		</select>
 		  	<td>
 		  		<h4 style="color:grey">Professor</h4>
 				<select name="professor" onchange="select()">
 					<option value="none">Select a Professor</option>
-					<option value="Olivera Grujic">Olivera Grujic</option>
-				    <option value="Andrew Goodney">Andrew Goodney</option>
-				    <option value="Mark Redekopp">Mark Redekopp</option>
-				    <option value="Aaron Cote">Aaron Cote</option>
+					<%
+						ArrayList<String> professors = (ArrayList<String>)(session.getAttribute("professors"));
+						for(int i = 0; i < professors.size(); i++){
+					%>
+						<option value="<%=professors.get(i)%>"><%=professors.get(i)%></option>
+					<% 
+						}
+					%>
 		  		</select>
 		</tr>
 	</table>
 	
 	<h1>The average GPA for <span id="term"></span> by <span id="professor"></span> is</h1>
-	<div><%=session.getAttribute("avgGPA")%></div>
-	<h1><%=session.getAttribute("percentage")%> of the students think the course with this professor is challenging</h1>
+	<div style="text-align:center"><%=session.getAttribute("specificGPA")%></div>
+	
+	<%
+		if(session.getAttribute("challenging") != null){
+	%>
+			<h1><%=session.getAttribute("challenging")%>% of the students think the course with this professor is challenging.</h1>
+	<% 
+		}
+		if(session.getAttribute("recommendRate") != null){
+	%>
+			<h1><%=session.getAttribute("recommendRate")%>% of the students recommend this course with this professor.</h1>
+	<% 
+		}
+	%>
 	
 	<div id="columnchart_values"></div>
 	
