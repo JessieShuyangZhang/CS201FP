@@ -75,6 +75,11 @@
 </style>
 </head>
 <body>
+<script type="text/javascript"> 
+	var msg = "<%=session.getAttribute("message")%>";
+	if(msg != null)
+		alert(msg);
+</script>
 	<div id="header">	
 		<form name="myform">
 			<div id="search">
@@ -136,7 +141,7 @@
   		</select>
   		
   		<h4 style="color:grey">Your GPA</h4>
-  		<input type="text" name="gpa" class="input-field">
+  		<input type="text" name="gpa" value=<%=session.getAttribute("gpa") != null?session.getAttribute("gpa"):"" %>>
   		<h4 style="color:grey">Do you recommend this course with this professor?</h4>
   			<input type="radio" name="recommend" value="yes">Yes
   			<input type="radio" name="recommend" value="no">No
@@ -146,10 +151,6 @@
   			
 		<br /><br /><br />
 		<input class="button" type="submit">
-		
-		<script type="text/javascript"> 
-				alert('<%=session.getAttribute("message")%>');
-		</script>
 		
 	</form>
 </body>

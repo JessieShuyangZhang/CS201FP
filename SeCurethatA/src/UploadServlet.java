@@ -34,17 +34,32 @@ public class UploadServlet extends HttpServlet {
 		String challenging = request.getParameter("challenging");
 		HttpSession session = request.getSession();
 		
-		//connect to database and upload the data
-		Database db = new Database();
-		boolean upload = db.upload(course, term, professor, gpa, recommend, challenging);
-		
-		if(upload)
-		{
-			session.setAttribute("message", "Congrats! You successfully upload your GPA!");
+		if(gpa == "") {
+			session.setAttribute("message", "Please enter your GPA.");
+		}
+		else if(recommend == null) {
+			session.setAttribute("gpa", gpa);
+			session.setAttribute("message", "Do you recommend this professor?");
+		}
+		else if(challenging == null) {
+			session.setAttribute("gpa", gpa);
+			session.setAttribute("message", "Do you think this course with this professor is challenging?");
 		}
 		else {
-			session.setAttribute("message", "Upload fail. Please try again.");
+			//connect to database and upload the data
+			Database db = new Database();
+			boolean upload = db.upload(course, term, professor, gpa, recommend, challenging);
+			//boolean upload = false;
+			session.setAttribute("upload", upload);
+			if(upload)
+			{
+				session.setAttribute("message", "Congrats! You successfully upload your GPA!");
+			}
+			else {
+				session.setAttribute("message", "Upload fail. Please try again.");
+			}
 		}
+		
 		
 		//direct back to upload page
 		try {
