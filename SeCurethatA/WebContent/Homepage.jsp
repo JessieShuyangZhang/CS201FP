@@ -39,9 +39,9 @@
 					<input id="search-bar" type="text" placeholder=" Search..">
 				</div>
 				
-				<div id="radio-button">
-					<input type="radio" name="professor" value="professor"> Professor <br>
-					<input type="radio" name="course" value="course"> Course <br>
+				<div id="choice">
+					<input type="radio" name="radio-button" value="Professor"> Professor <br>
+					<input type="radio" name="radio-button" value="Course"> Course <br>
 				</div>
 
 				<div id="button-button">

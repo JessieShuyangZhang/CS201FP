@@ -55,7 +55,7 @@ body{
 	font-size: 15px;
 }
 
-#radio-button, #button-button{
+#choice, #button-button{
 	float: left;
 	margin-right: 20%;
 	margin-left: 20%;

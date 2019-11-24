@@ -14,18 +14,18 @@
 	
 		<form name="myform">
 			<div id="search">
-				<input id="search-button" type="submit" name="submit" value="Sumbit" />
+				<input id="search-button" type="submit" name="submit" value="Submit" />
 				<input id="input" type="text" name="search-bar" placeholder=" Search...">
 			</div>
 
 			<div id="choice">
 				<label class="radio"> 
-					<input type="radio" name="radio-button" value="Name" id="radio1">
+					<input type="radio" name="radio-button" value="Professor" id="radio1">
 					Professor 
 				</label>
 				
 				<label class="radio"> 
-					<input type="radio" name="radio-button" value="ISBN" id="radio2"> 
+					<input type="radio" name="radio-button" value="Course" id="radio2"> 
 					Course
 				</label>
 			</div>
