@@ -17,8 +17,8 @@ function validate() {
 		return false;
 	}
 	else {
-		window.sessionStorage.setItem('user', document.loginform.username.value);
-		window.sessionStorage.setItem('loggedIn', 'yes');
+/* 		window.sessionStorage.setItem('user', document.loginform.username.value);
+		window.sessionStorage.setItem('loggedIn', 'yes'); */
 		return true;
 	}
 }
@@ -38,18 +38,31 @@ function validate() {
 
 			<div id="choice">		
 				<label class="radio"> 
-					<input type="radio" name="radio-button" value="Name" id="radio1">
+					<input type="radio" name="radio-button" value="Professor" id="radio1">
 					Professor 
 				</label>
 				
 				<label class="radio"> 
-					<input type="radio" name="radio-button" value="ISBN" id="radio2"> 
+					<input type="radio" name="radio-button" value="Course" id="radio2"> 
 					Course
 				</label>
 			</div>
-
-			<a href="RegisterPage.jsp"><div id="right-button"> Register </div></a>
-			<a href="Homepage.jsp"><div id="left-button"> Homepage </div></a>
+<%
+	String n = (String)session.getAttribute("username");
+	if(n!=null){ //someone logged in
+%>
+		<a href="LogoutServlet"><div id="right-button"> Sign out </div></a>
+		<a href="Upload.jsp"><div id="left-button"> Upload GPA </div></a>
+<%
+	}else{
+%>		
+		<a href="RegisterPage.jsp"><div id="right-button"> Register </div></a>
+		<a href="Homepage.jsp"><div id="left-button"> Homepage </div></a>
+<%
+	}
+%>
+			<!-- <a href="RegisterPage.jsp"><div id="right-button"> Register </div></a>
+			<a href="Homepage.jsp"><div id="left-button"> Homepage </div></a> -->
 		</form>
 			
 			

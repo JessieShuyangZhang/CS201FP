@@ -28,6 +28,12 @@ public class LoginServlet extends HttpServlet {
 		String errmsg = errmsg1 + errmsg2;
 		out.println(errmsg);
 		
+		if (errmsg.trim().contentEquals("")) { // Successful
+			HttpSession session = request.getSession();
+			session.setAttribute("username", username);
+			response.sendRedirect("Homepage.jsp");
+			return;			
+		}
 	}
 	
 }

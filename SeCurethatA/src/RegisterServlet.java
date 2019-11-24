@@ -36,6 +36,13 @@ public class RegisterServlet extends HttpServlet {
 		}
 		out.println(errmsg);
 		
+		if (errmsg.trim().contentEquals("")) { // Successful
+			HttpSession session = request.getSession();
+			session.setAttribute("username", username);
+			response.sendRedirect("Homepage.jsp");
+			return;			
+		}
+		
 	}
 	
 }

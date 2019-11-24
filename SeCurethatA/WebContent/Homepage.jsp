@@ -10,8 +10,22 @@
 <body>
 
 	<div id="header">
+<%
+	String n = (String)session.getAttribute("username");
+	if(n!=null){ //someone logged in
+%>
+		<a href="LogoutServlet"><div id="right-button"> Sign out </div></a>
+		<a href="Upload.jsp"><div id="left-button"> Upload GPA </div></a>
+<%
+	}else{
+%>		
 		<a href="RegisterPage.jsp"><div id="right-button"> Register </div></a>
 		<a href="LoginPage.jsp"><div id="left-button"> Login </div></a>
+<%
+	}
+%>
+<!-- 		<a href="RegisterPage.jsp"><div id="right-button"> Register </div></a>
+		<a href="LoginPage.jsp"><div id="left-button"> Login </div></a> -->
 	</div>
 
 	<div class="clear-float"></div>
