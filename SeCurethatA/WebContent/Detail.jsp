@@ -84,7 +84,8 @@
 		<tr>
 			<td>
 				<h4 style="color:grey">Term</h4>
-				<select name="term" onchange="selectTerm()">
+				<select name="term" onchange="select()">
+					<option value="none">Select a Term</option>
 					<option value="201803">2018 Fall</option>
 				    <option value="201901">2019 Spring</option>
 				    <option value="201902">2019 Summer</option>
@@ -92,7 +93,8 @@
 		  		</select>
 		  	<td>
 		  		<h4 style="color:grey">Professor</h4>
-				<select name="professor" onchange="selectProfessor()">
+				<select name="professor" onchange="select()">
+					<option value="none">Select a Professor</option>
 					<option value="Olivera Grujic">Olivera Grujic</option>
 				    <option value="Andrew Goodney">Andrew Goodney</option>
 				    <option value="Mark Redekopp">Mark Redekopp</option>
@@ -101,20 +103,38 @@
 		</tr>
 	</table>
 	
-	<h1>The average GPA for <%=session.getAttribute("term")%> by <%=session.getAttribute("professor")%> is</h1>
+	<h1>The average GPA for <span id="term"></span> by <span id="professor"></span> is</h1>
 	<div><%=session.getAttribute("avgGPA")%></div>
 	<h1><%=session.getAttribute("percentage")%> of the students think the course with this professor is challenging</h1>
 	
 	<div id="columnchart_values"></div>
 	
 	<script>
-		function selectTerm(){
-			
+		function select(){
+			var term = document.term.value;
+			var professor = document.professor.value;
+ 			var xhr = new XMLHttpRequest();
+	 		xhr.open('GET',"DetailServlet?term="+term+"&professor="+professor+"&courseName="+session.getAttribute("courseName"),true);
+	 		xhr.onreadystatechange = function(){
+	 			if(term == "none"){
+	 				document.getElementById("term").innerHTML = '"all terms"';
+	 			}
+	 			else{
+	 				document.getElementById("term").innerHTML = 'term';
+	 			}
+	 			if(professor == "none"){
+	 				document.getElementById("professor").innerHTML = '"all professors"';
+	 			}
+	 			else{
+	 				document.getElementById("professor").innerHTML = 'professor';
+	 			}
+	 		}
+	 		console.log("term="+ term);
+	 		console.log("professor="+professor)
+	 		xhr.send();
 		}
 		
-		function selectProfessor(){
-			
-		}
+		
 		
 	</script>
 </body>
