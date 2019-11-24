@@ -5,6 +5,24 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login Page</title>
+<script>
+
+function validate() {
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("GET", "LoginServlet?username=" + document.loginform.username.value + "&password=" + document.loginform.password.value, false);
+	xhttp.send();
+	if (xhttp.responseText.trim().length > 0) {
+		document.getElementById("errMsg").innerHTML = xhttp.responseText;
+		return false;
+	}
+	else {
+		window.sessionStorage.setItem('user', document.loginform.username.value);
+		window.sessionStorage.setItem('loggedIn', 'yes');
+		return true;
+	}
+}
+
+</script>
 <style type="text/css">
 	body{
 		margin: 0px;
@@ -135,6 +153,8 @@
 
 	<div id="main">
 		<form name="loginform">
+		
+			<div id="errMsg"></div>
 			
 			<div class="info">
 				<h3>Username</h3>
