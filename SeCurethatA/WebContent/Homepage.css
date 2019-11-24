@@ -10,6 +10,12 @@ body{
 	
 }
 
+#text{
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+}
+
 #left-button{
 	float: right;
 	line-height: 120px;
