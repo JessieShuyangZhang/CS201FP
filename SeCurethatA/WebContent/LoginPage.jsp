@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login Page</title>
+<link rel="stylesheet" type="text/css" href="LoginPage.css" />
 <script>
 
 function validate() {
@@ -23,101 +24,7 @@ function validate() {
 }
 
 </script>
-<style type="text/css">
-	body{
-		margin: 0px;
-		background-color: #FFF4F4;
-	}
 
-	#header{
-		height: 100px;
-		background-color: #000;
-		color: #D56AA0;
-	}
-
-	.clear-float{
-		clear: both;
-	}
-
-	#search{
-		float: left;
-		line-height: 100px;
-		text-align: center;
-		margin-left: 10%;
-	}
-
-	#search-button{
-		margin-left: 10px;
-		height: 30px;
-		width: 70px;
-		color: #FFF;
-		font-size: 13px;
-		border-radius: 5px;
-		background-color: #D56AA0;
-	}
-
-	#input{
-		margin-left: 10px;
-		height: 25px;
-		width: 400px;
-		font-size: 13px;
-		border-radius: 5px;
-	}
-
-	#choice{
-		float: left;
-		text-align: center;
-		line-height: 100px;
-		font-size: 17px;
-		margin-left: 40px;
-		color: #FFC7D4;
-	}
-	
-	.radio{
-		margin-right: 15px;
-	}
-
-	#left-button{
-		float: right;
-		line-height: 100px;
-		color: #FFC7D4;
-		margin-right: 50px;
-	}
-
-	#right-button{
-		float: right;
-		line-height: 100px;
-		color: #FFC7D4;
-		margin-right: 10%;
-	}
-	
-	#main{
-		width: 80%;
-		margin: auto;		
-	}
-	
-	h3{
-		color: black;
-		margin-top: 50px;
-	}
-
-	#username, #password{
-		width: 100%;
-		height: 35px;
-		border-radius: 5px;
-	}
-	
-	#submit{
-		width: 10%;
-		height: 30px;
-		font-size: 18px;
-		margin-top: 40px;
-		color: white;
-		border-radius: 5px;
-		background-color: #D56AA0;
-		float: right;
-	}
-</style>
 </head>
 <body>
 
