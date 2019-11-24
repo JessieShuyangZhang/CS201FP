@@ -7,21 +7,33 @@
 		<title>Detail Page</title>
 
 		<link rel="stylesheet" type="text/css" href="DetailPage.css" />
-
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     	<script type="text/javascript">
       		google.charts.load("current", {packages:['corechart']});
       		google.charts.setOnLoadCallback(drawChart);
-      		function drawChart() {
+      		
+      		function drawChart(id, listProfessor, listGPA) {
+      			
         		var data = google.visualization.arrayToDataTable([
           			["Professor", "GPA", { role: "style" } ],
-          			["Mark Redekopp", 4.0, "#809BCE"],
+/*           			["Mark Redekopp", 4.0, "#809BCE"],
           			["Olivera Grujic", 2.5, "#95B8D1"],
           			["Jeffrey Miller", 3.5, "#B8E0D2"],
-          			["Andrew Goodney", 3.3, "#D6EADF"]
+          			["Andrew Goodney", 3.3, "#D6EADF"]  */
         		]);
-
-        		data.addRows([["Average", 3.0, "#EAC4D5"]]);
+				
+      			var i;
+      			for (i = 0; i < listProfessor.length; i++) {
+      				var outer = [];
+      				var inner = [];
+      				inner.push(listProfessor[i]);
+      				inner.push(listGPA[i]);
+      				outer.push(inner);
+      				data.addRows(outer);
+      			}
+        		
+        		/* data.addRows([["Average", 3.0, "#EAC4D5"]]); */
 	
        			var view = new google.visualization.DataView(data);
         		view.setColumns(
@@ -40,10 +52,26 @@
 		        	height: 400,
 		        	bar: {groupWidth: "90%"},
 		        	legend: { position: "none" },
+		        	backgroundColor: '#FFF4F4',
 		        };
-	      		var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+	      		var chart = new google.visualization.ColumnChart(document.getElementById(id));
 	      		chart.draw(view, options);
   			}
+
+      		function getChartInfo(){
+      			var xhttp = new XMLHttpRequest();
+      			var term = getElementById('term-dropdown');
+      			xhttp.open("GET", "chartServlet?term=" + term.options[term.selectedIndex].text + "&course=" + document.getElementById("course").value, true);
+      			
+      			var id = 'columnchart_values';
+      			xhttp.onreadystatechange = function(){
+      				var listProfessor = (<%=(ArrayList<String>)session.getAttribute("listProfessor") %>);
+      				var listGPA = (<%=(ArrayList<Integer>)session.getAttribute("listGPA") %>);
+      				drawChart(id, listProfessor, listGPA);
+      			}
+      			xhttp.send();		
+      		}
+
 		</script>
 	</head>
 <body>
@@ -86,7 +114,7 @@
 	</div>
 	
 	<div>
-		<h1><%=session.getAttribute("courseName")%></h1>
+		<h1 id="course"><%=session.getAttribute("courseName")%></h1>
 		<h3><%=session.getAttribute("courseDescription")%></h3>
 	</div>
 	<hr class="line" style="width:100%; position:relative;left:0%;"></hr>
@@ -95,7 +123,7 @@
 		<tr>
 			<td>
 				<h4 style="color:grey">Term</h4>
-				<select name="term" onchange="select()">
+				<select id="term-dropdown" name="term" onchange="select(); getChartInfo()">
 					<option value="none">Select a Term</option>
 					<%
 						ArrayList<String> terms = (ArrayList<String>)(session.getAttribute("terms"));
