@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
 %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,7 @@
 				<input id="input" type="text" name="search-bar" placeholder=" Search...">
 			</div>
 
-			<div id="choice">		
+			<div id="choice">
 				<label class="radio"> 
 					<input type="radio" name="radio-button" value="Name" id="radio1">
 					Professor 
@@ -70,13 +71,57 @@
 
 
 	<div id="results">
-		<h3 id="results-title">Results for "CSCI 201"</h3>
-		<hr />
-		<%-- 	<h3 id="result-title">Results for "<%= searchbar %>"</h3><hr/>--%>
-
-		<!-- below are placeholders...needs to get from database -->
-
+<%
+    String input = request.getParameter("search-bar");
+%>	
+		<h3 id="result-title">Results for "<%= input %>"</h3><hr/>
+		
+	
+<%
+		Database db = new Database();	
+		String searchby = (String)request.getAttribute("resultsby");
+		Vector<String> res = new Vector<String>();
+		if(searchby.contentEquals("Course")){
+			res = db.searchCourseByCourse(input);
+		}
+		else{
+			res = db.searchCourseByProf(input);
+		}
+		if(res.size()==0){
+%>
+<p>No results...try again!</p>
+<%
+		}
+		else{
+		for(int i=0; i<res.size(); i++){
+			String coursename = res.elementAt(i);
+			double gpa = db.getGPA(coursename);
+%>
 		<div class="single-result">
+			<div class="course-card">
+				<div class="course-id"><%=coursename %></div>
+				<div class="course-title"><%=db.getCourseTitle(coursename)%></div>
+				<div class="course-discription">
+					<p><%=db.getDescription(coursename)%></p>
+				</div>
+			</div>
+			<div class="gpa">
+				<div class="gpa-title">
+					<strong>Overall</strong> <br />
+					<h2 style="margin: 0; padding: 0;">GPA</h2>
+				</div>
+				<div class="gpa-number">
+					<strong><%= db.getGPA(coursename)%></strong>
+				</div>
+			</div>
+		</div>
+<%
+		}}
+%>
+
+<!-- below are placeholders -->
+
+<!-- 		<div class="single-result">
 			<div class="course-card">
 				<div class="course-id">CSCI 201</div>
 				<div class="course-title">Principle of Software Development</div>
@@ -97,7 +142,7 @@
 					<strong>2.8</strong>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 
 	</div>
@@ -105,34 +150,36 @@
 
 	<div id="sidebar">
 		<h2 id="sidebar-title">Recommended</h2>
+		
+<%	
+		Vector<String> recomm = new Vector<String>();
+		recomm = db.getRecommend(input);		
+		if(recomm.size()==0){
+%>
+		<p>Nothing to recommend</p>
+<%
+		}
+		else{
+		for(int i=0; i<recomm.size(); i++){
+			String coursename = recomm.elementAt(i);
+%>
+		<div class="recommend">
+			<h3><%=coursename %></h3>
+			<p><%=db.getCourseTitle(coursename)%></p>
+		</div>
+<%
+		}}
+%>
 
 		<!-- below are placeholders...needs to get from database -->
 
-		<div class="recommend">
+<!-- 	<div class="recommend">
 			<h3>CSCI 270</h3>
 			<p>Introduction to Algorithms and Theory of Computing</p>
-		</div>
+		</div> -->
 
 	</div>
 	
-<%--
-    String searchbar = request.getParameter("searchbar");
---%>	
-	
-<%--	
-		Database db = new Database();
-		db.searchCourses(searchbar);
-		for(int i=0; i<db.courseArray.size(); i++){
-			String bookUrl=db.courseArray.get(i);
---%>
-
-
-<!-- <script>
-	function handleResponse(response) {
-	
-	}
-</script> -->
-
 
 </body>
 </html>

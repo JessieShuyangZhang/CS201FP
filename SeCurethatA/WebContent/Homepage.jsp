@@ -37,6 +37,9 @@
 				<div class="clear-float"></div>
 			</form>
 		</div>
+		<div id="error_msg">
+	    	<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
+	    </div>
 	</div>
 		
 </body>

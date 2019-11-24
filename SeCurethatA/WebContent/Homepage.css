@@ -64,3 +64,10 @@ body{
 input{
 	margin-bottom: 5px;
 }
+
+#error_msg{ /*added by Jessie, to display "please enter sth" when user typed in nothing*/
+	font-size: 100%;
+	color: red;
+	font-weight:300;
+	text-align: center;
+}
