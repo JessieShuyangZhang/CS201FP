@@ -98,8 +98,12 @@
 			double gpa = db.getGPA(coursename);
 %>
 		<div class="single-result">
-			<div class="course-card">
-				<div class="course-id"><%=coursename %></div>
+			<div class="course-card">				
+				<div class="course-id">
+					<a href="DetailServlet?courseName="<%=coursename %>>
+					<%=coursename %></a>
+				</div>
+				
 				<div class="course-title"><%=db.getCourseTitle(coursename)%></div>
 				<div class="course-discription">
 					<p><%=db.getDescription(coursename)%></p>
