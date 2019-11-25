@@ -169,7 +169,12 @@
 		
 <%	
 		Vector<String> recomm = new Vector<String>();
-		recomm = db.getRecommend(input);		
+		if(searchby.contentEquals("Course")){
+			recomm = db.getRecommendByCourse(input);
+		}
+		else{
+			recomm = db.getRecommendByProf(input);
+		}				
 		if(recomm.size()==0){
 %>
 		<p>Nothing to recommend</p>
