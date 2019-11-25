@@ -126,24 +126,24 @@
 	<form style="padding-left:60px;"name="upload" method="POST" action="UploadServlet">
 		<h4 style="color:grey">Select a Course</h4>
 		<select name="course">
-		    <option value="CSCI 102">CSCI 102</option>
-		    <option value="CSCI 103">CSCI 103</option>
-		    <option value="CSCI 104">CSCI 104</option>
-		    <option value="CSCI 170">CSCI 170</option>
-		    <option value="CSCI 201">CSCI 201</option>
-		    <option value="CSCI 270">CSCI 270</option>
-		    <option value="CSCI 310">CSCI 310</option>
-		    <option value="CSCI 350">CSCI 350</option>
-		    <option value="CSCI 356">CSCI 356</option>
-		    <option value="CSCI 360">CSCI 360</option>
+		    <option value="CSCI102">CSCI 102</option>
+		    <option value="CSCI103">CSCI 103</option>
+		    <option value="CSCI104">CSCI 104</option>
+		    <option value="CSCI170">CSCI 170</option>
+		    <option value="CSCI201">CSCI 201</option>
+		    <option value="CSCI270">CSCI 270</option>
+		    <option value="CSCI310">CSCI 310</option>
+		    <option value="CSCI350">CSCI 350</option>
+		    <option value="CSCI356">CSCI 356</option>
+		    <option value="CSCI360">CSCI 360</option>
   		</select>
 		
 		<h4 style="color:grey">Select a Term</h4>
 		<select name="term">
-			<option value="201803">2018 Fall</option>
-		    <option value="201901">2019 Spring</option>
-		    <option value="201902">2019 Summer</option>
-		    <option value="201903">2019 Fall</option>
+			<option value="20183">2018 Fall</option>
+		    <option value="20191">2019 Spring</option>
+		    <option value="20192">2019 Summer</option>
+		    <option value="20193">2019 Fall</option>
   		</select>
 		
 		<h4 style="color:grey">Professor</h4>
