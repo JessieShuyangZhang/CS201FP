@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"
 %>
 <%@ page import="java.util.*" %>
+<%@ page import="Database.Database" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 <body>
 	<div id="header">
 	
-		<form name="myform">
+		<form name="myform" action="SearchServlet">
 			<div id="search">
 				<input id="search-button" type="submit" name="submit" value="Submit" />
 				<input id="input" type="text" name="search-bar" placeholder=" Search...">
@@ -93,12 +94,16 @@
 		Database db = new Database();	
 		String searchby = (String)request.getAttribute("resultsby");
 		Vector<String> res = new Vector<String>();
+		if(searchby==null){
+			System.out.println("searchby is null");//for debug
+		}
+		else{System.out.println("searchby "+searchby);//for debug
 		if(searchby.contentEquals("Course")){
 			res = db.searchCourseByCourse(input);
 		}
 		else{
 			res = db.searchCourseByProf(input);
-		}
+		}}
 		if(res.size()==0){
 %>
 <p>No results...try again!</p>
@@ -169,12 +174,16 @@
 		
 <%	
 		Vector<String> recomm = new Vector<String>();
+		if(searchby==null){
+			System.out.println("searchby is null");//for debug
+		}
+		else{System.out.println("searchby "+searchby);//for debug
 		if(searchby.contentEquals("Course")){
 			recomm = db.getRecommendByCourse(input);
 		}
 		else{
 			recomm = db.getRecommendByProf(input);
-		}				
+		}}		
 		if(recomm.size()==0){
 %>
 		<p>Nothing to recommend</p>
@@ -183,10 +192,11 @@
 		else{
 		for(int i=0; i<recomm.size(); i++){
 			String coursename = recomm.elementAt(i);
+			String coursetitle = db.getCourseTitle(coursename);
 %>
 		<div class="recommend">
 			<h3><%=coursename %></h3>
-			<p><%=db.getCourseTitle(coursename)%></p>
+			<p><%=coursetitle%></p>
 		</div>
 <%
 		}}

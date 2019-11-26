@@ -36,9 +36,9 @@
 		<h3><div id="text"></div></h3>
 
 		<div id="search">
-			<form>
+			<form name="myform" action="SearchServlet">
 				<div>
-					<input id="search-bar" type="text" placeholder=" Search..">
+					<input id="search-bar" name="search-bar" type="text" placeholder=" Search..">
 				</div>
 				
 				<div id="choice">
