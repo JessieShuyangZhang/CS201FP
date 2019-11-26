@@ -13,8 +13,8 @@
     	<script type="text/javascript">
     	
     	//for debug-Jessie
-    	console.log("courseName:"+<%=request.getParameter("courseName")%>);
-    	console.log("courseDescription:"+<%=request.getParameter("courseDescription")%>);
+    	console.log("courseName:"+"<%=request.getParameter("courseName")%>");
+    	console.log("courseDescription:"+"<%=request.getParameter("courseDescription")%>");
     	
       		google.charts.load("current", {packages:['corechart']});
       		google.charts.setOnLoadCallback(drawChart);
@@ -124,8 +124,8 @@
 <%-- 		<h1 id="course"><%=request.getAttribute("courseName")%></h1>
 		<h3><%=request.getAttribute("courseDescription")%></h3> --%>
 		
-		<h1 id="course"><%=request.getAttribute("courseName")%></h1>
-		<h3><%=request.getAttribute("courseDescription")%></h3>
+		<h1 id="course"><%=request.getParameter("courseName")%></h1>
+		<h3><%=request.getParameter("courseDescription")%></h3>
 	</div>
 	<hr class="line" style="width:100%; position:relative;left:0%;"></hr>
 	
@@ -200,8 +200,9 @@
 			var professor = document.getElementById("professor").innerHTML;
 			console.log("term:"+term);
 			console.log("professor:"+professor);
+			if(term!=null && professor!=null){
  			var xhr = new XMLHttpRequest();
-	 		xhr.open('GET',"DetailServlet?term="+term+"&professor="+professor+"&courseName="+request.getAttribute("courseName"),true);
+	 		xhr.open('GET',"DetailServlet?term="+term+"&professor="+professor+"&courseName="+request.getParameter("courseName"),true);
 	 		xhr.onreadystatechange = function(){
 	 			if(term == "none"){
 	 				document.getElementById("term").innerHTML = '"all terms"';
@@ -219,6 +220,7 @@
 	 		console.log("term="+ term);
 	 		console.log("professor="+professor)
 	 		xhr.send();
+			}
 		}
 		
 		
