@@ -241,7 +241,7 @@ public class DatabaseOperator1 {
 	
 	public ArrayList<String> getProfessors(String courseName){
 		
-		String select = "SELECT p.fname, p.lname FROM Professor p, GPA g WHERE p.professorID = g.professorID AND g.courseName = ?";
+		String select = "SELECT DISTINCT p.fname, p.lname FROM Professor p, GPA g WHERE p.professorID = g.professorID AND g.courseName = ?";
 		courseName = courseNameChange(courseName);
 				
 		try {
@@ -282,7 +282,7 @@ public class DatabaseOperator1 {
 	
 	public ArrayList<String> getTerms(String courseName){//form is Spring 2019
 		
-		String select = "SELECT term FROM GPA WHERE courseName = ?";
+		String select = "SELECT DISTINCT term FROM GPA WHERE courseName = ?";
 		courseName = courseNameChange(courseName);
 				
 		try {
@@ -333,9 +333,18 @@ public class DatabaseOperator1 {
 	
 	public boolean upload(String course, String term, String professor, String gpa, String recommend, String challenging) {
 		
-		int pID = getProfessorID(professor);
-		String select = "SELECT * FROM GPA WHERE courseName = ? AND professorID = ? AND term = ?";
+		//int pID = getProfessorID(professor);
+		String[] pro = professor.split("\\s+");
+		if (pro.length < 2) {
+			return false;
+		}
+		String fname = pro[0].trim();
+		String lname = pro[1].trim();
+		String select = "SELECT * FROM GPA WHERE courseName = ? AND professorID ="
+				+ "(SELECT professorID FROM Professor WHERE fname=? AND lname=?) "
+				+ "AND term = ?";
 		String courseName = courseNameChange(course);
+		//int courseID = getCourseID(courseName);
 		int recom = 0, challenge = 0;
 		if(recommend.equals("yes")) {
 			recom = 1;
@@ -346,46 +355,57 @@ public class DatabaseOperator1 {
 				
 		try {
 			double GPA = doubleTransfer(gpa);
+			//System.out.println("reach upload");
 			
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
 			preparedStatement.setString(1, courseName);
-			preparedStatement.setInt(2, pID);
-			preparedStatement.setString(3, term);
+			preparedStatement.setString(2, fname);
+			preparedStatement.setString(3, lname);
+			preparedStatement.setString(4, term);
 			resultSet = preparedStatement.executeQuery();
 			
-			if(resultSet.next()) {//already exist
+			boolean hasResult = false;
+			while(resultSet.next()) {//already exist
 				int count = resultSet.getInt("counts");
 				int pChallenging = resultSet.getInt("challenging") + challenge;
 				int rec = resultSet.getInt("rec") + recom;
 				double avgGPA = resultSet.getDouble("avgGPA");
 				avgGPA = (avgGPA * count + GPA) / (count+1);
 				
-				String update = "UPDATE GPA SET count=count+1, challenging=?,rec=?,avgGPA=?"
-						+ "WHERE courseName = ? AND professorID = ? AND term = ?";
+				String update = "UPDATE GPA SET counts=counts+1, challenging=?,rec=?,avgGPA=?"
+						+ "WHERE courseName = ? AND "
+						+ "professorID = (SELECT professorID FROM Professor WHERE fname=? AND lname=?)"
+						+ "AND term = ?";
 				preparedStatement = connection.prepareStatement(update);
 				preparedStatement.setInt(1, pChallenging);
 				preparedStatement.setInt(2, rec);
 				preparedStatement.setDouble(3, avgGPA);
 				preparedStatement.setString(4, courseName);
-				preparedStatement.setInt(5, pID);
-				preparedStatement.setString(6, term);
+				preparedStatement.setString(5, fname);
+				preparedStatement.setString(6, lname);
+				preparedStatement.setString(7, term);
 				preparedStatement.executeUpdate();
+				hasResult = true;
 				return true;
 			}
-			else {
-				String insert = "INSERT INTO GPA (courseID, professorID, courseName, term, avgGPA, counts) "
-						+ "VALUES (?,?,?,?,?,1)";
-				int courseID = getCourseID(courseName);
-				preparedStatement = connection.prepareStatement(insert);
-				preparedStatement.setInt(1, courseID);
-				preparedStatement.setInt(2, pID);
-				preparedStatement.setString(3, courseName);
-				preparedStatement.setString(4, term);
-				preparedStatement.setDouble(5, GPA);
+			if(!hasResult) {
+				System.out.println("reach insert");
+				String insert = "INSERT INTO GPA (courseID, professorID, courseName, term, avgGPA, counts, challenging, rec) "
+						+ "VALUES ((SELECT courseID FROM Course WHERE courseName = ?),"
+						+ "(SELECT professorID FROM Professor WHERE fname=? AND lname=?),?,?,?,1,?,?)";
+				preparedStatement = connection.prepareStatement(insert);			
+				preparedStatement.setString(1, courseName);
+				preparedStatement.setString(2, fname);
+				preparedStatement.setString(3, lname);
+				preparedStatement.setString(4, courseName);
+				preparedStatement.setString(5, term);
+				preparedStatement.setDouble(6, GPA);
+				preparedStatement.setInt(7, challenge);
+				preparedStatement.setInt(8, recom);
 				preparedStatement.executeUpdate();
-				return true;
 			}
+			return true;
 		
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -413,28 +433,24 @@ public class DatabaseOperator1 {
 	
 	
 	//helper function
-	public String courseNameChange(String courseName) {
+	private String courseNameChange(String courseName) {
 		courseName = courseName.trim();
 		courseName = courseName.toUpperCase();
 		return courseName;
 	}
 	
-	public int getProfessorID (String professor) {//temporary
-		String[] pro = professor.split("\\s+");
-		if (pro.length < 2) {
-			return -1;
-		}
-		String first = pro[0];
-		String last = pro[1];
-		String select = "SELECT professorID FROM Professor WHERE fname = ? AND lname = ?";
+	private ArrayList<String> getProfessors () {//temporary
+
+		String select = "SELECT * FROM Professor";
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
-			preparedStatement.setString(1, first);
-			preparedStatement.setString(2, last);
 			resultSet = preparedStatement.executeQuery();
-			int pID = resultSet.getInt("professorID");	
-			return pID;
+			ArrayList<String> professors = new ArrayList<String>();
+			while(resultSet.next()) {
+				professors.add(resultSet.getString("fname")+" "+resultSet.getString("lname"));
+			}
+			return professors;
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -453,7 +469,7 @@ public class DatabaseOperator1 {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
 		}
-		return -1;
+		return null;
 	}
 	
 	public int getCourseID(String courseName) {
@@ -492,7 +508,7 @@ public class DatabaseOperator1 {
     	return -1;//unhandle case
 	}
 	
-	public static double doubleTransfer(String transfer) throws NumberFormatException{ // transfer string to int type
+	private static double doubleTransfer(String transfer) throws NumberFormatException{ // transfer string to int type
 		double a = 0;
 		a = Double.valueOf(transfer).doubleValue();
 		return a;

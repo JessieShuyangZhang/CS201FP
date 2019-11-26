@@ -64,26 +64,26 @@ out.println(do1.getDescription("CSCI201"));
 <br/>
 get professor test:
 <%
-	do1.upload("CSCI201", "20193", "olivera grujic", "4.0", "yes", "yes");
-	/*do1.upload("CSCI201", "20191", "jeff miller", "3.7", "yes", "no");
-	do1.upload("CSCI201", "20192", "jeff miller", "4.0", "no", "yes");
+	//do1.upload("CSCI201", "20193", "olivera grujic", "4.0", "yes", "yes");
+	do1.upload("CSCI201", "20191", "jeff miller", "3.7", "yes", "no");
+	//do1.upload("CSCI201", "20192", "jeff miller", "4.0", "no", "yes");
 	ArrayList<String> professors = do1.getProfessors("CSCI201");
 	for(String professor : professors){
 		out.println(professor + " ");
-	}*/
+	}
 %>
 </br>
 get term test:
 <%
-	/*ArrayList<String> terms = do1.getTerms("CSCI201");
+	ArrayList<String> terms = do1.getTerms("CSCI201");
 	for(String term : terms){
 		out.println(term + " ");
-	}*/
+	}
 %>
 </br>
 get gpa test:
 <%
-	//out.println(do1.getGPA("CSCI201"));
+	out.println(do1.getGPA("CSCI201"));
 %>
 </body>
 </html>
