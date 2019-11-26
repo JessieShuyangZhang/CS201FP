@@ -6,10 +6,10 @@ import java.util.*;
 
 public class DatabaseOperator2 {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-    static final String DB_URL = "jdbc:mysql://google/assignment3?cloudSqlInstance=custom-defender-255500:us-central1:sql-db-1&socke" + 
-    		"tFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false";
+    static final String DB_URL = "jdbc:mysql://google/fp?cloudSqlInstance=securethata:us-central1:securethata"
+    		+ "&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false";
     static final String USER = "root";
-    static final String PASS = "123456";
+    static final String PASS = "";
     
     Connection connection = null;
 	PreparedStatement preparedStatement = null;
