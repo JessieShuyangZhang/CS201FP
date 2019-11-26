@@ -150,7 +150,7 @@
 		  		</select>
 		  	<td>
 		  		<h4 style="color:grey">Professor</h4>
-				<select name="professor-dropdown" onchange="select()">
+				<select name="professor" id="professor-dropdown" onchange="select()">
 					<option value="none">Select a Professor</option>
 					<%
 						ArrayList<String> professors = (ArrayList<String>)(db.getProfessors(request.getParameter("courseName")));
@@ -197,7 +197,7 @@
 			//var term = document.term.value;
 			//var professor = document.professor.value;
 			var term = document.getElementById("term").innerHTML;
-			var professor = document.getElementById("professor").innerHTML;
+			var professor = document.getElementById("professor-dropdown").value;
 			console.log("term:"+term);
 			console.log("professor:"+professor);
 			if(term!=null && professor!=null){
