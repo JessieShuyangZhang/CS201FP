@@ -67,7 +67,7 @@
       		function getChartInfo(){
       			console.log("in getChartInfo()");
       			var xhttp = new XMLHttpRequest();
-      			var term = getElementById('term-dropdown');
+      			var term = document.getElementById('term-dropdown').value;
       			xhttp.open("GET", "chartServlet?term=" + term.options[term.selectedIndex].text + "&course=" + document.getElementById("course").value, true);
       			
       			var id = 'columnchart_values';
@@ -168,9 +168,10 @@
 	</table>
 	
 	<h1>The average GPA for <span id="term"></span> by <span id="professor"></span> is</h1>
-	<div style="text-align:center"><%=request.getAttribute("specificGPA")%></div>
-	
-	<%
+	<div id="specificGPA" style="text-align:center"></div>
+	<p id="recommendRate"></p>
+	<p id="challenging"></p>
+	<%-- <%
 		if(request.getAttribute("challenging") != null){
 	%>
 			<h1><%=request.getAttribute("challenging")%>% of the students think the course with this professor is challenging.</h1>
@@ -181,7 +182,7 @@
 			<h1><%=request.getAttribute("recommendRate")%>% of the students recommend this course with this professor.</h1>
 	<% 
 		}
-	%>
+	%> --%>
 	
 	<div id="columnchart_values"></div>
 	
@@ -197,30 +198,41 @@
 			//var term = document.term.value;
 			//var professor = document.professor.value;
 			var term = document.getElementById("term").innerHTML;
-			var professor = document.getElementById("professor-dropdown").value;
+			var professor = document.getElementById("professor").innerHTML;
 			console.log("term:"+term);
 			console.log("professor:"+professor);
-			if(term!=null && professor!=null){
- 			var xhr = new XMLHttpRequest();
-	 		xhr.open('GET',"DetailServlet?term="+term+"&professor="+professor+"&courseName="+request.getParameter("courseName"),true);
-	 		xhr.onreadystatechange = function(){
+			if(term!="none" && professor!="none"){
+				console.log("here");
+	 			var xhr = new XMLHttpRequest();
+		 		xhr.open('GET',"DetailServlet?term="+term+"&professor="+professor+"&courseName="+"<%=request.getParameter("courseName")%>",false);
+		 		xhr.send();
+		 	}
+			
+	 		//xhr.onreadystatechange = function(){
 	 			if(term == "none"){
-	 				document.getElementById("term").innerHTML = '"all terms"';
+	 				document.getElementById("term").innerHTML = "all terms";
 	 			}
 	 			else{
-	 				document.getElementById("term").innerHTML = 'term';
+	 				document.getElementById("term").innerHTML = term;
 	 			}
 	 			if(professor == "none"){
-	 				document.getElementById("professor").innerHTML = '"all professors"';
+	 				document.getElementById("professor").innerHTML = "all professors";
 	 			}
 	 			else{
-	 				document.getElementById("professor").innerHTML = 'professor';
+	 				document.getElementById("professor").innerHTML = professor;
 	 			}
-	 		}
-	 		console.log("term="+ term);
-	 		console.log("professor="+professor)
-	 		xhr.send();
-			}
+	 		//}
+	 		
+	 		
+	 		<%System.out.println(session.getAttribute("challenging"));%>
+	 		<%System.out.println(session.getAttribute("recommendRate"));%>
+	 		document.getElementById("challenging").innerHTML="<%=session.getAttribute("challenging") %>% of the students think the course with this professor is challenging.";
+	 		document.getElementById("recommendRate").innerHTML="<%=session.getAttribute("recommendRate") %>% of the students recommend this course with this professor.";
+	 		document.getElementById("specificGPA").innerHTML="<%=session.getAttribute("specificGPA") %>";
+			
+	 		
+	 		
+			
 		}
 		
 		
