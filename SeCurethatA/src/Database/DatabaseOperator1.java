@@ -333,8 +333,8 @@ public class DatabaseOperator1 {
 	
 	public boolean upload(String course, String term, String professor, String gpa, String recommend, String challenging) {
 		
-		int pID = getProfessorID("professor");
-		String select = "SELECT * FROM GPA WHERE courseName = ? AND professor = ? AND term = ?";
+		int pID = getProfessorID(professor);
+		String select = "SELECT * FROM GPA WHERE courseName = ? AND professorID = ? AND term = ?";
 		String courseName = courseNameChange(course);
 		int recom = 0, challenge = 0;
 		if(recommend.equals("yes")) {
@@ -362,7 +362,7 @@ public class DatabaseOperator1 {
 				avgGPA = (avgGPA * count + GPA) / (count+1);
 				
 				String update = "UPDATE GPA SET count=count+1, challenging=?,rec=?,avgGPA=?"
-						+ "WHERE courseName = ? AND professor = ? AND term = ?";
+						+ "WHERE courseName = ? AND professorID = ? AND term = ?";
 				preparedStatement = connection.prepareStatement(update);
 				preparedStatement.setInt(1, pChallenging);
 				preparedStatement.setInt(2, rec);
@@ -375,9 +375,10 @@ public class DatabaseOperator1 {
 			}
 			else {
 				String insert = "INSERT INTO GPA (courseID, professorID, courseName, term, avgGPA, counts) "
-						+ "VALUES ('SELECT courseID FROM Course WHERE courseName=?',?,?,?,?,1)";
+						+ "VALUES (?,?,?,?,?,1)";
+				int courseID = getCourseID(courseName);
 				preparedStatement = connection.prepareStatement(insert);
-				preparedStatement.setString(1, courseName);
+				preparedStatement.setInt(1, courseID);
 				preparedStatement.setInt(2, pID);
 				preparedStatement.setString(3, courseName);
 				preparedStatement.setString(4, term);
@@ -419,7 +420,76 @@ public class DatabaseOperator1 {
 	}
 	
 	public int getProfessorID (String professor) {//temporary
-		return 1;
+		String[] pro = professor.split("\\s+");
+		if (pro.length < 2) {
+			return -1;
+		}
+		String first = pro[0];
+		String last = pro[1];
+		String select = "SELECT professorID FROM Professor WHERE fname = ? AND lname = ?";
+		try {
+			connection = DriverManager.getConnection(DB_URL,USER,PASS);
+			preparedStatement = connection.prepareStatement(select);
+			preparedStatement.setString(1, first);
+			preparedStatement.setString(2, last);
+			resultSet = preparedStatement.executeQuery();
+			int pID = resultSet.getInt("professorID");	
+			return pID;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(resultSet != null) {
+					resultSet.close();
+				}
+				if(preparedStatement!=null) {
+					preparedStatement.close();
+				}
+				if(connection!=null) {
+					connection.close();
+				}
+			} catch (SQLException sqle) {
+				System.out.println("sqle: " + sqle.getMessage());
+			}
+		}
+		return -1;
+	}
+	
+	public int getCourseID(String courseName) {
+		String select = "SELECT courseID FROM Course WHERE courseName = ?";
+		courseName = courseNameChange(courseName);
+				
+		try {
+			connection = DriverManager.getConnection(DB_URL,USER,PASS);
+			preparedStatement = connection.prepareStatement(select);
+			preparedStatement.setString(1, courseName);
+			resultSet = preparedStatement.executeQuery();
+			
+			if(resultSet.next()) {
+				int id = resultSet.getInt("courseID");
+				return id;
+			}
+		
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(resultSet != null) {
+					resultSet.close();
+				}
+				if(preparedStatement!=null) {
+					preparedStatement.close();
+				}
+				if(connection!=null) {
+					connection.close();
+				}
+			} catch (SQLException sqle) {
+				System.out.println("sqle: " + sqle.getMessage());
+			}
+		}
+    	return -1;//unhandle case
 	}
 	
 	public static double doubleTransfer(String transfer) throws NumberFormatException{ // transfer string to int type
