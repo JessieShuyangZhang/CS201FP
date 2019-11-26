@@ -112,7 +112,7 @@
 		else{
 		for(int i=0; i<res.size(); i++){
 			String coursename = res.elementAt(i);
-			String coursedescription=db.getCourseTitle(coursename);
+			String coursedescription=db.getDescription(coursename);
 			double gpa = db.getGPA(coursename);
 %>
 		<div class="single-result">

@@ -1,4 +1,4 @@
-package xiaoyanq_CSCI201L_Final_Project;
+import Database.Database;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,7 +22,7 @@ public class chartServlet extends HttpServlet{
 			String term = request.getParameter("term");
 			String course = request.getParameter("course");
 			ArrayList<String> listProfessor = database.get_All_Professor_Given_Term_And_Course(term, course);
-			ArrayList<Integer> listGPA = database.get_All_GPA_Given_Term_And_Course(term, course);
+			ArrayList<Double> listGPA = database.get_All_GPA_Given_Term_And_Course(term, course);
 			HttpSession session = request.getSession();
 			session.setAttribute("listProfessor", listProfessor);
 			session.setAttribute("listGPA", listGPA);	

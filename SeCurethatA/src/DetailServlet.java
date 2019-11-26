@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class DetailServlet
@@ -28,35 +27,41 @@ public class DetailServlet extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		//Httprequest request = request.getrequest();
+		System.out.println("in detailservlet");
 		String courseName = request.getParameter("courseName");
 		String term = request.getParameter("term");
 		String professor = request.getParameter("professor");
 		ArrayList<String> professors;
 		ArrayList<String> terms;
 		
+		//for debug
+		System.out.println("courseName"+courseName);
+		System.out.println("term"+term);
+		System.out.println("Professor"+professor);
+		
 		Database db = new Database();
-		session.setAttribute("courseName", courseName);
-		session.setAttribute("courseDescription", db.getDescription(courseName));
+		request.setAttribute("courseName", courseName);
+		request.setAttribute("courseDescription", db.getDescription(courseName));
 		if(courseName == "" && professor == "") {
-			session.setAttribute("specificGPA",db.getSpecificGPA("none", "none", courseName));
+			request.setAttribute("specificGPA",db.getSpecificGPA("none", "none", courseName));
 		}
 		else {
-			session.setAttribute("specificGPA",db.getSpecificGPA(term, professor, courseName));
+			request.setAttribute("specificGPA",db.getSpecificGPA(term, professor, courseName));
 		}
 
 		professors = db.getProfessors(courseName);
-		session.setAttribute("professors", professors);
+		request.setAttribute("professors", professors);
 		terms = db.getTerms(courseName);
-		session.setAttribute("terms", terms);
+		request.setAttribute("terms", terms);
 		
 		if(professor !="" && !professor.contains("none")) {
-			session.setAttribute("challenging", db.getChallenging(professor, courseName));
-			session.setAttribute("recommendRate", db.getRecommendRate(professor, courseName));
+			request.setAttribute("challenging", db.getChallenging(professor, courseName));
+			request.setAttribute("recommendRate", db.getRecommendRate(professor, courseName));
 		}
 		else {
-			session.setAttribute("challenging", "");
-			session.setAttribute("recommendRate", "");
+			request.setAttribute("challenging", "");
+			request.setAttribute("recommendRate", "");
 		}
 		
 		try {
