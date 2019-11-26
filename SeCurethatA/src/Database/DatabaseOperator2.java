@@ -256,7 +256,7 @@ public class DatabaseOperator2 {
 	}
 
 	
-	public Vector<String> searchCoureByProf(String input){
+	public Vector<String> searchCourseByProf(String input){
 		String select = "";
 		String[] search = input.split("\\s+");
 		String firstname = "";
@@ -453,7 +453,7 @@ public class DatabaseOperator2 {
 	}
 	
 	public Vector<String> getRecommendByProf(String input){
-		Vector<String> searchResult = searchCoureByProf(input);
+		Vector<String> searchResult = searchCourseByProf(input);
 		if (searchResult == null)
 			return null;
 		String search = searchResult.get(searchResult.size() -1);

@@ -3,7 +3,7 @@
 <%@ page import="java.io.*" %>
 <%@ page import="java.net.*" %>
 <%@ page import="com.google.*" %>
-<%@  page import= "Database.*"%>
+<%@  page import= "Database.DatabaseOperator1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>

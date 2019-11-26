@@ -1,5 +1,8 @@
 
 import Database.Database;
+import Database.DatabaseOperator1;
+import Database.DatabaseOperator2;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,24 +38,26 @@ public class DetailServlet extends HttpServlet {
 		ArrayList<String> professors;
 		ArrayList<String> terms;
 		
-		Database db = new Database();
+		DatabaseOperator1 db1 = new DatabaseOperator1();
+		DatabaseOperator2 db2 = new DatabaseOperator2();
+		
 		session.setAttribute("courseName", courseName);
-		session.setAttribute("courseDescription", db.getDescription(courseName));
+		session.setAttribute("courseDescription", db1.getDescription(courseName));
 		if(courseName == "" && professor == "") {
-			session.setAttribute("specificGPA",db.getSpecificGPA("none", "none", courseName));
+			session.setAttribute("specificGPA",db2.getSpecificGPA("none", "none", courseName));
 		}
 		else {
-			session.setAttribute("specificGPA",db.getSpecificGPA(term, professor, courseName));
+			session.setAttribute("specificGPA",db2.getSpecificGPA(term, professor, courseName));
 		}
 
-		professors = db.getProfessors(courseName);
+		professors = db1.getProfessors(courseName);
 		session.setAttribute("professors", professors);
-		terms = db.getTerms(courseName);
+		terms = db1.getTerms(courseName);
 		session.setAttribute("terms", terms);
 		
 		if(professor !="" && !professor.contains("none")) {
-			session.setAttribute("challenging", db.getChallenging(professor, courseName));
-			session.setAttribute("recommendRate", db.getRecommendRate(professor, courseName));
+			session.setAttribute("challenging", db2.getChallenging(professor, courseName));
+			session.setAttribute("recommendRate", db2.getRecommendRate(professor, courseName));
 		}
 		else {
 			session.setAttribute("challenging", "");
