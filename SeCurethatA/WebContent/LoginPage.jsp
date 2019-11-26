@@ -7,7 +7,7 @@
 <title>Login Page</title>
 <link rel="stylesheet" type="text/css" href="LoginPage.css" />
 <script>
-
+/*
 function validate() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.open("GET", "LoginServlet?username=" + document.loginform.username.value + "&password=" + document.loginform.password.value, false);
@@ -17,12 +17,12 @@ function validate() {
 		return false;
 	}
 	else {
-/* 		window.sessionStorage.setItem('user', document.loginform.username.value);
-		window.sessionStorage.setItem('loggedIn', 'yes'); */
+ 		//window.sessionStorage.setItem('user', document.loginform.username.value);
+		//window.sessionStorage.setItem('loggedIn', 'yes'); 
 		return true;
 	}
 }
-
+*/
 </script>
 
 </head>
@@ -72,9 +72,9 @@ function validate() {
 	
 
 	<div id="main">
-		<form name="loginform">
+		<form name="loginform" action="LoginServlet">
 		
-			<div id="errMsg"></div>
+			<div id="errMsg"><%=request.getAttribute("error")%></div>
 			
 			<div class="info">
 				<h3>Username</h3>
@@ -87,7 +87,7 @@ function validate() {
 			</div>
 			
 			<div id="button">
-				<input id="submit" type="submit" name="submit" value="Sign In" />
+				<input id="submit" type="submit" name="submit"/>
 			</div>	
 
 			<div class='clear-float'></div>

@@ -112,18 +112,21 @@
 		else{
 		for(int i=0; i<res.size(); i++){
 			String coursename = res.elementAt(i);
+			String coursedescription=db.getCourseTitle(coursename);
 			double gpa = db.getGPA(coursename);
 %>
 		<div class="single-result">
 			<div class="course-card">				
 				<div class="course-id">
-					<a href="DetailServlet?courseName="<%=coursename %>>
+					<%-- <a href="DetailServlet?courseName=<%=coursename %>">
+					<%=coursename %></a> --%>
+					<a href="Detail.jsp?courseName=<%=coursename%>&courseDescription=<%=coursedescription%>">
 					<%=coursename %></a>
 				</div>
 				
-				<div class="course-title"><%=db.getCourseTitle(coursename)%></div>
+				<div class="course-title"><%=coursedescription%></div>
 				<div class="course-discription">
-					<p><%=db.getDescription(coursename)%></p>
+					<p><%=coursedescription%></p>
 				</div>
 			</div>
 			<div class="gpa">

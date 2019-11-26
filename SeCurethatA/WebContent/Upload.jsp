@@ -103,7 +103,8 @@
 	if(n!=null){ //someone logged in
 %>
 		<a href="LogoutServlet"><div id="right-button"> Sign out </div></a>
-		<a href="Upload.jsp"><div id="left-button"> Upload GPA </div></a>
+		<a href="Homepage.jsp"><div id="left-button"> Homepage </div></a>
+		<!-- <a href="Upload.jsp"><div id="left-button"> Upload GPA </div></a> -->
 <%
 	}else{
 %>		

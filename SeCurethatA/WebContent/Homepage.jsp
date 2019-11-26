@@ -12,15 +12,18 @@
 	<div id="header">
 <%
 	String n = (String)session.getAttribute("username");
+	System.out.println("in homepage, session username:"+n);
 	if(n!=null){ //someone logged in
 %>
+		<!-- <a href="LogoutServlet"><div id="right-button"> Sign out </div></a>
+		<a href="Upload.jsp"><div id="left-button"> Upload GPA </div></a> -->
 		<a href="LogoutServlet"><div id="right-button"> Sign out </div></a>
-		<a href="Upload.jsp"><div id="left-button"> Upload GPA </div></a>
+		<a href="Homepage.jsp"><div id="left-button"> Homepage </div></a>
 <%
 	}else{
 %>		
 		<a href="RegisterPage.jsp"><div id="right-button"> Register </div></a>
-		<a href="LoginPage.jsp"><div id="left-button"> Login </div></a>
+		<a href="LoginPage.jsp"><div id="left-button"> Login </div></a> 
 <%
 	}
 %>

@@ -71,7 +71,7 @@
 	
 
 	<div id="main">
-		<form name="regform">
+		<form name="regform" action="RegisterServlet">
 		
 			<div id="errMsg"></div>
 			

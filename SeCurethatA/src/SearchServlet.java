@@ -39,7 +39,7 @@ public class SearchServlet extends HttpServlet {
 			request.setAttribute("error",errmsg);
 			
 			//but how to return to the page where it came from?
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/HomePage.jsp"); 
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/Homepage.jsp"); 
 			try {
 				dispatch.forward(request, response);
 			}catch(IOException e) {

@@ -10,6 +10,11 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     	<script type="text/javascript">
+    	
+    	//for debug-Jessie
+    	console.log("courseName:"+session.getAttribute("courseName"));
+    	console.log("courseDescription:"+session.getAttribute("courseDescription"));
+    	
       		google.charts.load("current", {packages:['corechart']});
       		google.charts.setOnLoadCallback(drawChart);
       		
@@ -59,6 +64,7 @@
   			}
 
       		function getChartInfo(){
+      			console.log("in getChartInfo()");
       			var xhttp = new XMLHttpRequest();
       			var term = getElementById('term-dropdown');
       			xhttp.open("GET", "chartServlet?term=" + term.options[term.selectedIndex].text + "&course=" + document.getElementById("course").value, true);
@@ -114,8 +120,11 @@
 	</div>
 	
 	<div>
-		<h1 id="course"><%=session.getAttribute("courseName")%></h1>
-		<h3><%=session.getAttribute("courseDescription")%></h3>
+<%-- 		<h1 id="course"><%=session.getAttribute("courseName")%></h1>
+		<h3><%=session.getAttribute("courseDescription")%></h3> --%>
+		
+		<h1 id="course"><%=request.getAttribute("courseName")%></h1>
+		<h3><%=request.getAttribute("courseDescription")%></h3>
 	</div>
 	<hr class="line" style="width:100%; position:relative;left:0%;"></hr>
 	
@@ -136,7 +145,7 @@
 		  		</select>
 		  	<td>
 		  		<h4 style="color:grey">Professor</h4>
-				<select name="professor" onchange="select()">
+				<select name="professor-dropdown" onchange="select()">
 					<option value="none">Select a Professor</option>
 					<%
 						ArrayList<String> professors = (ArrayList<String>)(session.getAttribute("professors"));
@@ -170,8 +179,19 @@
 	
 	<script>
 		function select(){
-			var term = document.term.value;
-			var professor = document.professor.value;
+			console.log("in select()");
+			if(document.getElementById("term-dropdown")!=null){
+				document.getElementById("term").innerHTML=document.getElementById("term-dropdown").value;
+			}
+			if(document.getElementById("professor-dropdown")!=null){
+				document.getElementById("professor").innerHTML=document.getElementById("professor-dropdown").value;
+			}
+			//var term = document.term.value;
+			//var professor = document.professor.value;
+			var term = document.getElementById("term").innerHTML;
+			var professor = document.getElementById("professor").innerHTML;
+			console.log("term:"+term);
+			console.log("professor:"+professor);
  			var xhr = new XMLHttpRequest();
 	 		xhr.open('GET',"DetailServlet?term="+term+"&professor="+professor+"&courseName="+session.getAttribute("courseName"),true);
 	 		xhr.onreadystatechange = function(){
