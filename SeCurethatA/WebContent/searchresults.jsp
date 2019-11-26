@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"
 %>
 <%@ page import="java.util.*" %>
-<%@ page import="Database.DatabaseOperator2" import="Database.DatabaseOperator1"%>
+<%@ page import="Database.Database" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,8 +91,7 @@
 		
 	
 <%
-		DatabaseOperator1 db1 = new DatabaseOperator1();
-		DatabaseOperator2 db2 = new DatabaseOperator2();	
+		Database db = new Database();	
 		String searchby = (String)request.getAttribute("resultsby");
 		Vector<String> res = new Vector<String>();
 		if(searchby==null){
@@ -100,10 +99,10 @@
 		}
 		else{System.out.println("searchby "+searchby);//for debug
 		if(searchby.contentEquals("Course")){
-			res = db2.searchCourseByCourse(input);
+			res = db.searchCourseByCourse(input);
 		}
 		else{
-			res = db2.searchCourseByProf(input);
+			res = db.searchCourseByProf(input);
 		}}
 		if(res.size()==0){
 %>
@@ -113,8 +112,8 @@
 		else{
 		for(int i=0; i<res.size(); i++){
 			String coursename = res.elementAt(i);
-			String coursedescription=db1.getCourseTitle(coursename);
-			double gpa = db1.getGPA(coursename);
+			String coursedescription=db.getDescription(coursename);
+			double gpa = db.getGPA(coursename);
 %>
 		<div class="single-result">
 			<div class="course-card">				
@@ -136,7 +135,7 @@
 					<h2 style="margin: 0; padding: 0;">GPA</h2>
 				</div>
 				<div class="gpa-number">
-					<strong><%= db1.getGPA(coursename)%></strong>
+					<strong><%= db.getGPA(coursename)%></strong>
 				</div>
 			</div>
 		</div>
@@ -183,10 +182,10 @@
 		}
 		else{System.out.println("searchby "+searchby);//for debug
 		if(searchby.contentEquals("Course")){
-			recomm = db2.getRecommendByCourse(input);
+			recomm = db.getRecommendByCourse(input);
 		}
 		else{
-			recomm = db2.getRecommendByProf(input);
+			recomm = db.getRecommendByProf(input);
 		}}		
 		if(recomm.size()==0){
 %>
@@ -196,7 +195,7 @@
 		else{
 		for(int i=0; i<recomm.size(); i++){
 			String coursename = recomm.elementAt(i);
-			String coursetitle = db1.getCourseTitle(coursename);
+			String coursetitle = db.getCourseTitle(coursename);
 %>
 		<div class="recommend">
 			<h3><%=coursename %></h3>

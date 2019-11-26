@@ -86,4 +86,20 @@ public class Database {
 	public double getSpecificGPA(String term, String professor, String courseName) {
 		return 2.4;
 	}
+	
+	public ArrayList<Double> get_All_GPA_Given_Term_And_Course(String term, String course){
+		ArrayList<Double> a = new ArrayList<Double>();
+		a.add(2.1);
+		a.add(2.2);
+		a.add(2.3);
+		return a;
+	}
+	
+	public ArrayList<String> get_All_Professor_Given_Term_And_Course(String term, String course){
+		ArrayList<String> a = new ArrayList<String>();
+		a.add("Andrey Goodney");
+		a.add("Sandra Batista");
+		return a;
+	}
+
 }

@@ -1,8 +1,5 @@
 
 import Database.Database;
-import Database.DatabaseOperator1;
-import Database.DatabaseOperator2;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -11,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class DetailServlet
@@ -31,37 +27,41 @@ public class DetailServlet extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		//Httprequest request = request.getrequest();
+		System.out.println("in detailservlet");
 		String courseName = request.getParameter("courseName");
 		String term = request.getParameter("term");
 		String professor = request.getParameter("professor");
 		ArrayList<String> professors;
 		ArrayList<String> terms;
 		
-		DatabaseOperator1 db1 = new DatabaseOperator1();
-		DatabaseOperator2 db2 = new DatabaseOperator2();
+		//for debug
+		System.out.println("courseName"+courseName);
+		System.out.println("term"+term);
+		System.out.println("Professor"+professor);
 		
-		session.setAttribute("courseName", courseName);
-		session.setAttribute("courseDescription", db1.getDescription(courseName));
+		Database db = new Database();
+		request.setAttribute("courseName", courseName);
+		request.setAttribute("courseDescription", db.getDescription(courseName));
 		if(courseName == "" && professor == "") {
-			session.setAttribute("specificGPA",db2.getSpecificGPA("none", "none", courseName));
+			request.setAttribute("specificGPA",db.getSpecificGPA("none", "none", courseName));
 		}
 		else {
-			session.setAttribute("specificGPA",db2.getSpecificGPA(term, professor, courseName));
+			request.setAttribute("specificGPA",db.getSpecificGPA(term, professor, courseName));
 		}
 
-		professors = db1.getProfessors(courseName);
-		session.setAttribute("professors", professors);
-		terms = db1.getTerms(courseName);
-		session.setAttribute("terms", terms);
+		professors = db.getProfessors(courseName);
+		request.setAttribute("professors", professors);
+		terms = db.getTerms(courseName);
+		request.setAttribute("terms", terms);
 		
 		if(professor !="" && !professor.contains("none")) {
-			session.setAttribute("challenging", db2.getChallenging(professor, courseName));
-			session.setAttribute("recommendRate", db2.getRecommendRate(professor, courseName));
+			request.setAttribute("challenging", db.getChallenging(professor, courseName));
+			request.setAttribute("recommendRate", db.getRecommendRate(professor, courseName));
 		}
 		else {
-			session.setAttribute("challenging", "");
-			session.setAttribute("recommendRate", "");
+			request.setAttribute("challenging", "");
+			request.setAttribute("recommendRate", "");
 		}
 		
 		try {

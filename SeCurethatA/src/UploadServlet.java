@@ -1,4 +1,4 @@
-
+import Database.Database;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,9 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import Database.DatabaseOperator1;
-
 
 /**
  * Servlet implementation class UploadServlet
@@ -50,7 +47,7 @@ public class UploadServlet extends HttpServlet {
 		}
 		else {
 			//connect to database and upload the data
-			DatabaseOperator1 db = new DatabaseOperator1();
+			Database db = new Database();
 			boolean upload = db.upload(course, term, professor, gpa, recommend, challenging);
 			//boolean upload = false;
 			session.setAttribute("upload", upload);

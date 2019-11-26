@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.ArrayList"%>
+    <%@ page import="Database.Database" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,8 +13,8 @@
     	<script type="text/javascript">
     	
     	//for debug-Jessie
-    	console.log("courseName:"+session.getAttribute("courseName"));
-    	console.log("courseDescription:"+session.getAttribute("courseDescription"));
+    	console.log("courseName:"+<%=request.getParameter("courseName")%>);
+    	console.log("courseDescription:"+<%=request.getParameter("courseDescription")%>);
     	
       		google.charts.load("current", {packages:['corechart']});
       		google.charts.setOnLoadCallback(drawChart);
@@ -71,8 +72,8 @@
       			
       			var id = 'columnchart_values';
       			xhttp.onreadystatechange = function(){
-      				var listProfessor = (<%=(ArrayList<String>)session.getAttribute("listProfessor") %>);
-      				var listGPA = (<%=(ArrayList<Integer>)session.getAttribute("listGPA") %>);
+      				var listProfessor = (<%=(ArrayList<String>)request.getAttribute("listProfessor") %>);
+      				var listGPA = (<%=(ArrayList<Integer>)request.getAttribute("listGPA") %>);
       				drawChart(id, listProfessor, listGPA);
       			}
       			xhttp.send();		
@@ -120,8 +121,8 @@
 	</div>
 	
 	<div>
-<%-- 		<h1 id="course"><%=session.getAttribute("courseName")%></h1>
-		<h3><%=session.getAttribute("courseDescription")%></h3> --%>
+<%-- 		<h1 id="course"><%=request.getAttribute("courseName")%></h1>
+		<h3><%=request.getAttribute("courseDescription")%></h3> --%>
 		
 		<h1 id="course"><%=request.getAttribute("courseName")%></h1>
 		<h3><%=request.getAttribute("courseDescription")%></h3>
@@ -134,13 +135,17 @@
 				<h4 style="color:grey">Term</h4>
 				<select id="term-dropdown" name="term" onchange="select(); getChartInfo()">
 					<option value="none">Select a Term</option>
-					<%
-						ArrayList<String> terms = (ArrayList<String>)(session.getAttribute("terms"));
+					<%				
+						Database db = new Database();
+						ArrayList<String> terms = (ArrayList<String>)(db.getTerms(request.getParameter("courseName")));
+					if(terms==null){
+						System.out.println("in details,terms:"+terms);	
+					}else{
 						for(int i = 0; i < terms.size(); i++){
 					%>
 						<option value="<%=terms.get(i)%>"><%=terms.get(i)%></option>
 					<% 
-						}
+						}}
 					%>
 		  		</select>
 		  	<td>
@@ -148,29 +153,32 @@
 				<select name="professor-dropdown" onchange="select()">
 					<option value="none">Select a Professor</option>
 					<%
-						ArrayList<String> professors = (ArrayList<String>)(session.getAttribute("professors"));
-						for(int i = 0; i < professors.size(); i++){
+						ArrayList<String> professors = (ArrayList<String>)(db.getProfessors(request.getParameter("courseName")));
+					if(terms==null){
+						System.out.println("in details,professors:"+terms);	
+					}else{	
+					for(int i = 0; i < professors.size(); i++){
 					%>
 						<option value="<%=professors.get(i)%>"><%=professors.get(i)%></option>
 					<% 
-						}
+						}}
 					%>
 		  		</select>
 		</tr>
 	</table>
 	
 	<h1>The average GPA for <span id="term"></span> by <span id="professor"></span> is</h1>
-	<div style="text-align:center"><%=session.getAttribute("specificGPA")%></div>
+	<div style="text-align:center"><%=request.getAttribute("specificGPA")%></div>
 	
 	<%
-		if(session.getAttribute("challenging") != null){
+		if(request.getAttribute("challenging") != null){
 	%>
-			<h1><%=session.getAttribute("challenging")%>% of the students think the course with this professor is challenging.</h1>
+			<h1><%=request.getAttribute("challenging")%>% of the students think the course with this professor is challenging.</h1>
 	<% 
 		}
-		if(session.getAttribute("recommendRate") != null){
+		if(request.getAttribute("recommendRate") != null){
 	%>
-			<h1><%=session.getAttribute("recommendRate")%>% of the students recommend this course with this professor.</h1>
+			<h1><%=request.getAttribute("recommendRate")%>% of the students recommend this course with this professor.</h1>
 	<% 
 		}
 	%>
@@ -193,7 +201,7 @@
 			console.log("term:"+term);
 			console.log("professor:"+professor);
  			var xhr = new XMLHttpRequest();
-	 		xhr.open('GET',"DetailServlet?term="+term+"&professor="+professor+"&courseName="+session.getAttribute("courseName"),true);
+	 		xhr.open('GET',"DetailServlet?term="+term+"&professor="+professor+"&courseName="+request.getAttribute("courseName"),true);
 	 		xhr.onreadystatechange = function(){
 	 			if(term == "none"){
 	 				document.getElementById("term").innerHTML = '"all terms"';
