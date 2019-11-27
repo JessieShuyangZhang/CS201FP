@@ -6,23 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Register Page</title>
 <link rel="stylesheet" type="text/css" href="RegisterPage.css" />
-<script>
-	function validate() {
-		var xhttp = new XMLHttpRequest();
-		xhttp.open("GET", "RegisterServlet?username=" + document.regform.username.value + "&password=" + document.regform.password.value + "&confirm=" + document.regform.confirm.value, false);
-		xhttp.send();
-		if (xhttp.responseText.trim().length > 0) {
-			document.getElementById("errMsg").innerHTML = xhttp.responseText;
-			return false;
-		}
-		else {
-			window.sessionStorage.setItem('user', document.regform.username.value);
-			window.sessionStorage.setItem('loggedIn', 'yes');
-			return true;
-		}
-		
-	}
-</script>
+
 
 </head>
 <body>
@@ -47,8 +31,8 @@
 				</label>
 			</div>
 <%
-	String n = (String)session.getAttribute("username");
-	if(n!=null){ //someone logged in
+	String n = (String)session.getAttribute("login");
+	if(n == "true"){ //someone logged in
 %>
 		<a href="LogoutServlet"><div id="right-button"> Sign out </div></a>
 		<a href="Upload.jsp"><div id="left-button"> Upload GPA </div></a>
@@ -73,7 +57,7 @@
 	<div id="main">
 		<form name="regform" action="RegisterServlet">
 		
-			<div id="errMsg"></div>
+			<div id="errMsg"><%=session.getAttribute("errMsg") != null ? session.getAttribute("errMsg") : "" %></div>
 			
 			<div class="info">
 				<h3>Username</h3>
