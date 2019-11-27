@@ -64,10 +64,9 @@ out.println(do1.getDescription("CSCI201"));
 <br/>
 get professor test:
 <%
-// 	do1.upload("CSCI201", "20193", "olivera grujic", "4.0", "yes", "yes");
-// 	do1.upload("CSCI201", "20191", "jeff miller", "3.7", "yes", "no");
-// 	do1.upload("CSCI201", "20192", "jeff miller", "4.0", "no", "yes");
-
+	do1.upload("CSCI201", "20193", "olivera grujic", "4.0", "yes", "yes");
+	do1.upload("CSCI201", "20191", "jeff miller", "3.7", "yes", "no");
+	do1.upload("CSCI201", "20192", "jeff miller", "4.0", "no", "yes");
 	ArrayList<String> professors = do1.getProfessors("CSCI201");
 	for(String professor : professors){
 		out.println(professor + " ");

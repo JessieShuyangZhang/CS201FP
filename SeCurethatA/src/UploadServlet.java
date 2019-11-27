@@ -1,4 +1,4 @@
-import Database.*;
+import Database.Database;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -47,7 +47,7 @@ public class UploadServlet extends HttpServlet {
 		}
 		else {
 			//connect to database and upload the data
-			Database1 db = new Database1();
+			Database db = new Database();
 			boolean upload = db.upload(course, term, professor, gpa, recommend, challenging);
 			//boolean upload = false;
 			session.setAttribute("upload", upload);

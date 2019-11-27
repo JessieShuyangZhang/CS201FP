@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*" %>
-<%@ page import="Database.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,7 +81,7 @@
 		alert(msg);
 </script>
 	<div id="header">	
-		<form name="myform" action="UploadServlet">
+		<form name="myform" action="SearchServlet">
 			<div id="search">
 				<input id="search-button" type="submit" name="submit" value="Submit" />
 				<input id="input" type="text" name="search-bar" placeholder=" Search...">
@@ -129,59 +127,36 @@
 	<form style="padding-left:60px;"name="upload" method="POST" action="UploadServlet">
 		<h4 style="color:grey">Select a Course</h4>
 		<select name="course">
-		<%
-		Database1 db = new Database1();
-		ArrayList<String[]> courses = db.getCourses();
-		for(String[] course : courses){
-		%>
-		    <option value="<%=course[0]%>"><%=course[1]%></option>
-		<%
-		}
-		%>
+		    <option value="CSCI102">CSCI 102</option>
+		    <option value="CSCI103">CSCI 103</option>
+		    <option value="CSCI104">CSCI 104</option>
+		    <option value="CSCI170">CSCI 170</option>
+		    <option value="CSCI201">CSCI 201</option>
+		    <option value="CSCI270">CSCI 270</option>
+		    <option value="CSCI310">CSCI 310</option>
+		    <option value="CSCI350">CSCI 350</option>
+		    <option value="CSCI356">CSCI 356</option>
+		    <option value="CSCI360">CSCI 360</option>
   		</select>
 		
 		<h4 style="color:grey">Select a Term</h4>
 		<select name="term">
-		<%
-		for(int i = 2010; i < 2021; i++){
-			for(int j =1; j <= 3; j++){
-				String termNumber = ""+i+j;
-				String term = i+" ";
-				if(j==1){ term += "Spring"; }
-				else if(j==2){ term += "Summer"; }
-				else if(j==3){ term += "Fall"; }
-		%>
-			<option value="<%= termNumber %>"><%= term %></option>
-		<%
-			}
-		}
-		%>
+			<option value="20183">2018 Fall</option>
+		    <option value="20191">2019 Spring</option>
+		    <option value="20192">2019 Summer</option>
+		    <option value="20193">2019 Fall</option>
   		</select>
 		
 		<h4 style="color:grey">Professor</h4>
 		<select name="professor">
-		<%
-		ArrayList<String[]> professors = new ArrayList<>();
-		professors = db.getProfessors();
-		for(String[] professor : professors){
-		%>
-			<option value="<%=professor[0]%>"><%=professor[1] %></option>
-		<%
-		}
-		%>
+			<option value="Olivera Grujic">Olivera Grujic</option>
+		    <option value="Andrew Goodney">Andrew Goodney</option>
+		    <option value="Mark Redekopp">Mark Redekopp</option>
+		    <option value="Aaron Cote">Aaron Cote</option>
   		</select>
   		
   		<h4 style="color:grey">Your GPA</h4>
-  		<select name="gpa">
-  			<option value = "4.0">4.0</option>
-  			<option value = "3.7">3.7</option>
-  			<option value = "3.3">3.3</option>
-  			<option value = "3.0">3.0</option>
-  			<option value = "2.7">2.7</option>
-  			<option value = "2.3">2.3</option>
-  			<option value = "2.0">2.0</option>
-  			<option value = "1.7">1.7</option>
-  		</select>
+  		<input type="text" name="gpa" value=<%=session.getAttribute("gpa") != null?session.getAttribute("gpa"):"" %>>
   		<h4 style="color:grey">Do you recommend this course with this professor?</h4>
   			<input type="radio" name="recommend" value="yes">Yes
   			<input type="radio" name="recommend" value="no">No
