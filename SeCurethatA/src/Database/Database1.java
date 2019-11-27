@@ -144,8 +144,12 @@ public class Database1 {
 				result += termGPA;
 				count += resultSet.getInt("counts");
 			}
-			
-			return result/count;
+			if(count!=0) {
+				return result/count;
+			}
+			else {
+				return 0.0;
+			}
 		
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -334,20 +338,21 @@ public class Database1 {
     	return null;//unhandle case
 	}
 	
-	public boolean upload(String course, String term, String professor, String gpa, String recommend, String challenging) {
+	public boolean upload(String courseid, String term, String professorid, String gpa, String recommend, String challenging) {
 		
-		//int pID = getProfessorID(professor);
-		String[] pro = professor.split("\\s+");
-		if (pro.length < 2) {
-			return false;
-		}
-		String fname = pro[0].trim();
-		String lname = pro[1].trim();
-		String select = "SELECT * FROM GPA WHERE courseName = ? AND professorID ="
-				+ "(SELECT professorID FROM Professor WHERE fname=? AND lname=?) "
-				+ "AND term = ?";
-		String courseName = courseNameChange(course);
+//		int pID = getProfessorID(professor);
+//		String[] pro = professor.split("\\s+");
+//		if (pro.length < 2) {
+//			return false;
+//		}
+//		String fname = pro[0].trim();
+//		String lname = pro[1].trim();
+//		String select = "SELECT * FROM GPA WHERE courseName = ? AND professorID ="
+//				+ "(SELECT professorID FROM Professor WHERE fname=? AND lname=?) "
+//				+ "AND term = ?";
+//		String courseName = courseNameChange(course);
 		//int courseID = getCourseID(courseName);
+		String select = "SELECT * FROM GPA WHERE courseID = ? AND professorID = ? AND term = ?";
 		int recom = 0, challenge = 0;
 		if(recommend.equals("yes")) {
 			recom = 1;
@@ -355,6 +360,8 @@ public class Database1 {
 		if(challenging.equals("yes")) {
 			challenge = 1;
 		}
+		int courseID = intTransfer(courseid);
+		int professorID = intTransfer(professorid);
 				
 		try {
 			double GPA = doubleTransfer(gpa);
@@ -362,10 +369,9 @@ public class Database1 {
 			
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
-			preparedStatement.setString(1, courseName);
-			preparedStatement.setString(2, fname);
-			preparedStatement.setString(3, lname);
-			preparedStatement.setString(4, term);
+			preparedStatement.setInt(1, courseID);
+			preparedStatement.setInt(2, professorID);
+			preparedStatement.setString(3, term);
 			resultSet = preparedStatement.executeQuery();
 			
 			boolean hasResult = false;
@@ -377,17 +383,16 @@ public class Database1 {
 				avgGPA = (avgGPA * count + GPA) / (count+1);
 				
 				String update = "UPDATE GPA SET counts=counts+1, challenging=?,rec=?,avgGPA=?"
-						+ "WHERE courseName = ? AND "
-						+ "professorID = (SELECT professorID FROM Professor WHERE fname=? AND lname=?)"
+						+ "WHERE courseID = ? "
+						+ "AND professorID = ? "
 						+ "AND term = ?";
 				preparedStatement = connection.prepareStatement(update);
 				preparedStatement.setInt(1, pChallenging);
 				preparedStatement.setInt(2, rec);
 				preparedStatement.setDouble(3, avgGPA);
-				preparedStatement.setString(4, courseName);
-				preparedStatement.setString(5, fname);
-				preparedStatement.setString(6, lname);
-				preparedStatement.setString(7, term);
+				preparedStatement.setInt(4, courseID);
+				preparedStatement.setInt(5, professorID);
+				preparedStatement.setString(6, term);
 				preparedStatement.executeUpdate();
 				hasResult = true;
 				return true;
@@ -395,17 +400,17 @@ public class Database1 {
 			if(!hasResult) {
 				System.out.println("reach insert");
 				String insert = "INSERT INTO GPA (courseID, professorID, courseName, term, avgGPA, counts, challenging, rec) "
-						+ "VALUES ((SELECT courseID FROM Course WHERE courseName = ?),"
-						+ "(SELECT professorID FROM Professor WHERE fname=? AND lname=?),?,?,?,1,?,?)";
+						+ "VALUES (?,?,"//courseID profID
+						+ "(SELECT courseName FROM Course WHERE courseID = ?),"//courseName
+						+ "?,?,1,?,?)";//term, avgGPA, counts,challange, rec
 				preparedStatement = connection.prepareStatement(insert);			
-				preparedStatement.setString(1, courseName);
-				preparedStatement.setString(2, fname);
-				preparedStatement.setString(3, lname);
-				preparedStatement.setString(4, courseName);
-				preparedStatement.setString(5, term);
-				preparedStatement.setDouble(6, GPA);
-				preparedStatement.setInt(7, challenge);
-				preparedStatement.setInt(8, recom);
+				preparedStatement.setInt(1, courseID);
+				preparedStatement.setInt(2, professorID);
+				preparedStatement.setInt(3, courseID);
+				preparedStatement.setString(4, term);
+				preparedStatement.setDouble(5, GPA);
+				preparedStatement.setInt(6, challenge);
+				preparedStatement.setInt(7, recom);
 				preparedStatement.executeUpdate();
 			}
 			return true;
@@ -442,16 +447,20 @@ public class Database1 {
 		return courseName;
 	}
 	
-	private ArrayList<String> getProfessors () {//temporary
+	public ArrayList<String[]> getProfessors () {//temporary
 
 		String select = "SELECT * FROM Professor";
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
 			resultSet = preparedStatement.executeQuery();
-			ArrayList<String> professors = new ArrayList<String>();
+			ArrayList<String[]> professors = new ArrayList<String[]>();
 			while(resultSet.next()) {
-				professors.add(resultSet.getString("fname")+" "+resultSet.getString("lname"));
+				String[] info = new String[2];
+				info[0] = resultSet.getString("professorID");
+				info[1] = resultSet.getString("fname")+" "+resultSet.getString("lname");
+				System.out.println(info[0] +" "+info[1]);
+				professors.add(info);
 			}
 			return professors;
 		}catch(SQLException e) {
@@ -475,20 +484,22 @@ public class Database1 {
 		return null;
 	}
 	
-	private int getCourseID(String courseName) {
-		String select = "SELECT courseID FROM Course WHERE courseName = ?";
-		courseName = courseNameChange(courseName);
+	public ArrayList<String[]> getCourses() {
+		String select = "SELECT * FROM Course";
 				
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
-			preparedStatement.setString(1, courseName);
 			resultSet = preparedStatement.executeQuery();
-			
-			if(resultSet.next()) {
-				int id = resultSet.getInt("courseID");
-				return id;
+			ArrayList<String[]> courses = new ArrayList<>();
+			while(resultSet.next()) {
+				String[] info = new String[2];
+				info[0] = resultSet.getString("courseID");
+				info[1] = resultSet.getString("courseName");
+				System.out.println(info[0] +" "+info[1]);
+				courses.add(info);
 			}
+			return courses;
 		
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -508,12 +519,18 @@ public class Database1 {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
 		}
-    	return -1;//unhandle case
+    	return null;//unhandle case
 	}
 	
 	private static double doubleTransfer(String transfer) throws NumberFormatException{ // transfer string to int type
 		double a = 0;
 		a = Double.valueOf(transfer).doubleValue();
+		return a;
+	}
+	
+	private static int intTransfer(String transfer) throws NumberFormatException{ // transfer string to int type
+		int a = 0;
+		a = Integer.valueOf(transfer).intValue();
 		return a;
 	}
 	

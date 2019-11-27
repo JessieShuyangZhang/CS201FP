@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"
 %>
 <%@ page import="java.util.*" %>
-<%@ page import="Database.Database" %>
+<%@ page import="Database.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +55,7 @@
 %>	
 		<h3 id="result-title">Results for "<%= input %>"</h3><hr/>	
 <%
-		Database db = new Database();	
+		Database1 db = new Database1();	
 		String searchby = (String)request.getAttribute("resultsby");
 		Vector<String> res = new Vector<String>();
 		if(searchby==null){
