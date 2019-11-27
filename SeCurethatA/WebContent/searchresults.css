@@ -153,7 +153,7 @@
     height:100%;
     width:20%;
     background-color: black;
-    
+    overflow-y: scroll;
     position:fixed;
 /*  float: right;   
     z-index:1;
