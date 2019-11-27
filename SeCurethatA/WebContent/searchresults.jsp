@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"
 %>
 <%@ page import="java.util.*" %>
-<%@ page import="Database.Database" %>
+<%@ page import="Database.*" %>
 <!DOCTYPE html>
 <html>
 <head>
