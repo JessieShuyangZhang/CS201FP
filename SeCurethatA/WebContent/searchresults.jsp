@@ -112,6 +112,7 @@
 		else{
 		for(int i=0; i<res.size(); i++){
 			String coursename = res.elementAt(i);
+			String coursetitle = db.getCourseTitle(coursename);
 			String coursedescription=db.getDescription(coursename);
 			double gpa = db.getGPA(coursename);
 %>
@@ -124,7 +125,7 @@
 					<%=coursename %></a>
 				</div>
 				
-				<div class="course-title"><%=coursedescription%></div>
+				<div class="course-title"><%=coursetitle%></div>
 				<div class="course-discription">
 					<p><%=coursedescription%></p>
 				</div>
@@ -135,40 +136,13 @@
 					<h2 style="margin: 0; padding: 0;">GPA</h2>
 				</div>
 				<div class="gpa-number">
-					<strong><%= db.getGPA(coursename)%></strong>
+					<strong><%= gpa%></strong>
 				</div>
 			</div>
 		</div>
 <%
 		}}
 %>
-
-<!-- below are placeholders -->
-
-<!-- 		<div class="single-result">
-			<div class="course-card">
-				<div class="course-id">CSCI 201</div>
-				<div class="course-title">Principle of Software Development</div>
-
-				<div class="course-discription">
-					<p>Object-oriented paradigm for programming-in-the-large in
-						Java; writing sophisticated concurrent applications with animation
-						and graphic user interfaces; using professional tools on team
-						project.</p>
-				</div>
-			</div>
-			<div class="gpa">
-				<div class="gpa-title">
-					<strong>Overall</strong> <br />
-					<h2 style="margin: 0; padding: 0;">GPA</h2>
-				</div>
-				<div class="gpa-number">
-					<strong>2.8</strong>
-				</div>
-			</div>
-		</div> -->
-
-
 	</div>
 
 
@@ -196,9 +170,11 @@
 		for(int i=0; i<recomm.size(); i++){
 			String coursename = recomm.elementAt(i);
 			String coursetitle = db.getCourseTitle(coursename);
+			String coursedescription=db.getDescription(coursename);
 %>
 		<div class="recommend">
-			<h3><%=coursename %></h3>
+			<h3><a href="Detail.jsp?courseName=<%=coursename%>&courseDescription=<%=coursedescription%>">
+					<%=coursename %></a></h3>
 			<p><%=coursetitle%></p>
 		</div>
 <%
