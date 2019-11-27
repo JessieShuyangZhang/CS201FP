@@ -14,24 +14,27 @@ public class DatabaseOperator2 {
     Connection connection = null;
 	PreparedStatement preparedStatement = null;
 	ResultSet resultSet = null;
-	
+
 //	this function is used to get the professor ID with a professor name stored
 	public int getProfessorID (String professor) {
 		String[] pro = professor.split("\\s+");
-		if (pro.length != 1) {
+		if (pro.length != 2) {
 			return -1;
 		}
+
 		String first = pro[0];
 		String last = pro[1];
-		String select = "SELECT professorID FROM Professor WHERE fname = ? AND lname = ?";
+		String select = "SELECT * FROM Professor WHERE fname = ? AND lname = ?";
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
 			preparedStatement.setString(1, first);
 			preparedStatement.setString(2, last);
 			resultSet = preparedStatement.executeQuery();
-			int pID = resultSet.getInt("professorID");	
-			return pID;
+			if(resultSet.next()) {
+				int id = resultSet.getInt("professorID");
+				return id;
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -70,9 +73,10 @@ public class DatabaseOperator2 {
 			preparedStatement.setInt(2, professorID);
 			preparedStatement.setString(3, courseName);
 			resultSet = preparedStatement.executeQuery();
-
-			String avgGPA = resultSet.getString("avgGPA");
-			return avgGPA;
+			if(resultSet.next()) {
+				String avgGPA = resultSet.getString("avgGPA");
+				return avgGPA;
+			}
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -97,13 +101,12 @@ public class DatabaseOperator2 {
 	
 	
 	public int getRecommendRate(String professor, String courseName) {
-		String select = "SELECT rec, counts FROM GPA professorID = ? AND courseName = ?";
+		String select = "SELECT * FROM GPA WHERE professorID = ? AND courseName = ?";
 		courseName.trim();
 		if (getProfessorID(professor) == -1) {
 			return -1;
 		}
 		int professorID = getProfessorID(professor);
-				
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
@@ -111,11 +114,14 @@ public class DatabaseOperator2 {
 			preparedStatement.setString(2, courseName);
 			resultSet = preparedStatement.executeQuery();
 			
-			int rec = resultSet.getInt("rec");
-			int counts = resultSet.getInt("counts");
-			int result = rec/counts * 100;
-			return result;
-		
+			int rec = 0;
+			int counts = 1;
+			if(resultSet.next()) {
+				rec = resultSet.getInt("rec");
+				counts = resultSet.getInt("counts");
+				int result = rec/counts * 100;
+				return result;
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -138,13 +144,12 @@ public class DatabaseOperator2 {
 	}
 	
 	public int getChallenging(String professor, String courseName) {
-		String select = "SELECT challenging, counts FROM GPA professorID = ? AND courseName = ?";
+		String select = "SELECT * FROM GPA WHERE professorID = ? AND courseName = ?";
 		courseName.trim();
 		if (getProfessorID(professor) == -1) {
 			return -1;
 		}
 		int professorID = getProfessorID(professor);
-				
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
@@ -152,11 +157,14 @@ public class DatabaseOperator2 {
 			preparedStatement.setString(2, courseName);
 			resultSet = preparedStatement.executeQuery();
 			
-			int challenging = resultSet.getInt("challenging");
-			int counts = resultSet.getInt("counts");
-			int result = challenging/counts * 100;
-			return result;
-		
+			int challenging = 0;
+			int counts = 1;
+			if(resultSet.next()) {
+				challenging= resultSet.getInt("challenging");
+				counts = resultSet.getInt("counts");
+				int result = challenging/counts * 100;
+				return result;
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -180,20 +188,21 @@ public class DatabaseOperator2 {
 	
 	//course -> CS104 CourseName
 	public ArrayList<String> get_All_Professor_Given_Term_And_Course(String term, String course){
-		String select = "SELECT fname, lname FROM Professor "
-				+ "JOIN GPA ON GPA.professorID = Professor.professorID"
-				+ "WHERE term = ? AND courseName = ? ";
+		String select = "SELECT p.fname, p.lname FROM Professor p, "
+				+ "GPA g WHERE g.professorID = p.professorID AND "
+				+ "term = ? AND courseName = ? ";
 		term.trim();
 		course.trim();
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
+			
 			preparedStatement.setString(1, term);
 			preparedStatement.setString(2, course);
 			resultSet = preparedStatement.executeQuery();
 			ArrayList<String> result = new ArrayList<String>();
 			while (resultSet.next()) {
-				result.add(resultSet.getString("fname") + " " + resultSet.getString("lname"));
+				result.add(resultSet.getString("p.fname") + " " + resultSet.getString("p.lname"));
 			}
 			return result;
 		}
@@ -215,10 +224,11 @@ public class DatabaseOperator2 {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
 		}
-		return null;
+		ArrayList<String> result1 = new ArrayList<String>();
+		return result1;
 	}
 	
-	public ArrayList<Integer> get_All_GPA_Given_Term_And_Course(String term, String course){
+	public ArrayList<Double> get_All_GPA_Given_Term_And_Course(String term, String course){
 		String select = "SELECT avgGPA FROM GPA WHERE term = ? AND courseName = ?";
 		term.trim();
 		course.trim();
@@ -228,9 +238,9 @@ public class DatabaseOperator2 {
 			preparedStatement.setString(1, term);
 			preparedStatement.setString(2, course);
 			resultSet = preparedStatement.executeQuery();
-			ArrayList<Integer> result = new ArrayList<Integer>();
+			ArrayList<Double> result = new ArrayList<Double>();
 			while (resultSet.next()) {
-				result.add(resultSet.getInt("avgGPA"));
+				result.add(resultSet.getDouble("avgGPA"));
 			}
 			return result;
 		}
@@ -252,50 +262,50 @@ public class DatabaseOperator2 {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
 		}	
-		return null;
+		ArrayList<Double> result1 = new ArrayList<Double>();
+		return result1;
 	}
 
 	
-	public Vector<String> searchCoureByProf(String input){
+	public Vector<String> searchCourseByProf(String input){
 		String select = "";
 		String[] search = input.split("\\s+");
-		String firstname = "";
-		String lastname = "";
+		String firstname = "%";
+		String lastname = "%";
 		int selectAgain = 0;
+		Vector<String> result = new Vector<String>();
 		//check if user only have one name (can be first or last) or if they have two or more
 		if (search.length == 0) {
 			return null;
 		}
 		else if (search.length == 1) {
-			select = "SELECT g.courseName FROM GPA g, Professor p, Course c "
-					+ "JOIN Professor p on p.professorID = g.professorID"
-					+ "WHERE p.fname LIKE ? OR p.lname LIKE ? ORDER BY c.courseNumber ASC";
-			firstname = search[0];
-			lastname = search[0];
+			select = "SELECT * FROM GPA g, Professor p, Course c "
+					+ "WHERE p.professorID = g.professorID AND c.courseID = g.courseID AND (p.fname LIKE ? OR "
+					+ "p.lname LIKE ?) ORDER BY c.courseNumber ASC";
+			firstname += search[0] + "%";
+			lastname += search[0] +"%";
 		}
 		else {
-			select = "SELECT courseName FROM GPA g, Professor p, Course c "
-					+ "JOIN Professor on Professor.professorID = GPA.professorID"
-					+ "WHERE Professor.fname LIKE ? AND Professor.lname LIKE ? ORDER BY c.courseNumber ASC";
-			firstname = search[0];
-			lastname = search[1];
-			for (int i = 2; i < search.length; i++) {
-				lastname += search[i];
-			}
+			select = "SELECT * FROM GPA g, Professor p, Course c "
+					+ "WHERE p.professorID = g.professorID AND c.courseID = g.courseID AND (p.fname LIKE ? OR "
+					+ "p.lname LIKE ?) ORDER BY c.courseNumber ASC";
+			firstname += search[0] + "%";
+			lastname += search[1] + "%";
 			selectAgain = 1;
 		}
+		
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
 			preparedStatement.setString(1, firstname);
 			preparedStatement.setString(2, lastname);
 			resultSet = preparedStatement.executeQuery();
-			Vector<String> result = new Vector<String>();
 			while (resultSet.next()) {
 				result.add(resultSet.getString("courseName"));
 			}
-			if (selectAgain != 1)
+			if (selectAgain != 1) {
 				return result;
+			}
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -316,23 +326,20 @@ public class DatabaseOperator2 {
 			}
 		}	
 		//run sql again when there are more than two words
+		String first = "%";
+		String last = "%";
 		if (selectAgain == 1) {
-			select = "SELECT courseName FROM GPA g, Professor p, Course c "
-					+ "JOIN Professor on Professor.professorID = GPA.professorID"
-					+ "WHERE Professor.fname LIKE ? AND Professor.lname LIKE ? ORDER BY c.courseNumber ASC";
-			firstname = search[1];
-			lastname = search[0];
-			for (int i = 2; i < search.length; i++) {
-				firstname += search[i];
-			}
-		
+			select = "SELECT * FROM GPA g, Professor p, Course c "
+					+ "WHERE p.professorID = g.professorID AND c.courseID = g.courseID AND (p.fname LIKE ? OR "
+					+ "p.lname LIKE ?) ORDER BY c.courseNumber ASC";
+			first += search[1] + "%";
+			last += search[0] +"%";
 			try {
 				connection = DriverManager.getConnection(DB_URL,USER,PASS);
 				preparedStatement = connection.prepareStatement(select);
-				preparedStatement.setString(1, firstname);
-				preparedStatement.setString(2, lastname);
+				preparedStatement.setString(1, first);
+				preparedStatement.setString(2, last);
 				resultSet = preparedStatement.executeQuery();
-				Vector<String> result = new Vector<String>();
 				while (resultSet.next()) {
 					result.add(resultSet.getString("courseName"));
 				}
@@ -357,14 +364,15 @@ public class DatabaseOperator2 {
 				}
 			}
 		}
-		return null;
+		Vector<String> result1 = new Vector<String>();
+		return result1;
 	}
 	
 	
 	public Vector<String> searchCourseByCourse(String input) {
 		input.trim();
-		String prefix = "";
-		String number = "";
+		String prefix = "%";
+		String number = "%";
 		for (int i = 0; i < input.length(); i++) {
 			if (Character.isDigit(input.charAt(i))) {
 				number += input.charAt(i);
@@ -372,12 +380,14 @@ public class DatabaseOperator2 {
 			else
 				prefix += input.charAt(i);
 		}
-		String select = "SELECT courseName FROM Course c WHERE prefix LIKE ? "
-				+ "AND number LIKE ? ORDER BY c.courseNumber ASC";
+		prefix += "%";
+		number += "%";
+		String select = "SELECT * FROM Course c WHERE prefix LIKE ? "
+				+ "AND c.courseNumber LIKE ? ORDER BY c.courseNumber ASC";
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
-			preparedStatement.setInt(2, Integer.parseInt(number));
+			preparedStatement.setString(2, number);
 			preparedStatement.setString(1, prefix);
 			resultSet = preparedStatement.executeQuery();
 			Vector<String> result = new Vector<String>();
@@ -404,28 +414,42 @@ public class DatabaseOperator2 {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
 		}	
-		return null;
+		Vector<String> result2 = new Vector<String>();
+		return result2;
 	}
 	
 	
 	public Vector<String> getRecommendByCourse(String input){
+		input.trim();
 		Vector<String> searchResult = searchCourseByCourse(input);
-		if (searchResult == null)
-			return null;
+		if (searchResult.size() == 0) {
+			Vector<String> result1 = new Vector<String>();
+			return result1;
+		}
 		String search = searchResult.get(searchResult.size() -1);
-		String select = "SELECT courseName FROM Course WHERE courseName > ? ORDER BY courseName ASC";
+		String prefix = "";
+		String number = "";
+		for (int i = 0; i < search.length(); i++) {
+			if (Character.isDigit(search.charAt(i))) {
+				number += search.charAt(i);
+			}
+			else
+				prefix += search.charAt(i);
+		}
+		String select = "SELECT * FROM Course WHERE prefix = ? AND courseNumber > ? ORDER BY courseName ASC";
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);;
-			preparedStatement.setString(1, search);
+			preparedStatement.setString(1, prefix);
+			preparedStatement.setInt(2, Integer.parseInt(number));
 			resultSet = preparedStatement.executeQuery();
 			Vector<String> result = new Vector<String>();
+			while (resultSet.next()) {
+				result.add(resultSet.getString("courseName"));
+			}
 			if (result.size() == 0){
 				result.add("PHED 120A");
 				return result;
-			}
-			while (resultSet.next()) {
-				result.add(resultSet.getString("courseName"));
 			}
 			return result;
 			
@@ -448,28 +472,40 @@ public class DatabaseOperator2 {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
 		}	
-		
-		return null;
+		Vector<String> result2 = new Vector<String>();
+		return result2;
 	}
 	
 	public Vector<String> getRecommendByProf(String input){
-		Vector<String> searchResult = searchCoureByProf(input);
-		if (searchResult == null)
-			return null;
+		Vector<String> searchResult = searchCourseByProf(input);
+		if (searchResult.size() == 0) {
+			Vector<String> result1 = new Vector<String>();
+			return result1;
+		}
 		String search = searchResult.get(searchResult.size() -1);
-		String select = "SELECT courseName FROM Course WHERE courseName > ? ORDER BY courseName ASC";
+		String prefix = "";
+		String number = "";
+		for (int i = 0; i < search.length(); i++) {
+			if (Character.isDigit(search.charAt(i))) {
+				number += search.charAt(i);
+			}
+			else
+				prefix += search.charAt(i);
+		}
+		String select = "SELECT * FROM Course WHERE prefix = ? AND courseNumber > ? ORDER BY courseName ASC";
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
-			preparedStatement = connection.prepareStatement(select);;
-			preparedStatement.setString(1, search);
+			preparedStatement = connection.prepareStatement(select);
+			preparedStatement.setString(1, prefix);
+			preparedStatement.setInt(2, Integer.parseInt(number));
 			resultSet = preparedStatement.executeQuery();
 			Vector<String> result = new Vector<String>();
+			while (resultSet.next()) {
+				result.add(resultSet.getString("courseName"));
+			}
 			if (result.size() == 0){
 				result.add("PHED 120A");
 				return result;
-			}
-			while (resultSet.next()) {
-				result.add(resultSet.getString("courseName"));
 			}
 			return result;
 			
@@ -492,8 +528,8 @@ public class DatabaseOperator2 {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
 		}	
-		
-		return null;
+		Vector<String> result2 = new Vector<String>();
+		return result2;
 	}
 }
 	
