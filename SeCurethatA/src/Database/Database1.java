@@ -95,6 +95,9 @@ public class Database1 {
 		String insert = "INSERT INTO User (userName, password) VALUES (?,?)";
 		
 		try {
+			if(userExist(username)) {
+				return false;
+			}
 			//start insert
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(insert);
