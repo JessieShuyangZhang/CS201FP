@@ -205,7 +205,9 @@
 	 		console.log(xhr.responseText);
 	 		var str = xhr.responseText;
 	 		var arr = str.split(" ");
-	 		document.getElementById("specificGPA").innerHTML=arr[0];
+	 		if(arr[0]!=-1){
+	 			document.getElementById("specificGPA").innerHTML=arr[0];
+	 		}
 	 		if(arr[1]!=-1){
 				document.getElementById("challenging").innerHTML=arr[1]+'% of the students think the course with this professor is challenging.';
 	 		}
