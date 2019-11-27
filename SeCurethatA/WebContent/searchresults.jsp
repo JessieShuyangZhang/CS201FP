@@ -55,7 +55,7 @@
 %>	
 		<h3 id="result-title">Results for "<%= input %>"</h3><hr/>	
 <%
-		Database1 db = new Database1();	
+		Database db = new Database();	
 		String searchby = (String)request.getAttribute("resultsby");
 		Vector<String> res = new Vector<String>();
 		if(searchby==null){
@@ -79,6 +79,8 @@
 			String coursetitle = db.getCourseTitle(coursename);
 			String coursedescription=db.getDescription(coursename);
 			double gpa = db.getGPA(coursename);
+			int temp = (int)(gpa*100);
+			gpa = temp/100.0;
 %>
 		<div class="single-result">
 			<div class="course-card">				
@@ -109,7 +111,11 @@
 					<h2 style="margin: 0; padding: 0;">GPA</h2>
 				</div>
 				<div class="gpa-number">
+				<%if(gpa<0){%>
 					<strong><%= gpa%></strong>
+				<%}else{%>
+					<strong>N/A</strong>
+				<%}%>
 				</div>
 			</div>
 		</div>

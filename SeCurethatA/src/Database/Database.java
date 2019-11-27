@@ -139,6 +139,9 @@ public class Database {
 			
 			double result = 0.0;
 			int count = 0;
+			if(!resultSet.next()) {
+				return -1;
+			}
 			while(resultSet.next()) {
 				double termGPA = resultSet.getDouble("avgGPA")*resultSet.getInt("counts");
 				result += termGPA;
@@ -626,7 +629,7 @@ public class Database {
 			if(resultSet.next()) {
 				rec = resultSet.getInt("rec");
 				counts = resultSet.getInt("counts");
-				int result = rec/counts * 100;
+				int result = (int)((double)rec/counts * 100);
 				return result;
 			}
 		}catch(SQLException e) {
@@ -669,7 +672,7 @@ public class Database {
 			if(resultSet.next()) {
 				challenging= resultSet.getInt("challenging");
 				counts = resultSet.getInt("counts");
-				int result = challenging/counts * 100;
+				int result = (int)((double)challenging/counts * 100);
 				return result;
 			}
 		}catch(SQLException e) {
