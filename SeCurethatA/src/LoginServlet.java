@@ -21,15 +21,18 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 //		PrintWriter out = response.getWriter();
-		if (!database.userExist(username)) {
-			errmsg1 = "This user does not exist. ";
-		}
-		else if (!database.authenticate(username, password)) {
-			errmsg2 = "Incorrect password. ";
+		if (username.trim().length() == 0 || password.trim().length() == 0) {
+			errmsg1 = "Please fill out all fields.";
+		} else {
+			if (!database.userExist(username)) {
+				errmsg1 = "This user does not exist. ";
+			} else if (!database.authenticate(username, password)) {
+				errmsg2 = "Incorrect password. ";
+			}
 		}
 		String errmsg = errmsg1 + errmsg2;
 //		out.println(errmsg);
-		if(!errmsg.contentEquals("")) {
+		if(!errmsg.trim().contentEquals("")) {
 			request.setAttribute("error",errmsg); 
 			  RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/LoginPage.jsp"); 
 			  try {
@@ -40,8 +43,7 @@ public class LoginServlet extends HttpServlet {
 				e.printStackTrace(); 
 			}
 		}
-		
-		if (errmsg.trim().contentEquals("")) { // Successful
+		else { // Successful
 			System.out.println("log in success");
 			HttpSession session = request.getSession();
 			session.setAttribute("username", username);

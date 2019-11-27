@@ -72,10 +72,7 @@ function validate() {
 	
 
 	<div id="main">
-		<form name="loginform" action="LoginServlet">
-		
-			<div id="errMsg"><%=request.getAttribute("error")%></div>
-			
+		<form name="loginform" action="LoginServlet">		
 			<div class="info">
 				<h3>Username</h3>
 				<input id="username" type="text" name="username" /><br /> 
@@ -83,16 +80,17 @@ function validate() {
 			
 			<div class="info">
 				<h3>Password</h3>
-				 <input id="password" type="text" name="password" /><br />
+				 <input id="password" type="password" name="password" /><br />
 			</div>
 			
 			<div id="button">
 				<input id="submit" type="submit" name="submit"/>
 			</div>	
-
 			<div class='clear-float'></div>
 		</form>
-	
+	<div id="error_msg" style="color:red;font-weight:bold">
+	<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
+    </div>
 	</div>
 
 </body>
