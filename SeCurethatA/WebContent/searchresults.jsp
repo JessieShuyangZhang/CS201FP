@@ -8,28 +8,131 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>SeCure that A|search results</title>
+
+<!-- Import external CSS -->
 <link rel="stylesheet" type="text/css" href="searchresults.css" />
+
+<!-- Import Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Public+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato|Public+Sans&display=swap" rel="stylesheet">
+
+<!-- Import JavaScript -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<style>
+	#header{
+		height: 60px;
+		background-color: #EFEDEF;
+		color:  #7A797A;
+	}
+	
+	body{
+		margin: 0px;
+		background-color: #FFF4F4;
+		color: #FFC7D4;
+	}
+	
+	#choice{
+		float: left;
+		text-align: center;
+		line-height: 60px;
+		
+		margin-left: 40px;
+		color: #7A797A;
+	}
+	
+	#left-button{
+		line-height: 62px;
+		color: #7A797A;
+		font-family: 'Lato', sans-serif;
+	}
+	
+	#right-button{
+		float: right;
+		line-height: 60px;
+		color: #7A797A;
+		margin-right: 10%;
+		font-family: 'Lato', sans-serif;
+	}
+	
+	#search{
+		float: left;
+		line-height: 60px;
+		text-align: center;
+		margin-left: 30px;
+		position:relative;
+	}
+	
+	#input {
+		width: 450px;
+		height: 33px;
+		border-radius: 20px;
+		padding-right: 30px;
+	}
+	
+	.form-control::-webkit-input-placeholder { 
+		font-family: 'Public Sans', sans-serif;
+		color: #D3D3D3;
+	}
+	
+	#search #icon {
+		position: absolute;
+		padding-right: 10px;
+		padding-top: 22px;
+		pointer-events: none;
+	}
+	
+	#search:hover > #icon {color:pink;}
+	
+	#search .glyphicon {right: 0px;}
+	
+	.radio{
+		margin-right: 15px;
+		font-weight: normal;
+		font-family: 'Lato', sans-serif;
+	}
+
+	#home-icon-div img {
+		float: left;
+		height: 35px;
+		margin-top: 13px;
+		margin-left: 30px;
+	}
+	
+	.clear-float{
+		clear: both;
+	}
+
+</style>
 </head>
 <body>
 	<div id="header">
 	
-		<form name="myform" action="SearchServlet">
+		<form class="form-inline active-pink-4" name="myform" action="SearchServlet">
+		
+			<div id="home-icon-div">
+				<a href="Homepage.jsp"><img src="home-icon.png"></a>
+			</div><!-- home icon div -->
+			
+			<!-- Search form -->
 			<div id="search">
-				<input id="search-button" type="submit" name="submit" value="Submit" />
-				<input id="input" type="text" name="search-bar" placeholder=" Search...">
-			</div>
+				<i id="icon" class="glyphicon glyphicon-search"></i>
+			    <input id="input" name="search-bar" type="text" class="form-control form-control-sm mr-3 w-75" placeholder="SEARCH FOR A COURSE" />
+			</div><!-- search -->
 
 			<div id="choice">
 				<label class="radio"> 
-					<input type="radio" name="radio-button" value="Professor" id="radio1">
+					<input type="radio" name="radio-button" value="Professor">
 					Professor 
-				</label>
+				</label><!-- radio -->
 				
 				<label class="radio"> 
-					<input type="radio" name="radio-button" value="Course" id="radio2"> 
+					<input type="radio" name="radio-button" value="Course"> 
 					Course
-				</label>
-			</div>
+				</label><!-- radio -->
+			</div><!-- choice -->
 
 <%
 	String n = (String)session.getAttribute("username");
@@ -41,13 +144,12 @@
 	}else{
 %>		
 		<a href="RegisterPage.jsp"><div id="right-button"> Register </div></a>
-		<a href="Homepage.jsp"><div id="left-button"> Homepage </div></a>
 <%
 	}
 %>
-		</form>
+		</form><!-- myform -->
 		<div class='clear-float'></div>
-	</div>
+	</div><!-- header -->
 	
 	<div id="results">
 <%
