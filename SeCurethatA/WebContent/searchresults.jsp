@@ -111,7 +111,7 @@
 					<h2 style="margin: 0; padding: 0;">GPA</h2>
 				</div>
 				<div class="gpa-number">
-				<%if(gpa<0){%>
+				<%if(gpa>=0){%>
 					<strong><%= gpa%></strong>
 				<%}else{%>
 					<strong>N/A</strong>

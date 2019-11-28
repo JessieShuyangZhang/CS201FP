@@ -33,6 +33,13 @@ public class DetailServlet extends HttpServlet {
 		System.out.println("in detailservlet");
 		String courseName = request.getParameter("courseName");
 		String term = request.getParameter("term");
+		String[] termsplit = term.split("\\s+");
+		String termNumber = termsplit[0];
+		if(termsplit[1].contentEquals("Spring")) {
+			termNumber+="1";
+		}else if(termsplit[1].contentEquals("Summer")) {
+			termNumber+="2";
+		}else termNumber+="3";
 		String professor = request.getParameter("professor");
 		double specificGPA = -1;
 		//String specificGPA = "";
@@ -42,7 +49,7 @@ public class DetailServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		//for debug
 		System.out.println("courseName "+courseName);
-		System.out.println("term "+term);
+		System.out.println("termNumber "+termNumber);
 		System.out.println("Professor "+professor);
 		
 		Database db = new Database();
@@ -56,7 +63,7 @@ public class DetailServlet extends HttpServlet {
 		else {
 //			System.out.println(db.getSpecificGPA(term,professor, courseName));
 //			session.setAttribute("specificGPA",db.getSpecificGPA(term, professor, courseName));
-			specificGPA=db.getSpecificGPA(term, professor, courseName);
+			specificGPA=db.getSpecificGPA(termNumber, professor, courseName);
 		}
 		
 		if(professor !="" && !professor.contains("none")) {

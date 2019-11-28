@@ -559,16 +559,16 @@ public class Database {
 		return -1;
 	}
 	
-	public String getSpecificGPA(String term, String professor, String courseName) {
-		
+	public double getSpecificGPA(String term, String professor, String courseName) {	
 		String select = "SELECT avgGPA FROM GPA WHERE term = ? AND professorID = ? AND courseName = ?";
 		term.trim();
 		courseName.trim();
 		if (getProfessorID(professor) == -1) {
-			return null;
+			//return null;
+			return -1;
 		}
 		int professorID = getProfessorID(professor);
-				
+		double avgGPA = -1;		
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
@@ -577,7 +577,8 @@ public class Database {
 			preparedStatement.setString(3, courseName);
 			resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()) {
-				String avgGPA = resultSet.getString("avgGPA");
+				//String avgGPA = resultSet.getString("avgGPA");
+				avgGPA = Double.parseDouble(resultSet.getString("avgGPA"));
 				return avgGPA;
 			}
 			
@@ -599,7 +600,8 @@ public class Database {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
 		}
-    	return null;
+    	//return null;
+		return avgGPA;
 	}
 	
 	
@@ -610,6 +612,7 @@ public class Database {
 			return -1;
 		}
 		int professorID = getProfessorID(professor);
+		int result = -1;
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			preparedStatement = connection.prepareStatement(select);
@@ -618,13 +621,16 @@ public class Database {
 			resultSet = preparedStatement.executeQuery();
 			
 			int rec = 0;
-			int counts = 1;
-			if(resultSet.next()) {
-				rec = resultSet.getInt("rec");
-				counts = resultSet.getInt("counts");
-				int result = rec/counts * 100;
-				return result;
+			int counts = 0;			
+			
+			while(resultSet.next()) {
+				rec += resultSet.getInt("rec");
+				counts += resultSet.getInt("counts");				
 			}
+			if(counts!=0) {
+				result = (int)((double)rec/counts * 100);
+			}
+			return result;
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -643,7 +649,7 @@ public class Database {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
 		}
-    	return -1;
+    	return result;
 	}
 	
 	public int getChallenging(String professor, String courseName) {
@@ -665,7 +671,7 @@ public class Database {
 			if(resultSet.next()) {
 				challenging= resultSet.getInt("challenging");
 				counts = resultSet.getInt("counts");
-				int result = challenging/counts * 100;
+				int result = (int)((double)challenging/counts * 100);
 				return result;
 			}
 		}catch(SQLException e) {

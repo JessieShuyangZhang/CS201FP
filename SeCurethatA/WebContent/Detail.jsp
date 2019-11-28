@@ -209,7 +209,7 @@
 	 			document.getElementById("specificGPA").innerHTML=arr[0];
 	 		}
 	 		if(arr[1]!=-1){
-				document.getElementById("challenging").innerHTML=arr[1]+'% of the students think the course with this professor is challenging.';
+				document.getElementById("challenging").innerHTML=arr[1]+'% of the students think this course is challenging.';
 	 		}
 			if(arr[2]!=-1){
 				document.getElementById("recommendRate").innerHTML=arr[2]+'% of the students recommend this course with this professor.';
