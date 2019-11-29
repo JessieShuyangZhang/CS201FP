@@ -448,7 +448,7 @@ public class DatabaseOperator2 {
 				result.add(resultSet.getString("courseName"));
 			}
 			if (result.size() == 0){
-				result.add("PHED 120A");
+				result.add("PHED 120");
 				return result;
 			}
 			return result;
@@ -504,7 +504,7 @@ public class DatabaseOperator2 {
 				result.add(resultSet.getString("courseName"));
 			}
 			if (result.size() == 0){
-				result.add("PHED 120A");
+				result.add("PHED 120");
 				return result;
 			}
 			return result;
