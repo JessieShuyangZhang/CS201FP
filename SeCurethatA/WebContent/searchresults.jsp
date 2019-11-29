@@ -169,6 +169,8 @@
 	
 	#result-title {
 		color:black;
+		margin-left: 400px;
+		font-family: 'Lato', sans-serif;
 	}
 
 </style>
@@ -230,7 +232,8 @@
 <%
     String input = request.getParameter("search-bar");
 %>	
-		<h3 id="result-title">Results for "<%= input %>"</h3><hr/>
+		<h3 id="result-title">Results for "<%= input %>"</h3>
+		<hr class="line" style="width:100%; position:relative;left:0%;margin-top:0;"></hr>
 <%
 		Database db = new Database();	
 		String searchby = (String)request.getAttribute("resultsby");
