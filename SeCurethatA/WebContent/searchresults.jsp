@@ -21,11 +21,34 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-<style>
+<style>	
 	#header{
 		height: 60px;
 		background-color: #EFEDEF;
 		color:  #7A797A;
+		opacity: 0.85;
+		z-index: 1;
+	    top: 0;
+	    width: 100%;
+	}
+	
+	#header-left {
+		float:left;
+		width:900px;
+	}
+	
+     #header-right a {
+       text-decoration: none;
+       color: #EA70A7;
+     }
+
+     #header-right a:hover {
+       color: #7A797A;
+     }		
+	
+	#header-right {
+		float:left;
+		width:250px;
 	}
 	
 	body{
@@ -39,20 +62,25 @@
 		text-align: center;
 		line-height: 60px;
 		margin-left: 40px;
-		color: #7A797A;
+		color: #EA70A7;
+		font-size: 20px;
+		font-family: 'Lato', sans-serif;
 	}
 	
 	#left-button{
+		float:right;
+		font-size: 20px;
 		line-height: 62px;
-		color: #7A797A;
+		color: #EA70A7;
 		font-family: 'Lato', sans-serif;
 	}
 	
 	#right-button{
 		float: right;
+		font-size: 20px;
 		line-height: 60px;
-		color: #7A797A;
-		margin-right: 10%;
+		color: #EA70A7;
+		margin-left:40px;
 		font-family: 'Lato', sans-serif;
 	}
 	
@@ -83,7 +111,7 @@
 		pointer-events: none;
 	}
 	
-	#search:hover > #icon {color:pink;}
+	#search:hover > #icon {color:#EA70A7;}
 	
 	#search .glyphicon {right: 0px;}
 	
@@ -109,7 +137,9 @@
 <body>
 	<div id="header">
 	
-		<form class="form-inline active-pink-4" name="myform" action="SearchServlet">
+	<div id="header-left">
+	
+		<form id="form" class="form-inline active-pink-4" name="myform" action="SearchServlet">
 		
 			<div id="home-icon-div">
 				<a href="Homepage.jsp"><img src="home-icon.png"></a>
@@ -132,6 +162,11 @@
 					Course
 				</label><!-- radio -->
 			</div><!-- choice -->
+		</form><!-- myform -->
+	
+	</div><!-- header left -->
+	
+	<div id="header-right">
 
 <%
 	String n = (String)session.getAttribute("username");
@@ -146,8 +181,9 @@
 <%
 	}
 %>
-		</form><!-- myform -->
-		<div class='clear-float'></div>
+
+	</div><!-- header right -->
+	<div class='clear-float'></div>
 	</div><!-- header -->
 	
 	<div id="results">
