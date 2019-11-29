@@ -20,23 +20,30 @@
 
 <style>	
 	#header{
-		height: 60px;
+		background-image: url(images/background1.jpg);
+	      height: 900px;
+	      background-size: cover;
+	      background-position: center; 
+	}
+	
+	#topbar{
 		background-color: #EFEDEF;
 		color:  #7A797A;
 		opacity: 0.85;
 		z-index: 1;
 	    top: 0;
 	    width: 100%;
+		position: fixed;
 	}
 	
 	#header-left {
 		float:left;
-		width:960px;
+		width: 80%;
 	}
 	
 	#header-right {
-		float:left;
-		width:250px;
+		display: inline-block;
+		width: 20%;
 		margin-right:0;
 	}
 	
@@ -58,12 +65,10 @@
        color: #7A797A;
      }		
 	
-	body{
-		margin: 0px;
-		color: #FFC7D4;
-		background-image: url(images/background1.jpg);
-		background-size: cover;
-	    background-position: top;  
+	html, body {
+		height: 100%;
+	    margin: 0;
+	    padding: 0;
 	}
 	
 	#choice{
@@ -149,7 +154,8 @@
       text-align: center;
       background-color: #EFEDEF;
       color: #7A797A;
-      height: 35px;
+      height: 35px; 
+      position: relative;
     }
 
     #footer p{
@@ -217,7 +223,7 @@ function validate() {
 <body>
 
 	<div id="header">
-	
+	<div id="topbar">
 	<div id="header-left">
 	
 		<form id="form" class="form-inline active-pink-4" name="myform" action="SearchServlet">
@@ -264,8 +270,9 @@ function validate() {
 %>
 
 	</div><!-- header right -->
+	</div><!-- topbar -->
 	<div class='clear-float'></div>
-	</div><!-- header -->
+	
 	
 	<div id="placeholder"></div>
 	
@@ -308,7 +315,7 @@ function validate() {
 		    <div class="col-lg-4"></div>
 		</div><!-- row -->
 	</div><!-- container -->
-	
+	</div><!-- header -->
 	<div id="footer"> <p> Yang Qiao | Kate Hu | Blair Niu | Jessie Zhang | Mage Zhang | Irene Li &copy; 2019 </p> </div>
 
 </body>
