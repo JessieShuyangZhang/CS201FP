@@ -9,14 +9,6 @@
 	border-radius: 4px;
 } */
 
-#results{
-	margin: 0 auto;
-	width: 80%;
-	display: inline-block;
-/* 	border: solid;
-	border-color:blue; */
-}
-
 .single-result{		
 	margin-left: 40px;
 	margin-right: 40px;

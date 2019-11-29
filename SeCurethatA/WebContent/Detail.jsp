@@ -269,13 +269,13 @@
 	
 <div id="main">
 	
-	<div>
+	<div id='course-info'>
 <%-- 		<h1 id="course"><%=request.getAttribute("courseName")%></h1>
 		<h3><%=request.getAttribute("courseDescription")%></h3> --%>
 		
 		<h1 id="course"><%=coursename%></h1>
 		<h3><%=coursedescription%></h3>
-	</div>
+	</div><!-- course info -->
 	<hr class="line" style="width:100%; position:relative;left:0%;"></hr>
 	
 	<table>

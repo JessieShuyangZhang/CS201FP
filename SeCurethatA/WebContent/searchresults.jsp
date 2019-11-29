@@ -35,7 +35,7 @@
 	
 	#header-left {
 		float:left;
-		width:960px;
+		width:980px;
 	}
 	
 	#header-right {
@@ -146,8 +146,7 @@
 	#sidebar{
 		display: inline-block;
 		border-radius: 4px;
-		padding-top:50px;
-		margin-top: 4px;
+		margin-top: 57px;
 	    margin-right: 4px;
 	    height:100%;
 	    width:20%;
@@ -157,6 +156,19 @@
 	/*  float: right;   
 	    z-index:1;
 	    overflow:hidden; */
+	}
+	
+	#results{
+		padding-top: 60px;
+		margin: 0 auto;
+		width: 80%;
+		display: inline-block;
+	/* 	border: solid;
+		border-color:blue; */
+	}
+	
+	#result-title {
+		color:black;
 	}
 
 </style>
@@ -338,7 +350,7 @@
 		}}
 %>
 
-	</div>
+	</div><!-- result -->
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
