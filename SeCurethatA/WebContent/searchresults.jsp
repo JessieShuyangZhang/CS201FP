@@ -142,6 +142,22 @@
 	.clear-float{
 		clear: both;
 	}
+	
+	#sidebar{
+		display: inline-block;
+		border-radius: 4px;
+		padding-top:50px;
+		margin-top: 4px;
+	    margin-right: 4px;
+	    height:100%;
+	    width:20%;
+	    background-color: black;
+	    overflow-y: scroll;
+	    position:fixed;
+	/*  float: right;   
+	    z-index:1;
+	    overflow:hidden; */
+	}
 
 </style>
 </head>

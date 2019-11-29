@@ -71,21 +71,6 @@
 	font-size:300%;
 }
 
-#sidebar{
-	display: inline-block;
-	border-radius: 4px;
-	margin-top: 4px;
-    margin-right: 4px;
-    height:100%;
-    width:20%;
-    background-color: black;
-    overflow-y: scroll;
-    position:fixed;
-/*  float: right;   
-    z-index:1;
-    overflow:hidden; */
-}
-
 #sidebar-title{
 	text-align: center;
 }
