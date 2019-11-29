@@ -4,21 +4,8 @@ body{
 		background-color: #FFF4F4;
 }
 
-#header{
-	height: 100px;
-	background-color: #000;
-	color: #D56AA0;
-}
-
 .clear-float{
 	clear: both;
-}
-
-#search{
-	float: left;
-	line-height: 100px;
-	text-align: center;
-	margin-left: 10%;
 }
 
 #search-button{
@@ -37,15 +24,6 @@ body{
 	width: 400px;
 	font-size: 13px;
 	border-radius: 5px;
-}
-
-#choice{
-	float: left;
-	text-align: center;
-	line-height: 100px;
-	font-size: 17px;
-	margin-left: 40px;
-	color: #FFC7D4;
 }
 
 .radio{
@@ -67,8 +45,8 @@ body{
 }
 
 #main{
-	width: 80%;
-	margin: auto;		
+	width: 100%;
+	margin-right:0;		
 }
 
 h3{
@@ -90,5 +68,4 @@ h3{
 	color: white;
 	border-radius: 5px;
 	background-color: #D56AA0;
-	float: right;
 }
