@@ -168,9 +168,19 @@
 	}
 	
 	#result-title {
-		color:black;
+		color:grey;
 		margin-left: 400px;
 		font-family: 'Lato', sans-serif;
+	}
+	
+	#no-result {
+		margin-left: 100px;
+		color:grey;
+		font-family: 'Lato', sans-serif;
+	}
+	
+	#no-result-div {
+		width: 80%;
 	}
 
 </style>
@@ -250,7 +260,9 @@
 		}}
 		if(res.size()==0){
 %>
-<p>No results...try again!</p>
+<div id='no-result-div'>
+	<p id='no-result'>No results...try again!</p>
+</div><!-- no result div -->
 <%
 		}
 		else{
