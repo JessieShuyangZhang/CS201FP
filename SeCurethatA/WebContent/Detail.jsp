@@ -202,6 +202,13 @@
 		margin-left: 30px;
 	}
 	
+	#main {
+		margin-left:auto;
+		margin-right:auto;
+		width:800px;
+		color:grey;
+	}
+	
 	.clear-float{
 		clear: both;
 	}
@@ -259,6 +266,8 @@
 	</div><!-- header right -->
 	<div class='clear-float'></div>
 	</div><!-- header -->
+	
+<div id="main">
 	
 	<div>
 <%-- 		<h1 id="course"><%=request.getAttribute("courseName")%></h1>
@@ -358,5 +367,7 @@
 		}
 		
 	</script>
+
+</div><!-- main -->
 </body>
 </html>

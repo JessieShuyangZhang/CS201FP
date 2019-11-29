@@ -26,8 +26,9 @@
 		height: 60px;
 		background-color: #EFEDEF;
 		color:  #7A797A;
-		opacity: 0.85;
+		opacity: 0.95;
 		z-index: 1;
+		position: fixed;
 	    top: 0;
 	    width: 100%;
 	}
