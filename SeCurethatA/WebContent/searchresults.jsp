@@ -158,6 +158,11 @@
 	    overflow:hidden; */
 	}
 	
+	#sidebar-title{
+		text-align: center;	
+		font-family: 'Lato', sans-serif;
+	}
+	
 	#results{
 		padding-top: 60px;
 		margin: 0 auto;
@@ -177,6 +182,7 @@
 		margin-left: 100px;
 		color:grey;
 		font-family: 'Lato', sans-serif;
+		font-size: 20px;
 	}
 	
 	#no-result-div {
