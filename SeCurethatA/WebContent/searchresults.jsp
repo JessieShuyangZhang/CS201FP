@@ -323,12 +323,12 @@
 				<%}%>
 				</div><!-- gpa number -->
 			</div><!-- gpa -->
-		</div>
+		</div><!-- single result -->
 		<br>
 <%
 		}}
 %>
-	</div>
+	</div><!-- result -->
 
 
 	<div id="sidebar">
