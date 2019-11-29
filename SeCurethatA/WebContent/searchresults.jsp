@@ -362,7 +362,7 @@
 	if(n!=null){ //someone logged in
 %>
 		<a href="Detail.jsp?courseName=<%=coursename%>&courseDescription=<%=coursedescription%>">
-					<h3><%=coursename %></h3></a>
+					<h3 class='rec-coursename'><%=coursename %></h3></a>
 <%
 	}else{ //guest, no access to details page
 %>		
@@ -372,7 +372,7 @@
 	}
 %>
 			
-		<p><%=coursetitle%></p>
+		<p class='rec-coursetitle'><%=coursetitle%></p>
 		</div><!-- recommend -->
 <%
 		}}
