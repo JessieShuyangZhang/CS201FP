@@ -6,11 +6,23 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Detail Page</title>
-
+		
+		<!-- Import external CSS -->
 		<link rel="stylesheet" type="text/css" href="DetailPage.css" />
+		
+		<!-- Import Google Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Public+Sans&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Lato|Public+Sans&display=swap" rel="stylesheet">
+		
+		<!-- Import JavaScript -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     	<script type="text/javascript">
+    	
     	
     	//for debug-Jessie
     	console.log("courseName:"+"<%=request.getParameter("courseName")%>");
@@ -72,35 +84,181 @@
       		}
 
 		</script>
+		<style>
+			#header{
+		height: 60px;
+		background-color: #EFEDEF;
+		color:  #7A797A;
+		opacity: 0.85;
+		z-index: 1;
+	    top: 0;
+	    width: 100%;
+	}
+	
+	#header-left {
+		float:left;
+		width:980px;
+	}
+	
+	#header-right {
+		float:left;
+		width:280px;
+		margin-right:0;
+	}
+	
+     #header-right #right-button {
+       text-decoration: none;
+       color: #EA70A7;
+     }
+
+     #header-right #right-button:hover {
+       color: #7A797A;
+     }
+     
+     #header-right #left-button {
+       text-decoration: none;
+       color: #EA70A7;
+     }
+
+     #header-right #left-button:hover {
+       color: #7A797A;
+     }		
+	
+	body{
+		margin: 0px;
+		background-color: #FFF4F4;
+		color: #FFC7D4;
+	}
+	
+	#choice{
+		float: left;
+		text-align: center;
+		line-height: 58px;
+		margin-left: 40px;
+		color: #EA70A7;
+		font-size: 18px;
+		font-family: 'Lato', sans-serif;
+	}
+	
+	#left-button{
+		float:right;
+		font-size: 18px;
+		line-height: 62px;
+		color: #EA70A7;
+		font-family: 'Lato', sans-serif;
+		margin-right: 35px;
+	}
+	
+	#right-button{
+		float: right;
+		font-size: 18px;
+		line-height: 60px;
+		color: #EA70A7;
+		margin-left: 0px;
+		font-family: 'Lato', sans-serif;
+	}
+	
+	#search{
+		float: left;
+		line-height: 60px;
+		text-align: center;
+		margin-left: 30px;
+		position:relative;
+	}
+	
+	#input {
+		width: 450px;
+		height: 33px;
+		border-radius: 20px;
+		padding-right: 30px;
+	}
+	
+	.form-control::-webkit-input-placeholder { 
+		font-family: 'Public Sans', sans-serif;
+		color: #D3D3D3;
+	}
+	
+	#search #icon {
+		position: absolute;
+		padding-right: 10px;
+		padding-top: 22px;
+		pointer-events: none;
+	}
+	
+	#search:hover > #icon {color:#EA70A7;}
+	
+	#search .glyphicon {right: 0px;}
+	
+	.radio{
+		margin-right: 15px;
+		font-weight: normal;
+		font-family: 'Lato', sans-serif;
+	}
+
+	#home-icon-div img {
+		float: left;
+		height: 35px;
+		margin-top: 13px;
+		margin-left: 30px;
+	}
+	
+	.clear-float{
+		clear: both;
+	}
+		</style>
 	</head>
 <body>
-<div id="header">	
-	<form name="myform" action="SearchServlet">
-		<div id="search">
-			<input id="search-button" type="submit" name="submit" value="Submit" />
-			<input id="input" type="text" name="search-bar" placeholder=" Search...">
-		</div>
-
-		<div id="choice">		
-			<label class="radio"> 
-				<input type="radio" name="radio-button" value="Professor" id="radio1">
-				Professor 
-			</label>
+	<div id="header">
+	
+	<div id="header-left">
+	
+		<form id="form" class="form-inline active-pink-4" name="myform" action="SearchServlet">
+		
+			<div id="home-icon-div">
+				<a href="Homepage.jsp"><img src="home-icon.png"></a>
+			</div><!-- home icon div -->
 			
-			<label class="radio"> 
-				<input type="radio" name="radio-button" value="Course" id="radio2"> 
-				Course
-			</label>
-		</div>
+			<!-- Search form -->
+			<div id="search">
+				<i id="icon" class="glyphicon glyphicon-search"></i>
+			    <input id="input" name="search-bar" type="text" class="form-control form-control-sm mr-3 w-75" placeholder="SEARCH FOR A COURSE" />
+			</div><!-- search -->
 
+			<div id="choice">
+				<label class="radio"> 
+					<input type="radio" name="radio-button" value="Professor">
+					Professor 
+				</label><!-- radio -->
+				
+				<label class="radio"> 
+					<input type="radio" name="radio-button" value="Course"> 
+					Course
+				</label><!-- radio -->
+			</div><!-- choice -->
+		</form><!-- myform -->
+	
+	</div><!-- header left -->
+	
+	<div id="header-right">
+<%
+	String coursename = request.getParameter("courseName");
+	String coursedescription = request.getParameter("courseDescription");
+	String n = (String)session.getAttribute("username");
+	if(n!=null){ //someone logged in
+%>
 		<a href="LogoutServlet"><div id="right-button"> Sign out </div></a>
 		<a href="Upload.jsp"><div id="left-button"> Upload GPA </div></a>
-
-	</form>
-			
-			
+<%
+	}else{
+%>		
+		<a href="RegisterPage.jsp"><div id="right-button"> Register </div></a>
+		<a href="Homepage.jsp"><div id="left-button"> Homepage </div></a>
+<%
+	}
+%>
+	</div><!-- header right -->
 	<div class='clear-float'></div>
-	</div>
+	</div><!-- header -->
 	
 	<div>
 <%-- 		<h1 id="course"><%=request.getAttribute("courseName")%></h1>
