@@ -180,13 +180,16 @@
 	}
 
     #error_msg {
-    	border: 1px solid red;
-    	color:red;
+    	border-left: 5px solid #cc0000;
+    	color: #cc0000;
     	font-weight:bold;
     	margin-left: 16px;
     	width:307px;
     	margin-top: 20px;
     	background-color: white;
+    	padding-top:5px;
+    	padding-bottom: 5px;
+    	font-size: 16px;
     }
 
 </style>
@@ -298,7 +301,8 @@ function validate() {
 		</form>
 		<div class="row">
 			<div class="col-lg-4"></div>
-			<div class="col-lg-4" id="error_msg">
+			<div class="col-lg-4" id="error_msg" style="background:#EFEDEF">
+			Error:
 			<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
 		    </div><!-- error-msg -->
 		    <div class="col-lg-4"></div>
