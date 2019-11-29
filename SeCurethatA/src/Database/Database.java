@@ -384,7 +384,8 @@ public class Database {
 				
 				String update = "UPDATE GPA SET counts=counts+1, challenging=?,rec=?,avgGPA=?"
 						+"WHERE courseID = ? "
-						+ "AND professorID = ? ";
+						+ "AND professorID = ? "
+						+ "AND term = ?";
 				preparedStatement = connection.prepareStatement(update);
 				preparedStatement.setInt(1, pChallenging);
 				preparedStatement.setInt(2, rec);
@@ -559,22 +560,45 @@ public class Database {
 		return -1;
 	}
 	
-	public double getSpecificGPA(String term, String professor, String courseName) {	
-		String select = "SELECT avgGPA FROM GPA WHERE term = ? AND professorID = ? AND courseName = ?";
+	public double getSpecificGPA(String term, String professor, String courseName) {
+		
 		term.trim();
 		courseName.trim();
-		if (getProfessorID(professor) == -1) {
-			//return null;
-			return -1;
-		}
+		courseName.trim();
 		int professorID = getProfessorID(professor);
+
 		double avgGPA = -1;		
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
-			preparedStatement = connection.prepareStatement(select);
-			preparedStatement.setString(1, term);
-			preparedStatement.setInt(2, professorID);
-			preparedStatement.setString(3, courseName);
+			String select;
+			if(term==null || term.equals("")){//no term
+				if(professorID == -1) {//no professor
+					select = "SELECT avgGPA FROM GPA WHERE courseName = ?";
+					preparedStatement = connection.prepareStatement(select);
+					preparedStatement.setString(1, courseName);
+				}
+				else {//have professor
+					select = "SELECT avgGPA FROM GPA WHERE courseName = ? AND professorID = ?";
+					preparedStatement = connection.prepareStatement(select);
+					preparedStatement.setString(1, courseName);
+					preparedStatement.setInt(2, professorID);
+				}
+			}
+			else {//have term
+				if(professorID == -1) {//no professor
+					select = "SELECT avgGPA FROM GPA WHERE courseName = ? AND term = ?";
+					preparedStatement = connection.prepareStatement(select);
+					preparedStatement.setString(1, courseName);
+					preparedStatement.setString(2, term);
+				}
+				else {
+					select = "SELECT avgGPA FROM GPA WHERE term = ? AND professorID = ? AND courseName = ?";
+					preparedStatement = connection.prepareStatement(select);
+					preparedStatement.setString(1, term);
+					preparedStatement.setInt(2, professorID);
+					preparedStatement.setString(3, courseName);
+				}
+			}
 			resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()) {
 				//String avgGPA = resultSet.getString("avgGPA");
