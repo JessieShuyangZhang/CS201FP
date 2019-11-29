@@ -188,6 +188,7 @@
 	}else{
 %>		
 		<a href="RegisterPage.jsp"><div id="right-button"> Register </div></a>
+		<a href="LoginPage.jsp"><div id="left-button"> Login </div></a> 
 <%
 	}
 %>
