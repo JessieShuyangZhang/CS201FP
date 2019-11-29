@@ -34,22 +34,32 @@
 	
 	#header-left {
 		float:left;
-		width:900px;
+		width:960px;
 	}
-	
-     #header-right a {
-       text-decoration: none;
-       color: #EA70A7;
-     }
-
-     #header-right a:hover {
-       color: #7A797A;
-     }		
 	
 	#header-right {
 		float:left;
 		width:250px;
+		margin-right:0;
 	}
+	
+     #header-right #right-button {
+       text-decoration: none;
+       color: #EA70A7;
+     }
+
+     #header-right #right-button:hover {
+       color: #7A797A;
+     }
+     
+     #header-right #left-button {
+       text-decoration: none;
+       color: #EA70A7;
+     }
+
+     #header-right #left-button:hover {
+       color: #7A797A;
+     }		
 	
 	body{
 		margin: 0px;
@@ -60,16 +70,16 @@
 	#choice{
 		float: left;
 		text-align: center;
-		line-height: 60px;
+		line-height: 58px;
 		margin-left: 40px;
 		color: #EA70A7;
-		font-size: 20px;
+		font-size: 18px;
 		font-family: 'Lato', sans-serif;
 	}
 	
 	#left-button{
 		float:right;
-		font-size: 20px;
+		font-size: 18px;
 		line-height: 62px;
 		color: #EA70A7;
 		font-family: 'Lato', sans-serif;
@@ -77,7 +87,7 @@
 	
 	#right-button{
 		float: right;
-		font-size: 20px;
+		font-size: 18px;
 		line-height: 60px;
 		color: #EA70A7;
 		margin-left:40px;
