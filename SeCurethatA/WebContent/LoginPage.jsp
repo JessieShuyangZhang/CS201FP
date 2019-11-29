@@ -144,6 +144,28 @@
 	#container {
 		margin-left:0;
 	}
+	#footer
+    {
+      text-align: center;
+      background-color: #EFEDEF;
+      color: #7A797A;
+      height: 35px;
+    }
+
+    #footer p{
+      line-height: 35px;
+      margin: 0px;
+    }
+    
+    #main {
+    	height:490px;
+    }
+    
+    h3 {
+    	color: white;
+    	text-shadow: 0px 2px 2px rgba(0,0,0,0.4);
+    	font-size: 18px;
+    }
 
 </style>
 
@@ -220,7 +242,7 @@ function validate() {
 	<div class='clear-float'></div>
 	</div><!-- header -->
 	
-	<div class="container">	
+	<div class="container" id="main">	
 		<form name="loginform" action="LoginServlet">
 			
 			<div class="row">
@@ -258,6 +280,8 @@ function validate() {
 		    <div class="col-lg-4"></div>
 		</div><!-- row -->
 	</div><!-- container -->
+	
+	<div id="footer"> <p> Yang Qiao | Kate Hu | Blair Niu | Jessie Zhang | Mage Zhang | Irene Li &copy; 2019 </p> </div>
 
 </body>
 </html>
