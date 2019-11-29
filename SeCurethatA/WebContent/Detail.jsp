@@ -19,62 +19,54 @@
       		google.charts.load("current", {packages:['corechart']});
       		google.charts.setOnLoadCallback(drawChart);
       		
-      		function drawChart(id, listProfessor, listGPA) {
-      			
-        		var data = google.visualization.arrayToDataTable([
-          			["Professor", "GPA", { role: "style" } ],
-/*           			["Mark Redekopp", 4.0, "#809BCE"],
-          			["Olivera Grujic", 2.5, "#95B8D1"],
-          			["Jeffrey Miller", 3.5, "#B8E0D2"],
-          			["Andrew Goodney", 3.3, "#D6EADF"]  */
-        		]);
-				
-      			var i;
-      			for (i = 0; i < listProfessor.length; i++) {
-      				var outer = [];
-      				var inner = [];
-      				inner.push(listProfessor[i]);
-      				inner.push(listGPA[i]);
-      				outer.push(inner);
-      				data.addRows(outer);
-      			}
-        		
-        		/* data.addRows([["Average", 3.0, "#EAC4D5"]]); */
-	
-       			var view = new google.visualization.DataView(data);
-        		view.setColumns(
-	        	[0, 1,
-	            	{ 
-	        			calc: "stringify",
-	                	sourceColumn: 1,
-	                	type: "string",
-	                	role: "annotation" 
-	                },
-	            2]);
-	
-		        var options = {
-		        	title: "GPA of CSCI201 in Fall 2019",
-		        	width: 600,
-		        	height: 400,
-		        	bar: {groupWidth: "90%"},
-		        	legend: { position: "none" },
-		        	backgroundColor: '#FFF4F4',
-		        };
-	      		var chart = new google.visualization.ColumnChart(document.getElementById(id));
-	      		chart.draw(view, options);
-  			}
-
-      		function getChartInfo(){
+      		function drawChart(){
       			console.log("in getChartInfo()");
       			var xhttp = new XMLHttpRequest();
       			var term = document.getElementById('term-dropdown').value;
-      			xhttp.open("GET", "chartServlet?term=" + term.options[term.selectedIndex].text + "&course=" + document.getElementById("course").value, true);
-      			
+      			/* xhttp.open("GET", "chartServlet?term=" + term.options[term.selectedIndex].text + "&course=" + document.getElementById("course").value, true); */
+      		 	xhttp.open("GET", "chartServlet?term=20193&course=CSCI104", true); 
       			var id = 'columnchart_values';
-      			xhttp.onreadystatechange = function(){
-      				var listProfessor = (<%=(ArrayList<String>)request.getAttribute("listProfessor") %>);
-      				var listGPA = (<%=(ArrayList<Integer>)request.getAttribute("listGPA") %>);
-      				drawChart(id, listProfessor, listGPA);
+      			
+      			xhttp.onload = function(){
+       				var listProfessor = (<%=(ArrayList<String>)session.getAttribute("listProfessor") %>);
+      				var listGPA = (<%=(ArrayList<Integer>)session.getAttribute("listGPA") %>); 
+      				
+          			var id = "columnchart_values";
+          			
+            		var data = google.visualization.arrayToDataTable([
+              			["Professor", "GPA", { role: "style" } ],
+               		 	["", 0.0, "#FFF4F4"], 
+            		]);
+    				
+             		var colorList = ["#809BCE", "#95B8D1", "#B8E0D2", "#D6EADF", "#EAC4D5", "#E87461", "#E0C879", "#D5D887", "#A1CF6B", "#7AC74F"];
+             	
+           			var i;
+          			var j  = listProfessor.length;
+          			for (i = 0; i < j; i++) {
+          				data.addRows([[listProfessor[i], listGPA[i], colorList[i]]]);
+          			}
+    	
+           			var view = new google.visualization.DataView(data);
+            		view.setColumns(
+    	        	[0, 1,
+    	            	{ 
+    	        			calc: "stringify",
+    	                	sourceColumn: 1,
+    	                	type: "string",
+    	                	role: "annotation" 
+    	                },
+    	            2]);
+    	
+    		        var options = {
+    		        	title: "GPA of CSCI201 in Fall 2019",
+    		        	width: 600,
+    		        	height: 400,
+    		        	bar: {groupWidth: "90%"},
+    		        	legend: { position: "none" },
+    		        	backgroundColor: '#FFF4F4',
+    		        };
+    	      		var chart = new google.visualization.ColumnChart(document.getElementById(id));
+    	      		chart.draw(view, options);
       			}
       			xhttp.send();		
       		}
@@ -135,7 +127,7 @@
 		<tr>
 			<td>
 				<h4 style="color:grey">Term</h4>
-				<select id="term-dropdown" name="term" onchange="select(); getChartInfo()">
+ 				<select id="term-dropdown" name="term" onchange="select(); drawChart();">
 					<option value="none">Select a Term</option>
 					<%				
 						Database db = new Database();
@@ -153,7 +145,7 @@
 		  	
 		  	<td>
 		  		<h4 style="color:grey">Professor</h4>
-				<select name="professor" id="professor-dropdown" onchange="select()">
+ 				<select name="professor" id="professor-dropdown" onchange="select()">
 					<option value="none">Select a Professor</option>
 					<%
 						ArrayList<String> professors = (ArrayList<String>)(db.getProfessors(coursename));
@@ -166,7 +158,7 @@
 					<% 
 						}}
 					%>
-		  		</select>
+		  		</select> 
 		  	
 		</tr>
 	</table>
