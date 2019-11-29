@@ -13,7 +13,7 @@
 </head>
 <body>
 <%
-	DatabaseOperator2 do2 = new DatabaseOperator2();
+	Database do2 = new Database();
 	//authenticate test
 	out.println("Testing getProfessorID");
 	out.println("</br>");
@@ -120,6 +120,7 @@
 		out.println(result8.get(i));
 	} 
 	out.println("</br>");
+	out.println("Testing searchProfByCourse");
 	Vector<String> result9 = do2.searchCourseByProf("mark redekopp");
 	for (int i = 0; i < result9.size(); i++){
 		out.println(result9.get(i));
@@ -128,6 +129,7 @@
 	out.println("</br>");
 	
 	out.println("</br>");
+	out.println("Testing searchProfByCourse");
 	Vector<String> result10 = do2.searchCourseByProf("redekopp mark");
 	for (int i = 0; i < result10.size(); i++){
 		out.println(result10.get(i));
@@ -135,12 +137,14 @@
 	out.println("</br>");
 	out.println("</br>");
 	out.println("</br>");
+	out.println("Testing searchProfByCourse");
 	Vector<String> result11 = do2.searchCourseByProf("rede mark");
 	for (int i = 0; i < result11.size(); i++){
 		out.println(result11.get(i));
 	} 
 	out.println("</br>");
 	out.println("</br>");
+	out.println("Testing searchProfByCourse");
 	Vector<String> result12 = do2.searchCourseByProf("mark re");
 	for (int i = 0; i < result12.size(); i++){
 		out.println(result12.get(i));
@@ -157,6 +161,7 @@
 	out.println("</br>");
 	out.println("</br>");
 	
+	out.println("Get recommend by courses");
 	Vector<String> result14 = do2.getRecommendByCourse("CSCI100");
 	for (int i = 0; i < result14.size(); i++){
 		out.println(result14.get(i));
@@ -188,6 +193,13 @@
 	}
 	out.println("</br>");
 	out.println("</br>"); 
+	
+	
+	out.println("Testing searchProfByCourse again");
+	Vector<String> result19 = do2.searchCourseByProf("mark");
+	for (int i = 0; i < result19.size(); i++){
+		out.println(result19.get(i));
+	} 
 	
 %>
 	

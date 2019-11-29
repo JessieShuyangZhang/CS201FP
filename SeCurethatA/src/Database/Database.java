@@ -801,6 +801,7 @@ public class Database {
 
 	
 	public Vector<String> searchCourseByProf(String input){
+		Set<String> courses = new TreeSet<String>(); 
 		String select = "";
 		String[] search = input.split("\\s+");
 		String firstname = "%";
@@ -834,9 +835,13 @@ public class Database {
 			preparedStatement.setString(2, lastname);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				result.add(resultSet.getString("courseName"));
-			}
+				courses.add(resultSet.getString("courseName"));
+			} 
 			if (selectAgain != 1) {
+			    Iterator<String> value = courses.iterator(); 
+			    while (value.hasNext()) { 
+			    	result.add(value.next()); 
+			    } 
 				return result;
 			}
 		}
@@ -874,9 +879,14 @@ public class Database {
 				preparedStatement.setString(2, last);
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
-					result.add(resultSet.getString("courseName"));
-				}
-				return result;
+					courses.add(resultSet.getString("courseName"));
+				} 
+				    Iterator<String> value = courses.iterator(); 
+				    while (value.hasNext()) { 
+				    	result.add(value.next()); 
+				    } 
+					return result;
+				
 			}
 			catch(SQLException e) {
 				e.printStackTrace();
