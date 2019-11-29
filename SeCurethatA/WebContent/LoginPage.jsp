@@ -172,12 +172,21 @@
     	height: 75px;
     }
     
-    #username {
-    	color: black;
-    }
-    
-    #password {
-    	color: black;
+    #username, #password{
+		width: 100%;
+		height: 35px;
+		border-radius: 5px;
+		color: black;
+	}
+
+    #error_msg {
+    	border: 1px solid red;
+    	color:red;
+    	font-weight:bold;
+    	margin-left: 16px;
+    	width:307px;
+    	margin-top: 20px;
+    	background-color: white;
     }
 
 </style>
@@ -289,7 +298,7 @@ function validate() {
 		</form>
 		<div class="row">
 			<div class="col-lg-4"></div>
-			<div class="col-lg-4" id="error_msg" style="color:red;font-weight:bold">
+			<div class="col-lg-4" id="error_msg">
 			<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
 		    </div><!-- error-msg -->
 		    <div class="col-lg-4"></div>
