@@ -178,7 +178,7 @@
     	height: 75px;
     }
     
-    #username, #password{
+    #username, .password{
 		width: 100%;
 		height: 35px;
 		border-radius: 5px;
@@ -272,7 +272,7 @@
 				<div class="col-lg-4"></div>
 				<div class="info col-lg-4">
 					<h3>Password</h3>
-					 <input id="password" type="password" name="password" /><br />
+					 <input id="password" class="password" type="password" name="password" /><br />
 				</div>
 				<div class="col-lg-4"></div>
 			</div><!-- row -->
@@ -281,7 +281,7 @@
 				<div class="col-lg-4"></div>
 				<div class="info col-lg-4">
 					<h3>Confirm Password</h3>
-					 <input id="password" type="password" name="password" /><br />
+					 <input id="password" class="password" type="password" name="password" /><br />
 				</div>
 				<div class="col-lg-4"></div>
 			</div><!-- row -->
