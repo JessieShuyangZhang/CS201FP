@@ -273,9 +273,9 @@
 		}}
 		if(res.size()==0){
 %>
-<div id='no-result-div'>
-	<p id='no-result'>No results...try again!</p>
-</div><!-- no result div -->
+		<div id='no-result-div'>
+			<p id='no-result'>No results...try again!</p>
+		</div><!-- no result div -->
 <%
 		}
 		else{
@@ -298,31 +298,31 @@
 <%
 	}else{ //guest, no access to details page
 %>		
-<!-- Trigger/Open The Modal -->
-<a name="myBtn"><%=coursename %></a>
+		<!-- Trigger/Open The Modal -->
+		<a name="myBtn"><%=coursename %></a>
 <%
 	}
 %>
-				</div>
+				</div><!-- course id -->
 				
 				<div class="course-title"><%=coursetitle%></div>
 				<div class="course-discription">
 					<p><%=coursedescription%></p>
-				</div>
-			</div>
+				</div><!-- course discription -->
+			</div><!-- course card -->
 			<div class="gpa">
 				<div class="gpa-title">
 					<!-- <strong></strong> <br /> -->
 					<h3 style="margin: 0; padding: 0;">Overall GPA</h3>
-				</div>
+				</div><!-- gpa title -->
 				<div class="gpa-number">
 				<%if(gpa>=0){%>
 					<strong><%= gpa%></strong>
 				<%}else{%>
 					<strong>N/A</strong>
 				<%}%>
-				</div>
-			</div>
+				</div><!-- gpa number -->
+			</div><!-- gpa -->
 		</div>
 		<br>
 <%
@@ -378,7 +378,7 @@
 		}}
 %>
 
-	</div><!-- result -->
+	</div><!-- side bar -->
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
