@@ -185,6 +185,12 @@
 		font-size: 20px;
 	}
 	
+	#no-recommend {
+		text-align: center;
+		font-family: 'Lato', sans-serif;
+		font-size: 16px;
+	}
+	
 	#no-result-div {
 		width: 80%;
 	}
@@ -243,6 +249,7 @@
 	</div><!-- header right -->
 	<div class='clear-float'></div>
 	</div><!-- header -->
+	
 	
 	<div id="results">
 <%
@@ -341,7 +348,7 @@
 		}}		
 		if(recomm.size()==0){
 %>
-		<p>Nothing to recommend</p>
+		<p id='no-recommend'>Nothing to recommend:)</p>
 <%
 		}
 		else{
@@ -359,14 +366,14 @@
 <%
 	}else{ //guest, no access to details page
 %>		
-<!-- Trigger/Open The Modal -->
-<a name="myBtn"><h3><%=coursename %></h3></a>
+		<!-- Trigger/Open The Modal -->
+		<a name="myBtn"><h3><%=coursename %></h3></a>
 <%
 	}
 %>
 			
-			<p><%=coursetitle%></p>
-		</div>
+		<p><%=coursetitle%></p>
+		</div><!-- recommend -->
 <%
 		}}
 %>
