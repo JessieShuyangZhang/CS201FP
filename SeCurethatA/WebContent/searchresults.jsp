@@ -358,21 +358,22 @@
 			String coursedescription=db.getDescription(coursename);
 %>
 		<div class="recommend">
+		<div class="recommend-title">
 		<%
 	if(n!=null){ //someone logged in
 %>
 		<a href="Detail.jsp?courseName=<%=coursename%>&courseDescription=<%=coursedescription%>">
-					<h3 class='rec-coursename'><%=coursename %></h3></a>
+					<%=coursename %></a>
 <%
 	}else{ //guest, no access to details page
 %>		
 		<!-- Trigger/Open The Modal -->
-		<a name="myBtn"><h3><%=coursename %></h3></a>
+		<a name="myBtn"><%=coursename %></a>
 <%
 	}
 %>
-			
-		<p class='rec-coursetitle'><%=coursetitle%></p>
+		</div><!-- recommend-title -->
+		<p><%=coursetitle%></p>
 		</div><!-- recommend -->
 <%
 		}}

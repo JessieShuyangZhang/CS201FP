@@ -74,6 +74,11 @@
 	color: black;
 }
 
+.recommend-title{
+	font-weight: bold;
+	font-size:150%;
+}
+
 
 .modal {
   display: none; /* Hidden by default */
