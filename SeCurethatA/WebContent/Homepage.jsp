@@ -166,7 +166,7 @@
 	          <div class="row">
 	            <div class="col-lg-12">
 	              <div class="content">
-	                <h1>Secure that A!</h1>
+	                <h1>SeCure that A!</h1>
 	                <h3><div id="text"></div></h3>
 	                <hr id="for-header">
 	

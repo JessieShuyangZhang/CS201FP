@@ -981,7 +981,7 @@ public class Database {
 				result.add(resultSet.getString("courseName"));
 			}
 			if (result.size() == 0){
-				result.add("PHED 120A");
+				result.add("PHED120");
 				return result;
 			}
 			return result;

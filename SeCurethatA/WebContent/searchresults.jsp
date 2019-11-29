@@ -38,7 +38,6 @@
 		float: left;
 		text-align: center;
 		line-height: 60px;
-		
 		margin-left: 40px;
 		color: #7A797A;
 	}
@@ -155,7 +154,7 @@
 <%
     String input = request.getParameter("search-bar");
 %>	
-		<h3 id="result-title">Results for "<%= input %>"</h3><hr/>	
+		<h3 id="result-title">Results for "<%= input %>"</h3><hr/>
 <%
 		Database db = new Database();	
 		String searchby = (String)request.getAttribute("resultsby");
@@ -196,7 +195,7 @@
 	}else{ //guest, no access to details page
 %>		
 <!-- Trigger/Open The Modal -->
-<a href="" name="myBtn"><%=coursename %></a>
+<a name="myBtn"><%=coursename %></a>
 <%
 	}
 %>
@@ -209,8 +208,8 @@
 			</div>
 			<div class="gpa">
 				<div class="gpa-title">
-					<strong>Overall</strong> <br />
-					<h2 style="margin: 0; padding: 0;">GPA</h2>
+					<!-- <strong></strong> <br /> -->
+					<h3 style="margin: 0; padding: 0;">Overall GPA</h3>
 				</div>
 				<div class="gpa-number">
 				<%if(gpa>=0){%>
@@ -221,6 +220,7 @@
 				</div>
 			</div>
 		</div>
+		<br>
 <%
 		}}
 %>
@@ -257,13 +257,13 @@
 		<%
 	if(n!=null){ //someone logged in
 %>
-		<h3><a href="Detail.jsp?courseName=<%=coursename%>&courseDescription=<%=coursedescription%>">
-					<%=coursename %></a></h3>
+		<a href="Detail.jsp?courseName=<%=coursename%>&courseDescription=<%=coursedescription%>">
+					<h3><%=coursename %></h3></a>
 <%
 	}else{ //guest, no access to details page
 %>		
 <!-- Trigger/Open The Modal -->
-<h3><a href="" name="myBtn"><%=coursename %></a></h3>
+<a name="myBtn"><h3><%=coursename %></h3></a>
 <%
 	}
 %>

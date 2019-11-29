@@ -83,7 +83,7 @@
 		alert(msg);
 </script>
 	<div id="header">	
-		<form name="myform" action="UploadServlet">
+		<form name="myform" action="SearchServlet">
 			<div id="search">
 				<input id="search-button" type="submit" name="submit" value="Submit" />
 				<input id="input" type="text" name="search-bar" placeholder=" Search...">
