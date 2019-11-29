@@ -1,9 +1,4 @@
 @charset "UTF-8";
-body{
-		margin: 0px;
-		background-color: #FFF4F4;
-}
-
 .clear-float{
 	clear: both;
 }

@@ -60,8 +60,10 @@
 	
 	body{
 		margin: 0px;
-		background-color: #FFF4F4;
 		color: #FFC7D4;
+		background-image: url(images/background1.jpg);
+		background-size: cover;
+	    background-position: top;  
 	}
 	
 	#choice{
@@ -95,7 +97,7 @@
 		float: left;
 		line-height: 60px;
 		text-align: center;
-		margin-left: 30px;
+		margin-left: 15px;
 		position:relative;
 	}
 	
@@ -132,7 +134,7 @@
 		float: left;
 		height: 35px;
 		margin-top: 13px;
-		margin-left: 30px;
+		margin-left: 40px;
 	}
 	
 	.clear-float{
