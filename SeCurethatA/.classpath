@@ -11,5 +11,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0"/>
 	<classpathentry kind="lib" path="mysql-connector-java-5.1.46.jar"/>
 	<classpathentry kind="lib" path="mysql-socket-factory-1.0.15-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="D:/Yuhua USC/19 fall class/CSCI-201/yuhuahu_CSCI201L_Lab8/mysql-connector-java-5.1.46.jar"/>
+	<classpathentry kind="lib" path="D:/Yuhua USC/19 fall class/CSCI-201/yuhuahu_CSCI201L_Lab8/mysql-socket-factory-1.0.15-jar-with-dependencies.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
