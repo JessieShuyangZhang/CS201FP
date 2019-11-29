@@ -165,6 +165,19 @@
     	color: white;
     	text-shadow: 0px 2px 2px rgba(0,0,0,0.4);
     	font-size: 18px;
+    	font-weight: bold;
+    }
+    
+    #placeholder {
+    	height: 75px;
+    }
+    
+    #username {
+    	color: black;
+    }
+    
+    #password {
+    	color: black;
     }
 
 </style>
@@ -242,6 +255,8 @@ function validate() {
 	<div class='clear-float'></div>
 	</div><!-- header -->
 	
+	<div id="placeholder"></div>
+	
 	<div class="container" id="main">	
 		<form name="loginform" action="LoginServlet">
 			
@@ -265,9 +280,9 @@ function validate() {
 			
 			<div class="row">
 				<div class="col-lg-4"></div>
-				<div id="button" class="col-lg-4">
+				<div class="col-lg-4">
 					<input id="submit" type="submit" name="submit"/>
-				</div><!-- button -->
+				</div>
 				<div class="col-lg-4"></div>
 			</div><!-- row -->
 			
