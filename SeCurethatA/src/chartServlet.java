@@ -38,30 +38,34 @@ public class chartServlet extends HttpServlet{
 				listProfessor.set(i, "'" + tempString + "'");
 			}
 			
-//			ArrayList<String> listProfessor = new ArrayList<String>();
-//			listProfessor.add("jESSIE");
-//			listProfessor.add("kate");
-//			listProfessor.add("yang");
+//			HttpSession session = request.getSession();
+//			session.setAttribute("listProfessor", listProfessor);
+//			session.setAttribute("listGPA", listGPA);
 			
-			HttpSession session = request.getSession();
-			session.setAttribute("listProfessor", listProfessor);
-			session.setAttribute("listGPA", listGPA);
-			
-//			PrintWriter outPrintWriter = response.getWriter();
+			PrintWriter outPrintWriter = response.getWriter();
 //			String jsonString = new Gson().toJson(listProfessor);
 			
-//			request.setAttribute("listProfessor", "list professor");
-//			request.setAttribute("listGPA", "list GPA");
-			
+			String outstring = "";
 			for(Integer i = 0; i < listProfessor.size(); i++)
 			{
+				outstring += listProfessor.get(i)+",";
 				System.out.println(listProfessor.get(i));
 			}
-			
+			if(outstring.length()!=0) {
+				outstring = outstring.substring(0,outstring.length()-1);
+				outstring +="|";
+			}
 			for(Integer i = 0; i < listGPA.size(); i++)
 			{
+				outstring += listGPA.get(i)+",";
 				System.out.println(listGPA.get(i));
 			}
+			if(outstring.length()!=0) {
+				outstring = outstring.substring(0,outstring.length()-1);
+			}
+			outPrintWriter.print(outstring);
+			outPrintWriter.flush();
+			outPrintWriter.close();
 
 //			String next = "Detail.jsp";
 //			getServletContext().getRequestDispatcher(next).forward(request, response);

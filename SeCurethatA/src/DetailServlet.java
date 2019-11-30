@@ -70,7 +70,6 @@ public class DetailServlet extends HttpServlet {
 			recommend=db.getRecommendRate(professor, courseName);
 		}
 		
-		System.out.println("in servlet");
 		out.println(specificGPA+" "+challenging+" "+recommend);
 		out.flush();
 		out.close();

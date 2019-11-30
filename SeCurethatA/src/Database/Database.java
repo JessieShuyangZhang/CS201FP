@@ -631,7 +631,7 @@ public class Database {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
 		}
-		return (int)(totalavg/totalcounts * 10)/10.0;
+		return (int)(totalavg/totalcounts * 100)/100.0;
 	}
 	
 	

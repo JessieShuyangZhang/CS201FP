@@ -351,172 +351,170 @@
 	
 	<div id="columnchart_values"></div>
 	
-	<script>
-		function select(){
-			//console.log("in select()");			
-			document.getElementById("nodata").style.display="none";
-			document.getElementById("challenging").style.display="none";
-			document.getElementById("recommendRate").style.display="none";
-			document.getElementById("average").style.display="none";
-			document.getElementById("specificGPA").style.display="none";
-			var term = document.getElementById("term-dropdown").value;
-			var professor = document.getElementById("professor-dropdown").value;
-			console.log("in jsp, term:"+term);
-			console.log("in jsp, professor:"+professor);
-			if(professor!="none"){
-				var names = professor.split(" ");
-				var fname = names[0];
-				var lname = names[1];
-				fname = fname[0].toUpperCase()+fname.substring(1);
-				lname = lname[0].toUpperCase()+lname.substring(1); 
-			} 
-			
-			if(term=="none" && professor=="none"){
-				document.getElementById("noselect").style.display="block";
-				return;
+<script>
+
+function select(){
+	//console.log("in select()");			
+	document.getElementById("nodata").style.display="none";
+	document.getElementById("challenging").style.display="none";
+	document.getElementById("recommendRate").style.display="none";
+	document.getElementById("average").style.display="none";
+	document.getElementById("specificGPA").style.display="none";
+	var term = document.getElementById("term-dropdown").value;
+	var professor = document.getElementById("professor-dropdown").value;
+	console.log("in jsp, term:"+term);
+	console.log("in jsp, professor:"+professor);
+	if(professor!="none"){
+		var names = professor.split(" ");
+		var fname = names[0];
+		var lname = names[1];
+		fname = fname[0].toUpperCase()+fname.substring(1);
+		lname = lname[0].toUpperCase()+lname.substring(1); 
+	} 
+	
+	if(term=="none" && professor=="none"){
+		document.getElementById("noselect").style.display="block";
+		return;
+	}
+	else{
+		document.getElementById("noselect").style.display="none";
+		document.getElementById("average").style.display="block";
+		document.getElementById("specificGPA").style.display="block";
+		if(term == "none"){
+				document.getElementById("term").innerHTML = "all terms";
+				document.getElementById("professor").innerHTML = fname+" "+lname;
+			}
+			else if(professor == "none"){
+				document.getElementById("term").innerHTML = term;
+				document.getElementById("professor").innerHTML = "all professors";
 			}
 			else{
-				document.getElementById("noselect").style.display="none";
-				document.getElementById("average").style.display="block";
-				document.getElementById("specificGPA").style.display="block";
-				if(term == "none"){
-	 				document.getElementById("term").innerHTML = "all terms";
-	 				document.getElementById("professor").innerHTML = fname+" "+lname;
-	 			}
-	 			else if(professor == "none"){
-	 				document.getElementById("term").innerHTML = term;
-	 				document.getElementById("professor").innerHTML = "all professors";
-	 			}
-	 			else{
-	 				document.getElementById("challenging").style.display="block";
-					document.getElementById("recommendRate").style.display="block";
-	 				document.getElementById("term").innerHTML = term;
-	 				document.getElementById("professor").innerHTML = fname+" "+lname;
-	 			}
+				document.getElementById("challenging").style.display="block";
+				document.getElementById("recommendRate").style.display="block";
+				document.getElementById("term").innerHTML = term;
+				document.getElementById("professor").innerHTML = fname+" "+lname;
 			}
-			
-	 		var xhr = new XMLHttpRequest();
-		 	xhr.open('GET',"DetailServlet?term="+term+"&professor="+professor+"&courseName="+"<%=coursename%>",false);
-		 	xhr.send();
-			
-	 		console.log(xhr.responseText);
-	 		var str = xhr.responseText;
-	 		var arr = str.split(" ");
-	 		if(arr[0]!=-1){
-	 			document.getElementById("specificGPA").innerHTML=arr[0];
-	 			if(arr[1].trim()!=-1){
-	 				document.getElementById("challenging").style.display="block";
-					document.getElementById("challenging").innerHTML=arr[1].trim()+'% of the students think '+"<%=coursename%>"+' with '+fname+' '+lname+' is challenging.';
-		 		}
-				if(arr[2].trim()!=-1){
-					document.getElementById("recommendRate").style.display="block";
-					document.getElementById("recommendRate").innerHTML=arr[2].trim()+'% of the students recommend Professor '+fname+" "+lname+'.';
-				}
-				if(arr[1].trim()==-1 || arr[2].trim()==-1){
-					document.getElementById("challenging").style.display="none";
-					document.getElementById("recommendRate").style.display="none";
-				}
-	 		}
-	 		else{
-	 			document.getElementById("challenging").style.display="none";
-				document.getElementById("recommendRate").style.display="none";
-				document.getElementById("specificGPA").style.display="none";
-				document.getElementById("average").style.display="none";
-	 			document.getElementById("nodata").style.display="block";
-	 		}
-	 	}
+	}
+	
+	var xhr = new XMLHttpRequest();
+ 	xhr.open('GET',"DetailServlet?term="+term+"&professor="+professor+"&courseName="+"<%=coursename%>",false);
+ 	xhr.send();
+	
+		console.log(xhr.responseText);
+		var str = xhr.responseText;
+		var arr = str.split(" ");
+		if(arr[0]!=-1){
+			document.getElementById("specificGPA").innerHTML=arr[0];
+			if(arr[1].trim()!=-1){
+				document.getElementById("challenging").style.display="block";
+				document.getElementById("challenging").innerHTML=arr[1].trim()+'% of the students think '+"<%=coursename%>"+' with '+fname+' '+lname+' is challenging.';
+			}
+			if (arr[2].trim() != -1) {
+				document.getElementById("recommendRate").style.display = "block";
+				document.getElementById("recommendRate").innerHTML = arr[2].trim()+'% of the students recommend Professor '+fname+" "+lname+'.';
+			}
+			if (arr[1].trim() == -1 || arr[2].trim() == -1) {
+				document.getElementById("challenging").style.display = "none";
+				document.getElementById("recommendRate").style.display = "none";
+			}
+		} else {
+			document.getElementById("challenging").style.display = "none";
+			document.getElementById("recommendRate").style.display = "none";
+			document.getElementById("specificGPA").style.display = "none";
+			document.getElementById("average").style.display = "none";
+			document.getElementById("nodata").style.display = "block";
+		}
+	}
 
- 		google.charts.load("current", {packages:['corechart']});
-		google.setOnLoadCallback(drawChart); 
-
-   		function drawChart(){
-   			<%-- var xhttp = new XMLHttpRequest();
-   			xhttp.open("GET", "chartServlet?term=" + document.getElementById("term").innerHTML + "&course=<%=request.getParameter("courseName")%>", false); --%>
-/* 			xhttp.send();
-			if(xhttp.responseText.trim().length > 0)
+	google.charts.load("current", {packages :['corechart']});
+	google.setOnLoadCallback(drawChart);
+	var listProfessor = [];
+	var listGPAstring = [];
+	function drawChart() {
+		console.log("in draw chart");
+		var term = document.getElementById("term-dropdown").value;
+		if (term != "none") {
+			var chart = new google.visualization.ColumnChart(document
+					.getElementById('columnchart_values'));
+			var xhttp = new XMLHttpRequest();
+			xhttp.open("GET", "chartServlet?term="+document.getElementById("term").innerHTML+ "&course="+"<%=request.getParameter("courseName")%>", false);
+		
+		xhttp.send();
+		console.log("draw chart responseText:"+xhttp.responseText);
+		if (xhttp.responseText!=null)
+		{
+			console.log("in here"+xhttp.responseText);
+			var str = xhttp.responseText;
+			var profandgpa = str.split("|");
+			var profs = profandgpa[0];
+			var gpas = profandgpa[1];
+			//var listProfessor = JSON.parse(xhttp.responseText);
+			listProfessor = profs.split(",");
+			listGPAstring = gpas.split(",")
+			/* if(listProfessor.length==listGPAstring.length){
+				console.log("equal length");//for debug
+			}
+			var i;
+			for(i = 0; i < listProfessor.length; i++)
 			{
-				console.log(xhttp.responseText);	
+				console.log("checking responseText, "+listProfessor[i]+" "+listGPAstring[i]);
+				
 			} */
-   			console.log("in draw chart");
-   			var term = document.getElementById("term-dropdown").value;
-   			if(term != "none")
+			
+		} 
+			var i;
+			var listGPA = [];
+			for(i = 0; i < listProfessor.length; i++)
 			{
-   				var	chart = new google.visualization.ColumnChart(document.getElementById('columnchart_values'));
-				var xhttp = new XMLHttpRequest();
-				xhttp.open("GET", "chartServlet?term=" + document.getElementById("term").innerHTML + "&course=<%=request.getParameter("courseName")%>", true);
 				
-/* 				xhttp.send();
-				if (xhttp.responseText.trim.length > 0)
-				{
-					console.log(xhttp.responseText);
-					var listProfessor = JSON.parse(xhttp.responseText);
-					var i;
-					for(i = 0; i < listProfessor.length; i++)
-					{
-						console.log(listProfessor[i]);
-					}
-					
-				}  */
+				console.log(listProfessor[i]);
+				listGPA.push(parseFloat(listGPAstring[i]));
+			}
+				console.log("listProfessor:"+listProfessor);
+				console.log("listGPA"+listGPA);
 				
- 	  			xhttp.onload = function(){
-	  				var listProfessor = (<%=(ArrayList<String>)session.getAttribute("listProfessor") %>);
-	  				var listGPA = (<%=(ArrayList<Integer>)session.getAttribute("listGPA") %>); 
-	  				
-/*  	  				var listProfessor = request.getAttribute("listProfessor");
-	  				var listGPA = request.getAttribute("listGPA");  */
-	  				/* var Professor = JSON.parse(xhttp.responseText);
-					var i;
-					for(i = 0; i < Professor.length; i++)
-					{
-						console.log(Professor[i]);
-					}
-	  				 */
-	  				console.log(listProfessor);
-	  				console.log(listGPA);
-	  				
-	  				var data = google.visualization.arrayToDataTable([
-	          			["Professor", "GPA", { role: "style" } ],
-	           		 	["", 0.0, "#FFF4F4"], 
-	        		]);
-					
-	         		var colorList = ["#809BCE", "#95B8D1", "#B8E0D2", "#D6EADF", "#EAC4D5", "#E87461", "#E0C879", "#D5D887", "#A1CF6B", "#7AC74F"];
-	<%--          		console.log(<%= request.getSession().getAttribute("listProfessor") %>); --%>
-	       			var i;
-	      			var j  = listProfessor.length;
-	      			for (i = 0; i < j; i++) {
-	      				console.log(listProfessor[i]);
-	      				console.log(listGPA[i]);
-	      				data.addRows([[listProfessor[i], listGPA[i], colorList[i]]]);
-	      			}
-		
-	        		var view = new google.visualization.DataView(data);
-	        		view.setColumns(
-		        	[0, 1,
-		            	{ 
-		        			calc: "stringify",
-		                	sourceColumn: 1,
-		                	type: "string",
-		                	role: "annotation" 
-		                },
-		            2]); 
-		
-			        var options = {
-			        	title: "GPA of " + "<%=request.getParameter("courseName")%>" + " in " + document.getElementById("term").innerHTML,
-			        	width: 600,
-			        	height: 400,
-			        	bar: {groupWidth: "90%"},
-			        	legend: { position: "none" },
-			        	backgroundColor: '#FFF4F4',
-			        };
-			        
-			      	chart.draw(view, options);
-	  			}
-				
-			xhttp.send();
-		}		 
-  	}
-		
-	</script>
+				var data = google.visualization.arrayToDataTable([
+      			["Professor", "GPA", { role: "style" } ],
+       		 	["", 0.0, "#FFF4F4"], 
+    		]);
+			
+     		var colorList = ["#809BCE", "#95B8D1", "#B8E0D2", "#D6EADF", "#EAC4D5", "#E87461", "#E0C879", "#D5D887", "#A1CF6B", "#7AC74F"];
+
+   			var i;
+  			var j  = listProfessor.length;
+  			for (i = 0; i < j; i++) {
+  				console.log(listProfessor[i]);
+  				console.log(listGPA[i]);
+  				data.addRows([[listProfessor[i], listGPA[i], colorList[i]]]);
+  			}
+
+    		var view = new google.visualization.DataView(data);
+    		view.setColumns(
+        	[0, 1,
+            	{ 
+        			calc: "stringify",
+                	sourceColumn: 1,
+                	type: "string",
+                	role: "annotation" 
+                },
+            2]); 
+
+	        var options = {
+	        	title: "GPA of " + "<%=request.getParameter("courseName")%>" + " in " + document.getElementById("term").innerHTML,
+	        	width: 600,
+	        	height: 400,
+	        	bar: {groupWidth: "90%"},
+	        	legend: { position: "none" },
+	        	backgroundColor: '#FFF4F4',
+	        };
+	        
+	      	chart.draw(view, options);
+}		 
+}
+
+
+
+</script>
 
 </div><!-- main -->
 </body>
