@@ -295,7 +295,8 @@
 		</tr>
 	</table>
 	
-	<h1>The average GPA for <span id="term"></span> by <span id="professor"></span> is</h1>
+	<h1 id="noselect">Please select terms and/or professors to view details :)</h1>
+	<h1 id="average" style="display:none;">The average GPA for <span id="term"></span> by <span id="professor"></span> is</h1>
 	<div id="specificGPA" style="text-align:center"></div>
 	<p id="challenging"></p>
 	<p id="recommendRate"></p>
@@ -309,18 +310,40 @@
 			var professor = document.getElementById("professor-dropdown").value;
 			console.log("in jsp, term:"+term);
 			console.log("in jsp, professor:"+professor);
-			if(term == "none"){
- 				document.getElementById("term").innerHTML = "all terms";
- 			}
- 			else{
- 				document.getElementById("term").innerHTML = term;
- 			}
- 			if(professor == "none"){
- 				document.getElementById("professor").innerHTML = "all professors";
- 			}
- 			else{
- 				document.getElementById("professor").innerHTML = professor;
- 			}
+			if(professor!="none"){
+				var names = professor.split(" ");
+				var fname = names[0];
+				var lname = names[1];
+				fname = fname[0].toUpperCase()+fname.substring(1);
+				lname = lname[0].toUpperCase()+lname.substring(1); 
+			} 
+			
+			if(term=="none" && professor=="none"){
+				document.getElementById("noselect").style.display="block";
+				return;
+			}
+			else{
+				document.getElementById("noselect").style.display="none";
+				document.getElementById("average").style.display="block";
+				if(term == "none"){
+					document.getElementById("challenging").style.display="none";
+					document.getElementById("recommendRate").style.display="none";
+	 				document.getElementById("term").innerHTML = "all terms";
+	 				document.getElementById("professor").innerHTML = fname+" "+lname;
+	 			}
+	 			else if(professor == "none"){
+	 				document.getElementById("challenging").style.display="none";
+					document.getElementById("recommendRate").style.display="none";
+	 				document.getElementById("term").innerHTML = term;
+	 				document.getElementById("professor").innerHTML = "all professors";
+	 			}
+	 			else{
+	 				document.getElementById("challenging").style.display="block";
+					document.getElementById("recommendRate").style.display="block";
+	 				document.getElementById("term").innerHTML = term;
+	 				document.getElementById("professor").innerHTML = fname+" "+lname;
+	 			}
+			}
 			
 	 		var xhr = new XMLHttpRequest();
 		 	xhr.open('GET',"DetailServlet?term="+term+"&professor="+professor+"&courseName="+"<%=coursename%>",false);

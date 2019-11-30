@@ -33,13 +33,19 @@ public class DetailServlet extends HttpServlet {
 		System.out.println("in detailservlet");
 		String courseName = request.getParameter("courseName");
 		String term = request.getParameter("term");
-		String[] termsplit = term.split("\\s+");
-		String termNumber = termsplit[0];
-		if(termsplit[1].contentEquals("Spring")) {
-			termNumber+="1";
-		}else if(termsplit[1].contentEquals("Summer")) {
-			termNumber+="2";
-		}else termNumber+="3";
+		String termNumber = "";
+		if(!term.contentEquals("none")) {
+			String[] termsplit = term.split("\\s+");
+			termNumber = termsplit[0];
+			if(termsplit[1].contentEquals("Spring")) {
+				termNumber+="1";
+			}else if(termsplit[1].contentEquals("Summer")) {
+				termNumber+="2";
+			}else termNumber+="3";
+		}
+		else {
+			termNumber = "none";
+		}
 		String professor = request.getParameter("professor");
 		double specificGPA = -1;
 		//String specificGPA = "";
@@ -54,28 +60,13 @@ public class DetailServlet extends HttpServlet {
 		
 		Database db = new Database();
 		
-//		request.setAttribute("courseName", courseName);
-//		request.setAttribute("courseDescription", db.getDescription(courseName));
-		if(courseName == "" && professor == "") {
-//			session.setAttribute("specificGPA",db.getSpecificGPA("none", "none", courseName));
-			specificGPA=db.getSpecificGPA("none", "none", courseName);
-		}
-		else {
-//			System.out.println(db.getSpecificGPA(term,professor, courseName));
-//			session.setAttribute("specificGPA",db.getSpecificGPA(term, professor, courseName));
-			specificGPA=db.getSpecificGPA(termNumber, professor, courseName);
-		}
+		specificGPA=db.getSpecificGPA(termNumber, professor, courseName);		
 		
 		if(professor !="" && !professor.contains("none")) {
-//			session.setAttribute("challenging", db.getChallenging(professor, courseName));
-//			session.setAttribute("recommendRate", db.getRecommendRate(professor, courseName));
 			challenging=db.getChallenging(professor, courseName);
 			recommend=db.getRecommendRate(professor, courseName);
 		}
-		else {
-//			session.setAttribute("challenging", "");
-//			session.setAttribute("recommendRate", "");
-		}
+		
 		System.out.println("in servlet");
 		out.println(specificGPA+" "+challenging+" "+recommend);
 		out.flush();
