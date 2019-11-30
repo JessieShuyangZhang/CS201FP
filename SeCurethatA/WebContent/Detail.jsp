@@ -287,10 +287,7 @@
 	
 <div id="main">
 	
-	<div id='course-info'>
-<%-- 		<h1 id="course"><%=request.getAttribute("courseName")%></h1>
-		<h3><%=request.getAttribute("courseDescription")%></h3> --%>
-		
+	<div id='course-info'>		
 		<h1 id="course-name"><%=coursename%></h1>
 		<h3 id='course-description'><%=coursedescription%></h3>
 	</div><!-- course info -->
@@ -353,8 +350,7 @@
 	
 <script>
 
-function select(){
-	//console.log("in select()");			
+function select(){		
 	document.getElementById("nodata").style.display="none";
 	document.getElementById("challenging").style.display="none";
 	document.getElementById("recommendRate").style.display="none";
@@ -448,19 +444,9 @@ function select(){
 			var profandgpa = str.split("|");
 			var profs = profandgpa[0];
 			var gpas = profandgpa[1];
-			//var listProfessor = JSON.parse(xhttp.responseText);
+			
 			listProfessor = profs.split(",");
 			listGPAstring = gpas.split(",")
-			/* if(listProfessor.length==listGPAstring.length){
-				console.log("equal length");//for debug
-			}
-			var i;
-			for(i = 0; i < listProfessor.length; i++)
-			{
-				console.log("checking responseText, "+listProfessor[i]+" "+listGPAstring[i]);
-				
-			} */
-			
 		} 
 			var i;
 			var listGPA = [];
