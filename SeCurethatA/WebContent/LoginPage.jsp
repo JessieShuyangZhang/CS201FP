@@ -201,6 +201,7 @@
     	padding-top:5px;
     	padding-bottom: 5px;
     	font-size: 16px;
+    	visibility: hidden;
     }
     
     #submit{
@@ -216,10 +217,6 @@
 		font-family: 'Lato', sans-serif;
 	}
 	
-	#error_msg {
-		visibility: hidden;
-	}
-
 </style>
 <script>
 	function updateError() {

@@ -21,9 +21,9 @@
 <style>
 	#header{
 		background-image: url(images/background1.jpg);
-	      height: 900px;
-	      background-size: cover;
-	      background-position: center; 
+	    height: 900px;
+	    background-size: cover;
+	    background-position: center; 
 	}
 	
 	#topbar{
@@ -47,23 +47,23 @@
 		margin-right:0;
 	}
 	
-     #header-right #right-button {
-       text-decoration: none;
-       color: #EA70A7;
-     }
+    #header-right #right-button {
+      	text-decoration: none;
+      	color: #EA70A7;
+    }
 
-     #header-right #right-button:hover {
-       color: #7A797A;
-     }
+    #header-right #right-button:hover {
+      	color: #7A797A;
+    }
      
-     #header-right #left-button {
-       text-decoration: none;
-       color: #EA70A7;
-     }
+    #header-right #left-button {
+	 	text-decoration: none;
+	    color: #EA70A7;
+    }
 
-     #header-right #left-button:hover {
-       color: #7A797A;
-     }		
+    #header-right #left-button:hover {
+      	color: #7A797A;
+    }		
 	
 	html, body {
 		height: 100%;
@@ -149,18 +149,19 @@
 	#container {
 		margin-left:0;
 	}
+	
 	#footer
     {
-      text-align: center;
-      background-color: #EFEDEF;
-      color: #7A797A;
-      height: 35px; 
-      position: relative;
+		text-align: center;
+		background-color: #EFEDEF;
+		color: #7A797A;
+		height: 35px; 
+		position: relative;
     }
 
     #footer p{
-      line-height: 35px;
-      margin: 0px;
+		line-height: 35px;
+		margin: 0px;
     }
     
     #main {
@@ -175,7 +176,7 @@
     }
     
     #placeholder {
-    	height: 75px;
+    	height: 130px;
     }
     
     #username, .password{
@@ -190,16 +191,34 @@
     	color: #cc0000;
     	font-weight:bold;
     	margin-left: 16px;
-    	width:307px;
-    	margin-top: 20px;
+    	width:390px;
+    	margin-top: 25px;
     	background-color: white;
     	padding-top:5px;
     	padding-bottom: 5px;
     	font-size: 16px;
     }
+    
+    #submit{
+		height: 44px;
+		width: 392px;
+		font-size: 18px;
+		font-weight:bold;
+		margin-top: 40px;
+		padding-top: 1px;
+		color: white;
+		border-radius: 5px;
+		background-color: #D56AA0;
+		font-family: 'Lato', sans-serif;
+	}
 
 </style>
-
+<script>
+	function updateError() {
+		var error_msg = document.getElementById('error_msg');
+		error_msg.style.visibility = 'visible';
+	}
+</script>
 </head>
 <body>
 
@@ -300,6 +319,11 @@
 			<div class="col-lg-4" id="error_msg" style="background:#EFEDEF">
 			Error:
 			<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
+			<% if (request.getAttribute("error") != null) {%>
+					<script>
+					updateError();
+					</script>
+			<% } %>
 		    </div><!-- error-msg -->
 		    <div class="col-lg-4"></div>
 		</div><!-- row -->
