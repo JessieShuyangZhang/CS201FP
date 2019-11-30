@@ -24,6 +24,7 @@
 	      height: 900px;
 	      background-size: cover;
 	      background-position: center; 
+	      width: 100%;
 	}
 	
 	#topbar{
@@ -39,12 +40,14 @@
 	#header-left {
 		float:left;
 		width: 80%;
+		margin-right: 0;
 	}
 	
 	#header-right {
-		display: inline-block;
 		width: 20%;
+		display: inline-block;
 		margin-right:0;
+		margin-left: 0;
 	}
 	
      #header-right #right-button {
@@ -83,20 +86,20 @@
 	
 	#left-button{
 		float:right; 
-		
 		font-size: 18px;
 		line-height: 62px;
 		color: #EA70A7;
 		font-family: 'Lato', sans-serif;
+		margin-right: 30px;
 	}
 	
 	#right-button{
 	 	display: inline-block; 
-		/*float: right;*/
+		float: right;
 		font-size: 18px;
 		line-height: 60px;
 		color: #EA70A7;
-		margin-left:40px;
+		margin-left: 0px;
 		font-family: 'Lato', sans-serif;
 	}
 	
