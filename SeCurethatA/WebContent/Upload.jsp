@@ -21,10 +21,12 @@
 
 <style>
 	body {
-		background: #DEC5D2;
+		/* background: #DEC5D2; */	    	
 	}
 	
 	#header {
+		background-image: url(images/background1.jpg);
+		/* background-color: rgba(140, 140, 140, 0.2); */
 	    height: 900px;
 	    background-size: cover;
 	    background-position: center; 
@@ -150,10 +152,6 @@
 		clear: both;
 	}
 	
-	#container {
-		margin-left:0;
-	}
-	
 	#footer {
 	    text-align: center;
 	    background-color: #EFEDEF;
@@ -168,7 +166,13 @@
     }
     
     #main {
-    	height:490px;
+    	background-color: rgba(199, 169, 183, 0.6);
+    	height: 74%;
+		width: 100%;
+		margin-right:0;
+		margin-top:2%;		 	
+		margin-left:0;
+		margin-bottom:0;
     }
     
     h3 {
@@ -405,15 +409,6 @@
 		
 			
 		</form>
-		<%-- <div class="row">
-			<div class="col-lg-4"></div>
-			<% if(request.getAttribute("error") != null){%> 
-				<div class="col-lg-4" id="error_msg" style="background:#EFEDEF"> ERROR: 
-			<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
-			<%} %>
-		    </div><!-- error-msg -->
-		    <div class="col-lg-4"></div>
-		</div><!-- row --> --%>
 		<div class="row">
 			<div class="col-lg-4"></div>
 			<div class="col-lg-4" id="error_msg" style="background:#EFEDEF">
