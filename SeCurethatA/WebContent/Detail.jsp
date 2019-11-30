@@ -330,7 +330,7 @@
 	<h1 id="noselect">Please select terms and/or professors to view details :)</h1>
 	<h1 id="nodata" style="display:none;">No data available.</h1>
 	<h1 id="average" style="display:none;">The average GPA for <span id="term"></span> by <span id="professor"></span> is</h1>
-	<div id="specificGPA" style="text-align:center"></div>
+	<div id="specificGPA" style="text-align:center;display:none;"></div>
 	<p id="challenging"></p>
 	<p id="recommendRate"></p>
 	
