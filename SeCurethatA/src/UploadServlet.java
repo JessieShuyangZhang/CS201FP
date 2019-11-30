@@ -32,32 +32,27 @@ public class UploadServlet extends HttpServlet {
 		String gpa = request.getParameter("gpa");
 		String recommend = request.getParameter("recommend");
 		String challenging = request.getParameter("challenging");
-//		Httprequest request = request.getrequest();
 		String err = null;
 		
 		if(gpa == "") {
-			//request.setAttribute("error", "Please enter your GPA.");
 			err = "Please enter your GPA.";
 		}
 		else if(recommend == null) {
-//			request.setAttribute("error", "Do you recommend this professor?");
 			err = "Do you recommend this professor?";
 		}
 		else if(challenging == null) {
-//			request.setAttribute("error", "Do you think this course with this professor is challenging?");
 			err = "Do you think this course with this professor is challenging?"; 
 		}
 		else {
 			//connect to database and upload the data
 			Database db = new Database();
 			boolean upload = db.upload(course, term, professor, gpa, recommend, challenging);
-			
 			if(upload)
 			{
-
+//				request.setAttribute("error", "Congrats! You successfully upload your GPA!");
 			}
 			else {
-
+//				request.setAttribute("error", "Upload fail. Please try again.");
 				err= "Upload fail. Please try again.";
 			}
 		}
