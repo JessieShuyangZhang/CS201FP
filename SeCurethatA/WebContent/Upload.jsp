@@ -20,14 +20,17 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <style>
-	#header{
-		background-image: url(images/background1.jpg);
-	      height: 900px;
-	      background-size: cover;
-	      background-position: center; 
+	body {
+		background: #DEC5D2;
 	}
 	
-	#topbar{
+	#header {
+	    height: 900px;
+	    background-size: cover;
+	    background-position: center; 
+	}
+	
+	#topbar {
 		background-color: #EFEDEF;
 		color:  #7A797A;
 		opacity: 0.85;
@@ -47,23 +50,24 @@
 		width:250px; 
 		margin-right:0;
 	}
-     #header-right #right-button {
-       text-decoration: none;
-       color: #EA70A7;
-     }
+	
+    #header-right #right-button {
+    	text-decoration: none;
+    	color: #EA70A7;
+    }
 
-     #header-right #right-button:hover {
-       color: #7A797A;
-     }
-     
-     #header-right #left-button {
-       text-decoration: none;
-       color: #EA70A7;
-     }
+    #header-right #right-button:hover {
+      	color: #7A797A;
+    }
+    
+    #header-right #left-button {
+	    text-decoration: none;
+	    color: #EA70A7;
+    }
 
-     #header-right #left-button:hover {
-       color: #7A797A;
-     }		
+    #header-right #left-button:hover {
+      	color: #7A797A;
+    }		
 	
 	html, body {
 		height: 100%;
@@ -149,18 +153,18 @@
 	#container {
 		margin-left:0;
 	}
-	#footer
-    {
-      text-align: center;
-      background-color: #EFEDEF;
-      color: #7A797A;
-      height: 35px; 
-      position: relative;
+	
+	#footer {
+	    text-align: center;
+	    background-color: #EFEDEF;
+	    color: #7A797A;
+	    height: 35px; 
+	    position: relative;
     }
 
     #footer p{
-      line-height: 35px;
-      margin: 0px;
+	    line-height: 35px;
+	    margin: 0px;
     }
     
     #main {
@@ -189,22 +193,45 @@
     	color: #cc0000;
     	font-weight:bold;
     	margin-left: 16px;
-    	width:307px;
-    	margin-top: 20px;
+    	width:390px;
+    	margin-top: 25px;
     	background-color: white;
     	padding-top:5px;
     	padding-bottom: 5px;
     	font-size: 16px;
+    	visibility: hidden;
     }
+    
+    #submit{
+		height: 44px;
+		width: 392px;
+		font-size: 18px;
+		font-weight:bold;
+		margin-top: 40px;
+		padding-top: 1px;
+		color: white;
+		border-radius: 5px;
+		background-color: #D56AA0;
+		font-family: 'Lato', sans-serif;
+	}
 
 </style>
+<script>
+	function updateError() {
+		var error_msg = document.getElementById('error_msg');
+		error_msg.style.visibility = 'visible';
+	}
+	
+	function updateSuccess() {
+		var error_msg = document.getElementById('error_msg');
+		error_msg.style.visibility = 'visible';
+		error_msg.style.color = '#36703F';
+		error_msg.style.borderLeftColor = '#36703F';
+	}
+</script>
 </head>
 <body>
-<%-- <script type="text/javascript"> 
-	var msg = "<%=session.getAttribute("message")%>";
-	if(msg != null && msg != "null")
-		alert(msg);
-</script> --%>
+
 	<div id="header">
 	<div id="topbar">
 	<div id="header-left">
@@ -260,7 +287,7 @@
 	<!-- <h3 style="text-align:center">Upload Your GPA</h3>
 	<hr class="line" style="width:100%; position:relative;left:0%;"></hr> -->
 	
-	<div class="container" id="main">
+	<div class="container" id='main'>
   		<form name="upload" action="UploadServlet">
 			<div class="row">
 				<div class="col-lg-4"></div>
@@ -390,8 +417,18 @@
 		<div class="row">
 			<div class="col-lg-4"></div>
 			<div class="col-lg-4" id="error_msg" style="background:#EFEDEF">
-			Error:
-			<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
+			<% if (request.getAttribute("error") != null) {%>
+				Error: <%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
+				<script>
+				updateError();
+				</script>
+			<% } 
+			   else {%>
+			   		You have uploaded successfully
+			   		<script>
+					updateSuccess();
+					</script>
+			<% } %>
 		    </div><!-- error-msg -->
 		    <div class="col-lg-4"></div>
 		</div><!-- row -->
