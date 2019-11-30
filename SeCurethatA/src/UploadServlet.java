@@ -65,7 +65,10 @@ public class UploadServlet extends HttpServlet {
 			request.setAttribute("error",err);
 			System.out.println("err:"+err);
 		}
-		else{System.out.println("no err");}
+		else {
+			request.setAttribute("success", "success!");
+			System.out.println("no err");
+		}
 		//direct back to upload page
 		try {
 			System.out.println("reached dispatch");

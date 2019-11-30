@@ -418,7 +418,7 @@
 				updateError();
 				</script>
 			<% } 
-			   else {%>
+			if (request.getAttribute("success") != null) {%>
 			   		You have uploaded successfully
 			   		<script>
 					updateSuccess();
