@@ -21,10 +21,10 @@
 <style>	
 	#header{
 		background-image: url(images/background1.jpg);
-	      height: 900px;
-	      background-size: cover;
-	      background-position: center; 
-	      width: 100%;
+	    height: 900px;
+	    background-size: cover;
+	    background-position: center; 
+	    width: 100%;
 	}
 	
 	#topbar{
@@ -50,23 +50,23 @@
 		margin-left: 0;
 	}
 	
-     #header-right #right-button {
-       text-decoration: none;
-       color: #EA70A7;
-     }
+    #header-right #right-button {
+    	text-decoration: none;
+      	color: #EA70A7;
+    }
 
-     #header-right #right-button:hover {
-       color: #7A797A;
-     }
-     
-     #header-right #left-button {
-       text-decoration: none;
-       color: #EA70A7;
-     }
+    #header-right #right-button:hover {
+      	color: #7A797A;
+    }
+    
+    #header-right #left-button {
+    	text-decoration: none;
+      	color: #EA70A7;
+    }
 
-     #header-right #left-button:hover {
-       color: #7A797A;
-     }		
+    #header-right #left-button:hover {
+      	color: #7A797A;
+    }		
 	
 	html, body {
 		height: 100%;
@@ -156,16 +156,16 @@
 	}
 	#footer
     {
-      text-align: center;
-      background-color: #EFEDEF;
-      color: #7A797A;
-      height: 35px; 
-      position: relative;
+		text-align: center;
+		background-color: #EFEDEF;
+		color: #7A797A;
+		height: 35px; 
+		position: relative;
     }
 
     #footer p{
-      line-height: 35px;
-      margin: 0px;
+		line-height: 35px;
+		margin: 0px;
     }
     
     #main {
@@ -204,26 +204,6 @@
     }
 
 </style>
-
-<script>
-/*
-function validate() {
-	var xhttp = new XMLHttpRequest();
-	xhttp.open("GET", "LoginServlet?username=" + document.loginform.username.value + "&password=" + document.loginform.password.value, false);
-	xhttp.send();
-	if (xhttp.responseText.trim().length > 0) {
-		document.getElementById("errMsg").innerHTML = xhttp.responseText;
-		return false;
-	}
-	else {
- 		//window.sessionStorage.setItem('user', document.loginform.username.value);
-		//window.sessionStorage.setItem('loggedIn', 'yes'); 
-		return true;
-	}
-}
-*/
-</script>
-
 </head>
 <body>
 
