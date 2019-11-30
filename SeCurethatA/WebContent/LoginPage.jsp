@@ -82,7 +82,8 @@
 	}
 	
 	#left-button{
-		float:right;
+		float:right; 
+		
 		font-size: 18px;
 		line-height: 62px;
 		color: #EA70A7;
@@ -90,7 +91,8 @@
 	}
 	
 	#right-button{
-		float: right;
+	 	display: inline-block; 
+		/*float: right;*/
 		font-size: 18px;
 		line-height: 60px;
 		color: #EA70A7;

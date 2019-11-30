@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+//import javax.servlet.http.Httprequest;
 
 /**
  * Servlet implementation class UploadServlet
@@ -32,37 +32,43 @@ public class UploadServlet extends HttpServlet {
 		String gpa = request.getParameter("gpa");
 		String recommend = request.getParameter("recommend");
 		String challenging = request.getParameter("challenging");
-		HttpSession session = request.getSession();
+//		Httprequest request = request.getrequest();
+		String err = null;
 		
 		if(gpa == "") {
-			session.setAttribute("message", "Please enter your GPA.");
+			//request.setAttribute("error", "Please enter your GPA.");
+			err = "Please enter your GPA.";
 		}
 		else if(recommend == null) {
-			session.setAttribute("gpa", gpa);
-			session.setAttribute("message", "Do you recommend this professor?");
+//			request.setAttribute("error", "Do you recommend this professor?");
+			err = "Do you recommend this professor?";
 		}
 		else if(challenging == null) {
-			session.setAttribute("gpa", gpa);
-			session.setAttribute("message", "Do you think this course with this professor is challenging?");
+//			request.setAttribute("error", "Do you think this course with this professor is challenging?");
+			err = "Do you think this course with this professor is challenging?"; 
 		}
 		else {
 			//connect to database and upload the data
 			Database db = new Database();
 			boolean upload = db.upload(course, term, professor, gpa, recommend, challenging);
-			//boolean upload = false;
-			session.setAttribute("upload", upload);
+			//request.setAttribute("upload", upload);
 			if(upload)
 			{
-				session.setAttribute("message", "Congrats! You successfully upload your GPA!");
+//				request.setAttribute("error", "Congrats! You successfully upload your GPA!");
 			}
 			else {
-				session.setAttribute("message", "Upload fail. Please try again.");
+//				request.setAttribute("error", "Upload fail. Please try again.");
+				err= "Upload fail. Please try again.";
 			}
 		}
-		
-		
+		if(err!=null) {
+			request.setAttribute("error",err);
+			System.out.println("err:"+err);
+		}
+		else{System.out.println("no err");}
 		//direct back to upload page
 		try {
+			System.out.println("reached dispatch");
     		request.getRequestDispatcher("/Upload.jsp").forward(request,response);
     	}catch(IOException e) {
     		e.printStackTrace();

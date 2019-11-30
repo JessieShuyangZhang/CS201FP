@@ -39,15 +39,14 @@
 	
 	#header-left {
 		float:left;
-		width: 80%;
+		width:980px;
 	}
 	
 	#header-right {
-		display: inline-block;
-		width: 20%;
+		float:left;
+		width:250px; 
 		margin-right:0;
 	}
-	
      #header-right #right-button {
        text-decoration: none;
        color: #EA70A7;
@@ -201,11 +200,11 @@
 </style>
 </head>
 <body>
-<script type="text/javascript"> 
+<%-- <script type="text/javascript"> 
 	var msg = "<%=session.getAttribute("message")%>";
 	if(msg != null && msg != "null")
 		alert(msg);
-</script>
+</script> --%>
 	<div id="header">
 	<div id="topbar">
 	<div id="header-left">
@@ -261,8 +260,8 @@
 	<!-- <h3 style="text-align:center">Upload Your GPA</h3>
 	<hr class="line" style="width:100%; position:relative;left:0%;"></hr> -->
 	
-	<div class="container" id="main">	
-  		
+	<div class="container" id="main">
+  		<form name="upload" action="UploadServlet">
 			<div class="row">
 				<div class="col-lg-4"></div>
 				<div class="info col-lg-4">
@@ -379,11 +378,19 @@
 		
 			
 		</form>
-		<div class="row">
+		<%-- <div class="row">
 			<div class="col-lg-4"></div>
 			<% if(request.getAttribute("error") != null){%> 
-				<div class="col-lg-4" id="error_msg" style="background:#EFEDEF"> ERROR 
+				<div class="col-lg-4" id="error_msg" style="background:#EFEDEF"> ERROR: 
+			<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
 			<%} %>
+		    </div><!-- error-msg -->
+		    <div class="col-lg-4"></div>
+		</div><!-- row --> --%>
+		<div class="row">
+			<div class="col-lg-4"></div>
+			<div class="col-lg-4" id="error_msg" style="background:#EFEDEF">
+			Error:
 			<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
 		    </div><!-- error-msg -->
 		    <div class="col-lg-4"></div>

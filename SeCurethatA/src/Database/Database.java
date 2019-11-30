@@ -398,7 +398,7 @@ public class Database {
 				return true;
 			}
 			if(!hasResult) {
-				System.out.println("reach insert");
+//				System.out.println("reach insert");
 				String insert = "INSERT INTO GPA (courseID, professorID, courseName, term, avgGPA, counts, challenging, rec) "
 						+ "VALUES (?,?,"//courseID profID
 						+ "(SELECT courseName FROM Course WHERE courseID = ?),"//courseName
@@ -459,7 +459,7 @@ public class Database {
 				String[] info = new String[2];
 				info[0] = resultSet.getString("professorID");
 				info[1] = resultSet.getString("fname")+" "+resultSet.getString("lname");
-				System.out.println(info[0] +" "+info[1]);
+//				System.out.println(info[0] +" "+info[1]);
 				professors.add(info);
 			}
 			return professors;
@@ -497,7 +497,7 @@ public class Database {
 				String[] info = new String[2];
 				info[0] = resultSet.getString("courseID");
 				info[1] = resultSet.getString("courseName");
-				System.out.println(info[0] +" "+info[1]);
+				//System.out.println(info[0] +" "+info[1]);
 				courses.add(info);
 			}
 			return courses;

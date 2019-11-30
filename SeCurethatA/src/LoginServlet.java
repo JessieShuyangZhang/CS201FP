@@ -20,7 +20,6 @@ public class LoginServlet extends HttpServlet {
 		String errmsg2 = "";
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-//		PrintWriter out = response.getWriter();
 		if (username.trim().length() == 0 || password.trim().length() == 0) {
 			errmsg1 = "Please fill out all fields.";
 		} else {
@@ -31,7 +30,6 @@ public class LoginServlet extends HttpServlet {
 			}
 		}
 		String errmsg = errmsg1 + errmsg2;
-//		out.println(errmsg);
 		if(!errmsg.trim().contentEquals("")) {
 			request.setAttribute("error",errmsg); 
 			  RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/LoginPage.jsp"); 
