@@ -209,19 +209,36 @@
 		color:grey;
 	}
 	
+	#course-info {
+		padding-top: 20px;
+	}
+	
 	.clear-float{
 		clear: both;
 	}
 	
 	#course-name {
 		font-family: 'Lato', sans-serif;
-		
+		font-weight: bold;
+		color: #336699;
 	}
 	
 	#course-description {
 		font-family: 'Lato', sans-serif;
+		font-size: 18px;
 	}
-		</style>
+	
+	.right-professor {
+		margin-left:30px;
+	}
+	
+	#term-div, #professor-div {
+		border: 1px solid black;
+		text-align:center;
+		background: white;
+		margin-bottom: 10px;
+	}
+	</style>
 	</head>
 <body>
 	<div id="header">
@@ -290,7 +307,9 @@
 	<table>
 		<tr>
 			<td>
-				<h4 style="color:grey">Term</h4>
+				<div id='term-div'>
+					<h4 style="color:#336699; font-weight:bold;">Term</h4>
+				</div><!-- term div -->
  				<select id="term-dropdown" name="term" onchange="select(); drawChart();">
 					<option value="none">Select a Term</option>
 					<%				
@@ -308,7 +327,10 @@
 		  		</select>
 		  	
 		  	<td>
-		  		<h4 style="color:grey">Professor</h4>
+		  		<div class='right-professor'>
+		  		<div id='professor-div'>
+		  			<h4 style="color:#336699; font-weight: bold;">Professor</h4>
+		  		</div><!-- professor div -->
  				<select name="professor" id="professor-dropdown" onchange="select()">
 					<option value="none">Select a Professor</option>
 					<%
@@ -322,7 +344,8 @@
 					<% 
 						}}
 					%>
-		  		</select> 
+		  		</select>
+		  		</div><!-- right professor -->
 		  	
 		</tr>
 	</table>
