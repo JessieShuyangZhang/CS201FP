@@ -197,6 +197,7 @@
     	padding-top:5px;
     	padding-bottom: 5px;
     	font-size: 16px;
+		visibility: hidden;
     }
     
     #submit{
@@ -300,7 +301,7 @@
 				<div class="col-lg-4"></div>
 				<div class="info col-lg-4">
 					<h3>Confirm Password</h3>
-					 <input id="password" class="password" type="password" name="password" /><br />
+					 <input id="password" class="password" type="password" name="confirm" /><br />
 				</div>
 				<div class="col-lg-4"></div>
 			</div><!-- row -->
@@ -318,8 +319,8 @@
 			<div class="col-lg-4"></div>
 			<div class="col-lg-4" id="error_msg" style="background:#EFEDEF">
 			Error:
-			<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
-			<% if (request.getAttribute("error") != null) {%>
+			<%= session.getAttribute("errMsg") != null ? session.getAttribute("errMsg"):"" %>
+			<% if (session.getAttribute("errMsg") != null) {%>
 					<script>
 					updateError();
 					</script>
