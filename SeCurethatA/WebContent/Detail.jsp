@@ -183,6 +183,38 @@
 		margin-bottom: 10px;
 		height: 37px;
 	}
+	
+	#noselect {
+		font-family: 'Lato', sans-serif;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	
+	#average {
+		font-family: 'Lato', sans-serif;
+		font-size: 20px;
+		font-weight: bold;
+	}
+	
+	#specificGPA {
+		border-radius: 40px;
+		height: 70px;
+		width: 160px;
+		background: #336699;
+		color: #FFC7D4;
+		font-family: 'Lato', sans-serif;
+		font-size: 40px;
+		font-weight: bold;
+		margin-left: 320px;
+		padding-top: 5px;
+		margin-top: 20px;
+	}
+	
+	#challenging {
+		
+	}
+	
+	#
 	</style>
 	</head>
 <body>
