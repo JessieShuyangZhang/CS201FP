@@ -42,18 +42,6 @@
 	color: black;	
 }
 
-.gpa{
-	height: 100%;
-	display: inline-block;
-	background-color: black;
-	color: #FFC7D4;
-	text-align: center;
-	border-radius: 10px;
-	width:20%;
-	padding-top:20px;
-	padding-bottom:20px;
-}
-
 .gpa-title{
 	margin-bottom: 10px;
 }

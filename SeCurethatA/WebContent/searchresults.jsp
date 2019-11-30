@@ -143,6 +143,18 @@
 		clear: both;
 	}
 	
+	.gpa{
+		height: 100%;
+		display: inline-block;
+		background-color: #183642;
+		color: #FFC7D4;
+		text-align: center;
+		border-radius: 10px;
+		width:20%;
+		padding-top:20px;
+		padding-bottom:20px;
+	}
+	
 	#sidebar{
 		display: inline-block;
 		border-radius: 4px;
@@ -150,7 +162,7 @@
 	    margin-right: 4px;
 	    height:100%;
 	    width:20%;
-	    background-color: black;
+	    background-color: #183642;
 	    overflow-y: scroll;
 	    position:fixed;
 	/*  float: right;   
