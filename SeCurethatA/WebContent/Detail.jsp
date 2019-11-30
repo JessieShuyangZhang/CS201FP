@@ -211,10 +211,17 @@
 	}
 	
 	#challenging {
-		
+		font-family: 'Lato', sans-serif;
+		font-size: 20px;
+		margin-top: 20px;
+		font-weight: bold;
 	}
 	
-	#
+	#recommendRate {
+		font-family: 'Lato', sans-serif;
+		font-size: 20px;
+		font-weight: bold;
+	}
 	</style>
 	</head>
 <body>
