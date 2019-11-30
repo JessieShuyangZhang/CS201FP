@@ -222,6 +222,14 @@
 		font-size: 20px;
 		font-weight: bold;
 	}
+	
+	#columnchart_values {
+		width:600px;
+		height: 400px;
+		margin-right: auto;
+		margin-left: auto;
+		margin-top: 10px;
+	}	
 	</style>
 	</head>
 <body>
