@@ -215,6 +215,10 @@
 		background-color: #D56AA0;
 		font-family: 'Lato', sans-serif;
 	}
+	
+	#error_msg {
+		visibility: hidden;
+	}
 
 </style>
 </head>
@@ -308,6 +312,11 @@
 			<div class="col-lg-4" id="error_msg" style="background:#EFEDEF">
 			Error:
 			<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
+			<% if (request.getAttribute("error") != null) {%>
+					<script>
+					
+					</script>
+			<% } %>
 		    </div><!-- error-msg -->
 		    <div class="col-lg-4"></div>
 		</div><!-- row -->
