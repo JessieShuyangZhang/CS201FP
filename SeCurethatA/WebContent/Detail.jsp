@@ -302,7 +302,7 @@
 				<div id='term-div'>
 					<h4 style="color:#FFC7D4; font-weight:bold;">Term</h4>
 				</div><!-- term div -->
- 				<select id="term-dropdown" name="term" onchange="select(); drawChart();">
+ 				<select id="term-dropdown" name="term" onchange="drawChart();">
 					<option value="none">Select a Term</option>
 					<%				
 						Database db = new Database();
@@ -428,54 +428,18 @@
 
 		google.load("visualization", "1", {packages:["corechart"], "callback": drawChart});
 		google.setOnLoadCallback(drawChart);
-
+		var term = document.getElementById("term-dropdown").value;
    		function drawChart(){
    			if(term != "none")
-			{
-   				var term = document.getElementById("term-dropdown").value;
+			{	
    				var	chart = new google.visualization.ColumnChart(document.getElementById('columnchart_values'));
    				
 				var xhttp = new XMLHttpRequest();
-				xhttp.open("GET", "chartServlet?term=" + document.getElementById("term").innerHTML + "&course=<%=request.getParameter("courseName")%>", true);
-	  			xhttp.send();
-	  			
-	  			var listProfessor = (<%=(ArrayList<String>)session.getAttribute("listProfessor") %>);
-  				var listGPA = (<%=(ArrayList<Integer>)session.getAttribute("listGPA") %>); 
-  				
-  				var data = google.visualization.arrayToDataTable([
-          			["Professor", "GPA", { role: "style" } ],
-           		 	["", 0.0, "#FFF4F4"], 
-        		]);
-				
-         		var colorList = ["#809BCE", "#95B8D1", "#B8E0D2", "#D6EADF", "#EAC4D5", "#E87461", "#E0C879", "#D5D887", "#A1CF6B", "#7AC74F"];
-         	
-       			var i;
-      			var j  = listProfessor.length;
-      			for (i = 0; i < j; i++) {
-      				data.addRows([[listProfessor[i], listGPA[i], colorList[i]]]);
-      			}
-	
-/*        			var view = new google.visualization.DataView(data);
-        		view.setColumns(
-	        	[0, 1,
-	            	{ 
-	        			calc: "stringify",
-	                	sourceColumn: 1,
-	                	type: "string",
-	                	role: "annotation" 
-	                },
-	            2]); */
-	
-		        var options = {
-		        	title: "GPA of CSCI201 in " + document.getElementById("term").innerHTML,
-		        	width: 600,
-		        	height: 400,
-		        	bar: {groupWidth: "90%"},
-		        	legend: { position: "none" },
-		        	backgroundColor: '#FFF4F4',
-		        };
-		        
-		      	chart.draw(data, options);
+				xhttp.open("GET", "chartServlet?term=" + document.getElementById("term").innerHTML + "&course=" + "<%=coursename%>", false);
+		  		xhttp.send();
+	  			if(xhttp.responseText.trim.length > 0){
+	  				console.log(xhttp.responseText);
+	  			}
 			}			
   		}
 		

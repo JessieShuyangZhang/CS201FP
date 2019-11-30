@@ -11,6 +11,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.*;
 import javax.websocket.Session;
 
+import com.google.gson.Gson;
+
 
 @WebServlet(name="chartServlet", urlPatterns={"/chartServlet"})
 
@@ -52,8 +54,12 @@ public class chartServlet extends HttpServlet{
 				listProfessor.set(i, "'" + tempString + "'");
 			}
 			
-			HttpSession session = request.getSession();
-			session.setAttribute("listProfessor", listProfessor);
-			session.setAttribute("listGPA", listGPA);	
+			PrintWriter out = response.getWriter();
+			String json = new Gson().toJson(listProfessor);
+			
+			out.println(json);
+//			HttpSession session = request.getSession();
+//			session.setAttribute("listProfessor", listProfessor);
+//			session.setAttribute("listGPA", listGPA);	
 		}	
 }
