@@ -310,6 +310,8 @@
 			document.getElementById("nodata").style.display="none";
 			document.getElementById("challenging").style.display="none";
 			document.getElementById("recommendRate").style.display="none";
+			document.getElementById("average").style.display="none";
+			document.getElementById("specificGPA").style.display="none";
 			var term = document.getElementById("term-dropdown").value;
 			var professor = document.getElementById("professor-dropdown").value;
 			console.log("in jsp, term:"+term);
@@ -357,7 +359,7 @@
 	 			document.getElementById("specificGPA").innerHTML=arr[0];
 	 			if(arr[1].trim()!=-1){
 	 				document.getElementById("challenging").style.display="block";
-					document.getElementById("challenging").innerHTML=arr[1].trim()+'% of the students think '+"<%=coursename%>"+' is challenging.';
+					document.getElementById("challenging").innerHTML=arr[1].trim()+'% of the students think '+"<%=coursename%>"+' with '+fname+' '+lname+' is challenging.';
 		 		}
 				if(arr[2].trim()!=-1){
 					document.getElementById("recommendRate").style.display="block";
