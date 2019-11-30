@@ -61,9 +61,11 @@ public class RegisterServlet extends HttpServlet {
 		try {
 			System.out.println("next is : " + next);
     		request.getRequestDispatcher(next).forward(request,response);
-    	}catch(IOException e) {
+    	}
+    	catch(IOException e) {
     		e.printStackTrace();
-    	}catch(ServletException e) {
+    	}
+    	catch(ServletException e) {
     		e.printStackTrace();
     	}
 		

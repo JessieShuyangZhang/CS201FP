@@ -63,9 +63,7 @@ public class SearchServlet extends HttpServlet {
 			}catch(ServletException e) {
 				e.printStackTrace();
 			}
-		}
-		
-		
+		}	
 	}
 
 	/**

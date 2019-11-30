@@ -51,7 +51,6 @@ public class DetailServlet extends HttpServlet {
 		
 		String professor = request.getParameter("professor");
 		double specificGPA = -1;
-		//String specificGPA = "";
 		int challenging = -1;
 		int recommend = -1;
 

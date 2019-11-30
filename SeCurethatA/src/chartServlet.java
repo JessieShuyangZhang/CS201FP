@@ -38,12 +38,7 @@ public class chartServlet extends HttpServlet{
 				listProfessor.set(i, "'" + tempString + "'");
 			}
 			
-//			HttpSession session = request.getSession();
-//			session.setAttribute("listProfessor", listProfessor);
-//			session.setAttribute("listGPA", listGPA);
-			
 			PrintWriter outPrintWriter = response.getWriter();
-//			String jsonString = new Gson().toJson(listProfessor);
 			
 			String outstring = "";
 			for(Integer i = 0; i < listProfessor.size(); i++)
@@ -66,12 +61,5 @@ public class chartServlet extends HttpServlet{
 			outPrintWriter.print(outstring);
 			outPrintWriter.flush();
 			outPrintWriter.close();
-
-//			String next = "Detail.jsp";
-//			getServletContext().getRequestDispatcher(next).forward(request, response);
-//			request.getRequestDispatcher(next).forward(request, response);
-//			RequestDispatcher dispatch = getServletContext().getRequestDispatcher(next);
-//			dispatch.forward(request,response);
-//			outPrintWriter.println(jsonString);
 		}	
 }

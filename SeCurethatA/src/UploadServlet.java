@@ -51,13 +51,13 @@ public class UploadServlet extends HttpServlet {
 			//connect to database and upload the data
 			Database db = new Database();
 			boolean upload = db.upload(course, term, professor, gpa, recommend, challenging);
-			//request.setAttribute("upload", upload);
+			
 			if(upload)
 			{
-//				request.setAttribute("error", "Congrats! You successfully upload your GPA!");
+
 			}
 			else {
-//				request.setAttribute("error", "Upload fail. Please try again.");
+
 				err= "Upload fail. Please try again.";
 			}
 		}
