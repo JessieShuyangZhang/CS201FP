@@ -202,6 +202,19 @@
     	padding-bottom: 5px;
     	font-size: 16px;
     }
+    
+    #submit{
+		height: 44px;
+		width: 392px;
+		font-size: 18px;
+		font-weight:bold;
+		margin-top: 40px;
+		padding-top: 1px;
+		color: white;
+		border-radius: 5px;
+		background-color: #D56AA0;
+		font-family: 'Lato', sans-serif;
+	}
 
 </style>
 </head>
