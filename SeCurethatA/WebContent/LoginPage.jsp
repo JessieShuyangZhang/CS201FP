@@ -195,8 +195,8 @@
     	color: #cc0000;
     	font-weight:bold;
     	margin-left: 16px;
-    	width:307px;
-    	margin-top: 20px;
+    	width:390px;
+    	margin-top: 25px;
     	background-color: white;
     	padding-top:5px;
     	padding-bottom: 5px;
