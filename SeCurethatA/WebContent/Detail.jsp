@@ -302,7 +302,7 @@
 				<div id='term-div'>
 					<h4 style="color:#FFC7D4; font-weight:bold;">Term</h4>
 				</div><!-- term div -->
- 				<select id="term-dropdown" name="term" onchange="drawChart();">
+ 				<select id="term-dropdown" name="term" onchange="select();drawChart();">
 					<option value="none">Select a Term</option>
 					<%				
 						Database db = new Database();
