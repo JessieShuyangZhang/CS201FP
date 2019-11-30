@@ -203,7 +203,7 @@
 <body>
 <script type="text/javascript"> 
 	var msg = "<%=session.getAttribute("message")%>";
-	if(msg != null)
+	if(msg != null && msg != "null")
 		alert(msg);
 </script>
 	<div id="header">
@@ -381,8 +381,9 @@
 		</form>
 		<div class="row">
 			<div class="col-lg-4"></div>
-			<div class="col-lg-4" id="error_msg" style="background:#EFEDEF">
-			Error:
+			<% if(request.getAttribute("error") != null){%> 
+				<div class="col-lg-4" id="error_msg" style="background:#EFEDEF"> ERROR 
+			<%} %>
 			<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
 		    </div><!-- error-msg -->
 		    <div class="col-lg-4"></div>
