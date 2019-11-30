@@ -296,6 +296,7 @@
 	</table>
 	
 	<h1 id="noselect">Please select terms and/or professors to view details :)</h1>
+	<h1 id="nodata" style="display:none;">No data available.</h1>
 	<h1 id="average" style="display:none;">The average GPA for <span id="term"></span> by <span id="professor"></span> is</h1>
 	<div id="specificGPA" style="text-align:center"></div>
 	<p id="challenging"></p>
@@ -306,6 +307,9 @@
 	<script>
 		function select(){
 			//console.log("in select()");			
+			document.getElementById("nodata").style.display="none";
+			document.getElementById("challenging").style.display="none";
+			document.getElementById("recommendRate").style.display="none";
 			var term = document.getElementById("term-dropdown").value;
 			var professor = document.getElementById("professor-dropdown").value;
 			console.log("in jsp, term:"+term);
@@ -325,15 +329,12 @@
 			else{
 				document.getElementById("noselect").style.display="none";
 				document.getElementById("average").style.display="block";
+				document.getElementById("specificGPA").style.display="block";
 				if(term == "none"){
-					document.getElementById("challenging").style.display="none";
-					document.getElementById("recommendRate").style.display="none";
 	 				document.getElementById("term").innerHTML = "all terms";
 	 				document.getElementById("professor").innerHTML = fname+" "+lname;
 	 			}
 	 			else if(professor == "none"){
-	 				document.getElementById("challenging").style.display="none";
-					document.getElementById("recommendRate").style.display="none";
 	 				document.getElementById("term").innerHTML = term;
 	 				document.getElementById("professor").innerHTML = "all professors";
 	 			}
@@ -354,17 +355,27 @@
 	 		var arr = str.split(" ");
 	 		if(arr[0]!=-1){
 	 			document.getElementById("specificGPA").innerHTML=arr[0];
+	 			if(arr[1].trim()!=-1){
+	 				document.getElementById("challenging").style.display="block";
+					document.getElementById("challenging").innerHTML=arr[1].trim()+'% of the students think '+"<%=coursename%>"+' is challenging.';
+		 		}
+				if(arr[2].trim()!=-1){
+					document.getElementById("recommendRate").style.display="block";
+					document.getElementById("recommendRate").innerHTML=arr[2].trim()+'% of the students recommend Professor '+fname+" "+lname+'.';
+				}
+				if(arr[1].trim()==-1 || arr[2].trim()==-1){
+					document.getElementById("challenging").style.display="none";
+					document.getElementById("recommendRate").style.display="none";
+				}
 	 		}
-	 		if(arr[1]!=-1){
-				document.getElementById("challenging").innerHTML=arr[1]+'% of the students think this course is challenging.';
+	 		else{
+	 			document.getElementById("challenging").style.display="none";
+				document.getElementById("recommendRate").style.display="none";
+				document.getElementById("specificGPA").style.display="none";
+				document.getElementById("average").style.display="none";
+	 			document.getElementById("nodata").style.display="block";
 	 		}
-			if(arr[2]!=-1){
-				document.getElementById("recommendRate").innerHTML=arr[2]+'% of the students recommend this course with this professor.';
-			}
-		 	<%-- document.getElementById("specificGPA").innerHTML="<%=session.getAttribute("specificGPA") %>";
-			document.getElementById("challenging").innerHTML="<%=session.getAttribute("challenging") %>"+'% of the students think the course with this professor is challenging.';
-		 	document.getElementById("recommendRate").innerHTML="<%=session.getAttribute("recommendRate") %>"+ '% of the students recommend this course with this professor.';--%>		 			
-		}
+	 	}
 
 		google.load("visualization", "1", {packages:["corechart"], "callback": drawChart});
 		google.setOnLoadCallback(drawChart);

@@ -566,19 +566,22 @@ public class Database {
 		courseName.trim();
 		courseName.trim();
 		int professorID = getProfessorID(professor);
-
-		double avgGPA = -1;		
+		
+		int onecounts = 0;
+		double oneavg = 0;
+		int totalcounts = 0;
+		double totalavg = 0;
 		try {
 			connection = DriverManager.getConnection(DB_URL,USER,PASS);
 			String select;
-			if(term==null || term.equals("")){//no term
+			if(term.contains("none")){//no term
 				if(professorID == -1) {//no professor
-					select = "SELECT avgGPA FROM GPA WHERE courseName = ?";
+					select = "SELECT avgGPA, counts FROM GPA WHERE courseName = ?";
 					preparedStatement = connection.prepareStatement(select);
 					preparedStatement.setString(1, courseName);
 				}
 				else {//have professor
-					select = "SELECT avgGPA FROM GPA WHERE courseName = ? AND professorID = ?";
+					select = "SELECT avgGPA, counts FROM GPA WHERE courseName = ? AND professorID = ?";
 					preparedStatement = connection.prepareStatement(select);
 					preparedStatement.setString(1, courseName);
 					preparedStatement.setInt(2, professorID);
@@ -586,13 +589,13 @@ public class Database {
 			}
 			else {//have term
 				if(professorID == -1) {//no professor
-					select = "SELECT avgGPA FROM GPA WHERE courseName = ? AND term = ?";
+					select = "SELECT avgGPA, counts FROM GPA WHERE courseName = ? AND term = ?";
 					preparedStatement = connection.prepareStatement(select);
 					preparedStatement.setString(1, courseName);
 					preparedStatement.setString(2, term);
 				}
 				else {
-					select = "SELECT avgGPA FROM GPA WHERE term = ? AND professorID = ? AND courseName = ?";
+					select = "SELECT avgGPA, counts FROM GPA WHERE term = ? AND professorID = ? AND courseName = ?";
 					preparedStatement = connection.prepareStatement(select);
 					preparedStatement.setString(1, term);
 					preparedStatement.setInt(2, professorID);
@@ -600,10 +603,14 @@ public class Database {
 				}
 			}
 			resultSet = preparedStatement.executeQuery();
-			if(resultSet.next()) {
-				//String avgGPA = resultSet.getString("avgGPA");
-				avgGPA = Double.parseDouble(resultSet.getString("avgGPA"));
-				return avgGPA;
+			while(resultSet.next()) {
+				onecounts = resultSet.getInt("counts");
+				totalcounts += onecounts;
+				oneavg = Double.parseDouble(resultSet.getString("avgGPA"));	
+				totalavg += oneavg*onecounts;
+			}
+			if(totalcounts==0) {
+				return -1;
 			}
 			
 		}catch(SQLException e) {
@@ -624,8 +631,7 @@ public class Database {
 				System.out.println("sqle: " + sqle.getMessage());
 			}
 		}
-    	//return null;
-		return avgGPA;
+		return (int)(totalavg/totalcounts * 10)/10.0;
 	}
 	
 	
