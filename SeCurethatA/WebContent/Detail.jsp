@@ -233,10 +233,12 @@
 	}
 	
 	#term-div, #professor-div {
-		border: 1px solid black;
+		border: 1px solid white;
+		border-radius: 20px;
 		text-align:center;
 		background: white;
 		margin-bottom: 10px;
+		height: 37px;
 	}
 	</style>
 	</head>
@@ -308,7 +310,7 @@
 		<tr>
 			<td>
 				<div id='term-div'>
-					<h4 style="color:#336699; font-weight:bold;">Term</h4>
+					<h4 style="color:#FFC7D4; font-weight:bold;">Term</h4>
 				</div><!-- term div -->
  				<select id="term-dropdown" name="term" onchange="select(); drawChart();">
 					<option value="none">Select a Term</option>
@@ -329,7 +331,7 @@
 		  	<td>
 		  		<div class='right-professor'>
 		  		<div id='professor-div'>
-		  			<h4 style="color:#336699; font-weight: bold;">Professor</h4>
+		  			<h4 style="color:#FFC7D4; font-weight: bold;">Professor</h4>
 		  		</div><!-- professor div -->
  				<select name="professor" id="professor-dropdown" onchange="select()">
 					<option value="none">Select a Professor</option>
