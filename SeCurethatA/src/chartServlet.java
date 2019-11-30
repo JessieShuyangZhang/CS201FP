@@ -3,16 +3,14 @@ import Database.Database;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.*;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.*;
 import javax.websocket.Session;
 
 import com.google.gson.Gson;
 
+import com.google.gson.*;
 
 @WebServlet(name="chartServlet", urlPatterns={"/chartServlet"})
 
@@ -40,26 +38,40 @@ public class chartServlet extends HttpServlet{
 			
 			for(Integer i = 0; i < listProfessor.size(); i++)
 			{
-				System.out.println(listProfessor.get(i));
-			}
-			
-			for(Integer i = 0; i < listGPA.size(); i++)
-			{
-				System.out.println(listGPA.get(i));
-			}
-			
-			for(Integer i = 0; i < listProfessor.size(); i++)
-			{
 				String tempString = listProfessor.get(i);
 				listProfessor.set(i, "'" + tempString + "'");
 			}
 			
-			PrintWriter out = response.getWriter();
-			String json = new Gson().toJson(listProfessor);
+//			ArrayList<String> listProfessor = new ArrayList<String>();
+//			listProfessor.add("jESSIE");
+//			listProfessor.add("kate");
+//			listProfessor.add("yang");
 			
-			out.println(json);
-//			HttpSession session = request.getSession();
-//			session.setAttribute("listProfessor", listProfessor);
-//			session.setAttribute("listGPA", listGPA);	
+			HttpSession session = request.getSession();
+			session.setAttribute("listProfessor", listProfessor);
+			session.setAttribute("listGPA", listGPA);
+			
+//			PrintWriter outPrintWriter = response.getWriter();
+//			String jsonString = new Gson().toJson(listProfessor);
+			
+//			request.setAttribute("listProfessor", "list professor");
+//			request.setAttribute("listGPA", "list GPA");
+			
+			for(Integer i = 0; i < listProfessor.size(); i++)
+			{
+				System.out.println(listProfessor.get(i));
+			}
+
+			for(Integer i = 0; i < listGPA.size(); i++)
+			{
+				System.out.println(listGPA.get(i));
+			}
+
+//			String next = "Detail.jsp";
+//			getServletContext().getRequestDispatcher(next).forward(request, response);
+//			request.getRequestDispatcher(next).forward(request, response);
+//			RequestDispatcher dispatch = getServletContext().getRequestDispatcher(next);
+//			dispatch.forward(request,response);
+//			outPrintWriter.println(jsonString);
 		}	
 }
