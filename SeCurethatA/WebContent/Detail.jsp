@@ -429,7 +429,7 @@
  		google.charts.load("current", {packages:['corechart']});
 		google.setOnLoadCallback(drawChart); 
 
-    	function drawChart(){
+   		function drawChart(){
    			<%-- var xhttp = new XMLHttpRequest();
    			xhttp.open("GET", "chartServlet?term=" + document.getElementById("term").innerHTML + "&course=<%=request.getParameter("courseName")%>", false); --%>
 /* 			xhttp.send();
@@ -480,7 +480,7 @@
 	        		]);
 					
 	         		var colorList = ["#809BCE", "#95B8D1", "#B8E0D2", "#D6EADF", "#EAC4D5", "#E87461", "#E0C879", "#D5D887", "#A1CF6B", "#7AC74F"];
-	         		console.log(<%= request.getSession().getAttribute("listProfessor") %>);
+	<%--          		console.log(<%= request.getSession().getAttribute("listProfessor") %>); --%>
 	       			var i;
 	      			var j  = listProfessor.length;
 	      			for (i = 0; i < j; i++) {

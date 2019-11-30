@@ -47,8 +47,8 @@ public class chartServlet extends HttpServlet{
 			session.setAttribute("listProfessor", listProfessor);
 			session.setAttribute("listGPA", listGPA);
 			
-			PrintWriter outPrintWriter = response.getWriter();
-			String jsonString = new Gson().toJson(listProfessor);
+//			PrintWriter outPrintWriter = response.getWriter();
+//			String jsonString = new Gson().toJson(listProfessor);
 			
 //			request.setAttribute("listProfessor", "list professor");
 //			request.setAttribute("listGPA", "list GPA");
@@ -68,6 +68,6 @@ public class chartServlet extends HttpServlet{
 //			request.getRequestDispatcher(next).forward(request, response);
 //			RequestDispatcher dispatch = getServletContext().getRequestDispatcher(next);
 //			dispatch.forward(request,response);
-			outPrintWriter.println(jsonString);
+//			outPrintWriter.println(jsonString);
 		}	
 }
