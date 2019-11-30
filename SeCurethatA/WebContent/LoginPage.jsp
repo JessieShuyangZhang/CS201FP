@@ -221,6 +221,12 @@
 	}
 
 </style>
+<script>
+	function updateError() {
+		var error_msg = document.getElementById('error_msg');
+		error_msg.style.visibility = 'visible';
+	}
+</script>
 </head>
 <body>
 
@@ -314,7 +320,7 @@
 			<%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
 			<% if (request.getAttribute("error") != null) {%>
 					<script>
-					
+					updateError();
 					</script>
 			<% } %>
 		    </div><!-- error-msg -->
