@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import javax.websocket.Session;
-
-import com.google.gson.Gson;
-
 import com.google.gson.*;
 
 @WebServlet(name="chartServlet", urlPatterns={"/chartServlet"})
@@ -51,8 +47,8 @@ public class chartServlet extends HttpServlet{
 			session.setAttribute("listProfessor", listProfessor);
 			session.setAttribute("listGPA", listGPA);
 			
-//			PrintWriter outPrintWriter = response.getWriter();
-//			String jsonString = new Gson().toJson(listProfessor);
+			PrintWriter outPrintWriter = response.getWriter();
+			String jsonString = new Gson().toJson(listProfessor);
 			
 //			request.setAttribute("listProfessor", "list professor");
 //			request.setAttribute("listGPA", "list GPA");
@@ -61,7 +57,7 @@ public class chartServlet extends HttpServlet{
 			{
 				System.out.println(listProfessor.get(i));
 			}
-
+			
 			for(Integer i = 0; i < listGPA.size(); i++)
 			{
 				System.out.println(listGPA.get(i));
@@ -72,6 +68,6 @@ public class chartServlet extends HttpServlet{
 //			request.getRequestDispatcher(next).forward(request, response);
 //			RequestDispatcher dispatch = getServletContext().getRequestDispatcher(next);
 //			dispatch.forward(request,response);
-//			outPrintWriter.println(jsonString);
+			outPrintWriter.println(jsonString);
 		}	
 }

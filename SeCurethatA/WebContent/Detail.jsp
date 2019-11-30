@@ -429,7 +429,7 @@
  		google.charts.load("current", {packages:['corechart']});
 		google.setOnLoadCallback(drawChart); 
 
-  		function drawChart(){
+    	function drawChart(){
    			<%-- var xhttp = new XMLHttpRequest();
    			xhttp.open("GET", "chartServlet?term=" + document.getElementById("term").innerHTML + "&course=<%=request.getParameter("courseName")%>", false); --%>
 /* 			xhttp.send();
@@ -462,9 +462,15 @@
 	  				var listProfessor = (<%=(ArrayList<String>)session.getAttribute("listProfessor") %>);
 	  				var listGPA = (<%=(ArrayList<Integer>)session.getAttribute("listGPA") %>); 
 	  				
-/* 	  				var listProfessor = request.getAttribute("listProfessor");
-	  				var listGPA = request.getAttribute("listGPA"); */
-	  				
+/*  	  				var listProfessor = request.getAttribute("listProfessor");
+	  				var listGPA = request.getAttribute("listGPA");  */
+	  				/* var Professor = JSON.parse(xhttp.responseText);
+					var i;
+					for(i = 0; i < Professor.length; i++)
+					{
+						console.log(Professor[i]);
+					}
+	  				 */
 	  				console.log(listProfessor);
 	  				console.log(listGPA);
 	  				
