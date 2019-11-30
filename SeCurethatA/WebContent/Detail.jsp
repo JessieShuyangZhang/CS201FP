@@ -426,58 +426,89 @@
 	 		}
 	 	}
 
-		google.load("visualization", "1", {packages:["corechart"], "callback": drawChart});
-		google.setOnLoadCallback(drawChart);
+ 		google.charts.load("current", {packages:['corechart']});
+		google.setOnLoadCallback(drawChart); 
 
-   		function drawChart(){
+  		function drawChart(){
+   			<%-- var xhttp = new XMLHttpRequest();
+   			xhttp.open("GET", "chartServlet?term=" + document.getElementById("term").innerHTML + "&course=<%=request.getParameter("courseName")%>", false); --%>
+/* 			xhttp.send();
+			if(xhttp.responseText.trim().length > 0)
+			{
+				console.log(xhttp.responseText);	
+			} */
+   			console.log("in draw chart");
+   			var term = document.getElementById("term-dropdown").value;
    			if(term != "none")
 			{
-   				var term = document.getElementById("term-dropdown").value;
    				var	chart = new google.visualization.ColumnChart(document.getElementById('columnchart_values'));
-   				
 				var xhttp = new XMLHttpRequest();
 				xhttp.open("GET", "chartServlet?term=" + document.getElementById("term").innerHTML + "&course=<%=request.getParameter("courseName")%>", true);
-	  			xhttp.send();
-	  			
-	  			var listProfessor = (<%=(ArrayList<String>)session.getAttribute("listProfessor") %>);
-  				var listGPA = (<%=(ArrayList<Integer>)session.getAttribute("listGPA") %>); 
-  				
-  				var data = google.visualization.arrayToDataTable([
-          			["Professor", "GPA", { role: "style" } ],
-           		 	["", 0.0, "#FFF4F4"], 
-        		]);
 				
-         		var colorList = ["#809BCE", "#95B8D1", "#B8E0D2", "#D6EADF", "#EAC4D5", "#E87461", "#E0C879", "#D5D887", "#A1CF6B", "#7AC74F"];
-         	
-       			var i;
-      			var j  = listProfessor.length;
-      			for (i = 0; i < j; i++) {
-      				data.addRows([[listProfessor[i], listGPA[i], colorList[i]]]);
-      			}
-	
-/*        			var view = new google.visualization.DataView(data);
-        		view.setColumns(
-	        	[0, 1,
-	            	{ 
-	        			calc: "stringify",
-	                	sourceColumn: 1,
-	                	type: "string",
-	                	role: "annotation" 
-	                },
-	            2]); */
-	
-		        var options = {
-		        	title: "GPA of CSCI201 in " + document.getElementById("term").innerHTML,
-		        	width: 600,
-		        	height: 400,
-		        	bar: {groupWidth: "90%"},
-		        	legend: { position: "none" },
-		        	backgroundColor: '#FFF4F4',
-		        };
-		        
-		      	chart.draw(data, options);
-			}			
-  		}
+/* 				xhttp.send();
+				if (xhttp.responseText.trim.length > 0)
+				{
+					console.log(xhttp.responseText);
+					var listProfessor = JSON.parse(xhttp.responseText);
+					var i;
+					for(i = 0; i < listProfessor.length; i++)
+					{
+						console.log(listProfessor[i]);
+					}
+					
+				}  */
+				
+ 	  			xhttp.onload = function(){
+	  				var listProfessor = (<%=(ArrayList<String>)session.getAttribute("listProfessor") %>);
+	  				var listGPA = (<%=(ArrayList<Integer>)session.getAttribute("listGPA") %>); 
+	  				
+/* 	  				var listProfessor = request.getAttribute("listProfessor");
+	  				var listGPA = request.getAttribute("listGPA"); */
+	  				
+	  				console.log(listProfessor);
+	  				console.log(listGPA);
+	  				
+	  				var data = google.visualization.arrayToDataTable([
+	          			["Professor", "GPA", { role: "style" } ],
+	           		 	["", 0.0, "#FFF4F4"], 
+	        		]);
+					
+	         		var colorList = ["#809BCE", "#95B8D1", "#B8E0D2", "#D6EADF", "#EAC4D5", "#E87461", "#E0C879", "#D5D887", "#A1CF6B", "#7AC74F"];
+	         		console.log(<%= request.getSession().getAttribute("listProfessor") %>);
+	       			var i;
+	      			var j  = listProfessor.length;
+	      			for (i = 0; i < j; i++) {
+	      				console.log(listProfessor[i]);
+	      				console.log(listGPA[i]);
+	      				data.addRows([[listProfessor[i], listGPA[i], colorList[i]]]);
+	      			}
+		
+	        		var view = new google.visualization.DataView(data);
+	        		view.setColumns(
+		        	[0, 1,
+		            	{ 
+		        			calc: "stringify",
+		                	sourceColumn: 1,
+		                	type: "string",
+		                	role: "annotation" 
+		                },
+		            2]); 
+		
+			        var options = {
+			        	title: "GPA of " + "<%=request.getParameter("courseName")%>" + " in " + document.getElementById("term").innerHTML,
+			        	width: 600,
+			        	height: 400,
+			        	bar: {groupWidth: "90%"},
+			        	legend: { position: "none" },
+			        	backgroundColor: '#FFF4F4',
+			        };
+			        
+			      	chart.draw(view, options);
+	  			}
+				
+			xhttp.send();
+		}		 
+  	}
 		
 	</script>
 
