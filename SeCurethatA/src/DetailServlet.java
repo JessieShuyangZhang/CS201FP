@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 /**
  * Servlet implementation class DetailServlet
  */
@@ -46,6 +48,7 @@ public class DetailServlet extends HttpServlet {
 		else {
 			termNumber = "none";
 		}
+		
 		String professor = request.getParameter("professor");
 		double specificGPA = -1;
 		//String specificGPA = "";
