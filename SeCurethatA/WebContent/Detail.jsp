@@ -212,6 +212,15 @@
 	.clear-float{
 		clear: both;
 	}
+	
+	#course-name {
+		font-family: 'Lato', sans-serif;
+		
+	}
+	
+	#course-description {
+		font-family: 'Lato', sans-serif;
+	}
 		</style>
 	</head>
 <body>
@@ -273,8 +282,8 @@
 <%-- 		<h1 id="course"><%=request.getAttribute("courseName")%></h1>
 		<h3><%=request.getAttribute("courseDescription")%></h3> --%>
 		
-		<h1 id="course"><%=coursename%></h1>
-		<h3><%=coursedescription%></h3>
+		<h1 id="course-name"><%=coursename%></h1>
+		<h3 id='course-description'><%=coursedescription%></h3>
 	</div><!-- course info -->
 	<hr class="line" style="width:100%; position:relative;left:0%;"></hr>
 	
