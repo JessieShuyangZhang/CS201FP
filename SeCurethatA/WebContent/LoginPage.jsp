@@ -180,7 +180,7 @@
     }
     
     #placeholder {
-    	height: 75px;
+    	height: 130px;
     }
     
     #username, #password{
@@ -275,9 +275,8 @@ function validate() {
 %>
 
 	</div><!-- header right -->
-	</div><!-- topbar -->
 	<div class='clear-float'></div>
-	
+	</div><!-- topbar -->
 	
 	<div id="placeholder"></div>
 	
