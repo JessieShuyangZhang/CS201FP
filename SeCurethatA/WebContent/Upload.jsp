@@ -19,11 +19,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-<style>
-	body {
-		/* background: #DEC5D2; */	    	
-	}
-	
+<style>	
 	#header {
 		background-image: url(images/background1.jpg);
 		/* background-color: rgba(140, 140, 140, 0.2); */
@@ -69,7 +65,7 @@
 
     #header-right #left-button:hover {
       	color: #7A797A;
-    }		
+    }	
 	
 	html, body {
 		height: 100%;
@@ -231,7 +227,9 @@
 		};
 		
 		socket.onmessage = function(event){
-			alert(event.data);
+			//alert(event.data);
+			document.getElementById("modal-text").innerHTML = event.data;
+			document.getElementById("myModal").style.display = "block";
 			console.log(event.data);
 		};
 		
@@ -241,18 +239,22 @@
 	}
 	
 	function sendMessage() {
-		socket.send("New Upload!");
+		var coursename= document.getElementById(document.uploadform.course.value).innerHTML;
+		socket.send("New Upload for "+coursename+" from user "+
+				"<%=(String)session.getAttribute("username")%>"+'<br>'+
+				'<a href="Detail.jsp?courseName='+coursename+'">View Details >>></a>');
 		return false;
 	}
 	
 	function upload(){
 		var xhttp = new XMLHttpRequest();
-		console.log("course=" + document.uploadform.course.value + 
+		//for debug
+		/* console.log("course=" + document.uploadform.course.value + 
     		"&term=" + document.uploadform.term.value +
     		"&professor=" + document.uploadform.professor.value +
     		"&gpa=" + document.uploadform.gpa.value +
     		"&recommend=" + document.uploadform.recommend.value +
-    		"&challenging=" + document.uploadform.challenging.value);
+    		"&challenging=" + document.uploadform.challenging.value); */
 		
         xhttp.open("GET", "UploadServlet?course=" + document.uploadform.course.value + 
         		"&term=" + document.uploadform.term.value +
@@ -330,9 +332,6 @@
 
 	<div id="placeholder"></div>
 	
-	<!-- <h3 style="text-align:center">Upload Your GPA</h3>
-	<hr class="line" style="width:100%; position:relative;left:0%;"></hr> -->
-	
 	<div class="container" id='main'>
   		<form name="uploadform" method="GET" onsubmit="return upload()">
 			<div class="row">
@@ -345,7 +344,7 @@
 					ArrayList<String[]> courses = db.getCourses();
 					for(String[] course : courses){
 					%>
-					    <option value="<%=course[0]%>"><%=course[1]%></option>
+					    <option value="<%=course[0]%>" id="<%=course[0]%>"><%=course[1]%></option>
 					<%
 					}
 					%>
@@ -453,19 +452,7 @@
 		</form>
 		<div class="row">
 			<div class="col-lg-4"></div>
-			<div class="col-lg-4" id="error_msg" style="background:#EFEDEF">
-			<%-- <% if (request.getAttribute("error") != null) {%>
-				Error: <%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
-				<script>
-				updateError();
-				</script>
-			<% } 
-			if (request.getAttribute("success") != null) {%>
-			   		You have uploaded successfully
-			   		<script>
-					updateSuccess();
-					</script>
-			<% } %> --%>
+			<div class="col-lg-4" id="error_msg" style="background:#EFEDEF">			
 		    </div><!-- error-msg -->
 		    <div class="col-lg-4"></div>
 		</div><!-- row -->
@@ -474,6 +461,43 @@
 	<div id="footer"> <p> Yang Qiao | Kate Hu | Blair Niu | Jessie Zhang | Mage Zhang | Irene Li &copy; 2019 </p> </div>
 	
 	
-	
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p><strong id="modal-text"></strong></p>
+  </div>
+</div>	
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+//var btn = document.getElementById("myBtn");
+//var btns = document.getElementsByName("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+/* for(var i=0; i<btns.length; i++){
+	btns[i].onclick = function() {
+	  modal.style.display = "block";
+	}
+} */
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+/* window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+} */
+</script>	
 </body>
 </html>

@@ -268,6 +268,10 @@
 <%
 	String coursename = request.getParameter("courseName");
 	String coursedescription = request.getParameter("courseDescription");
+	Database db = new Database();
+	if(coursedescription==null){
+		coursedescription = db.getDescription(coursename);
+	}
 	String n = (String)session.getAttribute("username");
 	if(n!=null){ //someone logged in
 %>
@@ -302,7 +306,7 @@
  				<select id="term-dropdown" name="term" onchange="select();drawChart();">
 					<option value="none">Select a Term</option>
 					<%				
-						Database db = new Database();
+						//Database db = new Database();
 						ArrayList<String> terms = (ArrayList<String>)(db.getTerms(coursename));
 					if(terms==null){
 						System.out.println("in details,terms:"+terms);	
