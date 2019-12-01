@@ -222,7 +222,7 @@
 </style>
 </head>
 <script>
-	var webSocketUri =  'ws://localhost:8081/SeCurethatA/ws';
+	var webSocketUri =  'ws://localhost:8080/SeCurethatA/ws';
 	var socket;
 	function connectToServer(){
 		socket = new WebSocket(webSocketUri);
@@ -334,7 +334,7 @@
 	<hr class="line" style="width:100%; position:relative;left:0%;"></hr> -->
 	
 	<div class="container" id='main'>
-  		<form name="upload" action="UploadServlet">
+  		<form name="uploadform" method="GET" onsubmit="return upload()">
 			<div class="row">
 				<div class="col-lg-4"></div>
 				<div class="info col-lg-4">
