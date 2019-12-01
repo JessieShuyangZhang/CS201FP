@@ -220,21 +220,63 @@
 	}
 
 </style>
+</head>
 <script>
-	function updateError() {
-		var error_msg = document.getElementById('error_msg');
-		error_msg.style.visibility = 'visible';
+	var webSocketUri =  'ws://localhost:8081/SeCurethatA/ws';
+	var socket;
+	function connectToServer(){
+		socket = new WebSocket(webSocketUri);
+		socket.onopen = function(event) {
+			console.log("Connected!");
+		};
+		
+		socket.onmessage = function(event){
+			alert(event.data);
+			console.log(event.data);
+		};
+		
+		socket.onclose = function(event) {
+			console.log("Disconnected!");
+		};
 	}
 	
-	function updateSuccess() {
-		var error_msg = document.getElementById('error_msg');
-		error_msg.style.visibility = 'visible';
-		error_msg.style.color = '#36703F';
-		error_msg.style.borderLeftColor = '#36703F';
+	function sendMessage() {
+		socket.send("New Upload!");
+		return false;
+	}
+	
+	function upload(){
+		var xhttp = new XMLHttpRequest();
+		console.log("course=" + document.uploadform.course.value + 
+    		"&term=" + document.uploadform.term.value +
+    		"&professor=" + document.uploadform.professor.value +
+    		"&gpa=" + document.uploadform.gpa.value +
+    		"&recommend=" + document.uploadform.recommend.value +
+    		"&challenging=" + document.uploadform.challenging.value);
+		
+        xhttp.open("GET", "UploadServlet?course=" + document.uploadform.course.value + 
+        		"&term=" + document.uploadform.term.value +
+        		"&professor=" + document.uploadform.professor.value +
+        		"&gpa=" + document.uploadform.gpa.value +
+        		"&recommend=" + document.uploadform.recommend.value +
+        		"&challenging=" + document.uploadform.challenging.value, false);
+        xhttp.send();
+  	  	if (xhttp.responseText.trim().length > 0) {
+          document.getElementById("error_msg").innerHTML = "ERROR: "+xhttp.responseText;
+          error_msg.style.visibility = 'visible';
+          error_msg.style.color = '#cc0000';
+  		error_msg.style.borderLeftColor = '#cc0000';
+        }else{
+        	document.getElementById("error_msg").innerHTML = "You have uploaded successfully";
+        	error_msg.style.visibility = 'visible';
+    		error_msg.style.color = '#36703F';
+    		error_msg.style.borderLeftColor = '#36703F';
+    		sendMessage();
+        }
+        return false;
 	}
 </script>
-</head>
-<body>
+<body onload="connectToServer()">
 
 	<div id="header">
 	<div id="topbar">
@@ -412,7 +454,7 @@
 		<div class="row">
 			<div class="col-lg-4"></div>
 			<div class="col-lg-4" id="error_msg" style="background:#EFEDEF">
-			<% if (request.getAttribute("error") != null) {%>
+			<%-- <% if (request.getAttribute("error") != null) {%>
 				Error: <%= request.getAttribute("error") != null ? request.getAttribute("error"):"" %>
 				<script>
 				updateError();
@@ -423,7 +465,7 @@
 			   		<script>
 					updateSuccess();
 					</script>
-			<% } %>
+			<% } %> --%>
 		    </div><!-- error-msg -->
 		    <div class="col-lg-4"></div>
 		</div><!-- row -->
