@@ -393,8 +393,29 @@
 
 	</div><!-- side bar -->
 
+<%if(n!=null){ %>
+<script>
+		var webSocketUri =  'ws://localhost:8080/SeCurethatA/ws';
+		var socket = new WebSocket(webSocketUri);
+		socket.onopen = function(event) {
+			console.log("Connected!");
+		};
+			
+		socket.onmessage = function(event){
+				//alert(event.data);
+			document.getElementById("modal-text").innerHTML = event.data;
+			document.getElementById("myModal").style.display = "block";
+			console.log(event.data);
+		};
+			
+		socket.onclose = function(event) {
+			console.log("Disconnected!");
+		};
+</script>	
+<%} %>	
+
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="loginModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
@@ -403,7 +424,7 @@
 </div>	
 <script>
 // Get the modal
-var modal = document.getElementById("myModal");
+var modal = document.getElementById("loginModal");
 
 // Get the button that opens the modal
 //var btn = document.getElementById("myBtn");
@@ -429,6 +450,28 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+}
+</script>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="myclose">&times;</span>
+    <p><strong id="modal-text"></strong></p>
+  </div>
+</div>	
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("myclose")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
 }
 </script>
 

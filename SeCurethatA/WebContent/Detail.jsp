@@ -27,210 +27,253 @@
 	    	console.log("courseDescription:"+"<%=request.getParameter("courseDescription")%>");
 
 		</script>
-		<style>
-			#header{
-		height: 60px;
-		background-color: #EFEDEF;
-		color:  #7A797A;
-		opacity: 0.85;
-		z-index: 1;
-	    top: 0;
-	    width: 100%;
-	}
-	
-	#header-left {
-		float:left;
-		width:980px;
-	}
-	
-	#header-right {
-		float:left;
-		width:280px;
-		margin-right:0;
-	}
-	
-     #header-right #right-button {
-       text-decoration: none;
-       color: #EA70A7;
-     }
+<style>
+#header {
+	height: 60px;
+	background-color: #EFEDEF;
+	color: #7A797A;
+	opacity: 0.85;
+	z-index: 1;
+	top: 0;
+	width: 100%;
+}
 
-     #header-right #right-button:hover {
-       color: #7A797A;
-     }
-     
-     #header-right #left-button {
-       text-decoration: none;
-       color: #EA70A7;
-     }
+#header-left {
+	float: left;
+	width: 980px;
+}
 
-     #header-right #left-button:hover {
-       color: #7A797A;
-     }		
-	
-	body{
-		margin: 0px;
-		background-color: #FFF4F4;
-		color: #FFC7D4;
-	}
-	
-	#choice{
-		float: left;
-		text-align: center;
-		line-height: 58px;
-		margin-left: 40px;
-		color: #EA70A7;
-		font-size: 18px;
-		font-family: 'Lato', sans-serif;
-	}
-	
-	#left-button{
-		float:right;
-		font-size: 18px;
-		line-height: 62px;
-		color: #EA70A7;
-		font-family: 'Lato', sans-serif;
-		margin-right: 35px;
-	}
-	
-	#right-button{
-		float: right;
-		font-size: 18px;
-		line-height: 60px;
-		color: #EA70A7;
-		margin-left: 0px;
-		font-family: 'Lato', sans-serif;
-	}
-	
-	#search{
-		float: left;
-		line-height: 60px;
-		text-align: center;
-		margin-left: 30px;
-		position:relative;
-	}
-	
-	#input {
-		width: 450px;
-		height: 33px;
-		border-radius: 20px;
-		padding-right: 30px;
-	}
-	
-	.form-control::-webkit-input-placeholder { 
-		font-family: 'Public Sans', sans-serif;
-		color: #D3D3D3;
-	}
-	
-	#search #icon {
-		position: absolute;
-		padding-right: 10px;
-		padding-top: 22px;
-		pointer-events: none;
-	}
-	
-	#search:hover > #icon {color:#EA70A7;}
-	
-	#search .glyphicon {right: 0px;}
-	
-	.radio{
-		margin-right: 15px;
-		font-weight: normal;
-		font-family: 'Lato', sans-serif;
-	}
+#header-right {
+	float: left;
+	width: 280px;
+	margin-right: 0;
+}
 
-	#home-icon-div img {
-		float: left;
-		height: 35px;
-		margin-top: 13px;
-		margin-left: 30px;
-	}
-	
-	#main {
-		margin-left:auto;
-		margin-right:auto;
-		width:800px;
-		color:grey;
-	}
-	
-	#course-info {
-		padding-top: 20px;
-	}
-	
-	.clear-float{
-		clear: both;
-	}
-	
-	#course-name {
-		font-family: 'Lato', sans-serif;
-		font-weight: bold;
-		color: #336699;
-	}
-	
-	#course-description {
-		font-family: 'Lato', sans-serif;
-		font-size: 18px;
-	}
-	
-	.right-professor {
-		margin-left:30px;
-	}
-	
-	#term-div, #professor-div {
-		border: 1px solid white;
-		border-radius: 20px;
-		text-align:center;
-		background: white;
-		margin-bottom: 10px;
-		height: 37px;
-	}
-	
-	#noselect {
-		font-family: 'Lato', sans-serif;
-		font-size: 20px;
-		font-weight: bold;
-	}
-	
-	#average {
-		font-family: 'Lato', sans-serif;
-		font-size: 20px;
-		font-weight: bold;
-	}
-	
-	#specificGPA {
-		border-radius: 40px;
-		height: 70px;
-		width: 160px;
-		background: #336699;
-		color: #FFC7D4;
-		font-family: 'Lato', sans-serif;
-		font-size: 40px;
-		font-weight: bold;
-		margin-left: 320px;
-		padding-top: 5px;
-		margin-top: 20px;
-	}
-	
-	#challenging {
-		font-family: 'Lato', sans-serif;
-		font-size: 20px;
-		margin-top: 20px;
-		font-weight: bold;
-	}
-	
-	#recommendRate {
-		font-family: 'Lato', sans-serif;
-		font-size: 20px;
-		font-weight: bold;
-	}
-	
-	#columnchart_values {
-		width:600px;
-		height: 400px;
-		margin-right: auto;
-		margin-left: auto;
-		margin-top: 10px;
-	}	
-	</style>
+#header-right #right-button {
+	text-decoration: none;
+	color: #EA70A7;
+}
+
+#header-right #right-button:hover {
+	color: #7A797A;
+}
+
+#header-right #left-button {
+	text-decoration: none;
+	color: #EA70A7;
+}
+
+#header-right #left-button:hover {
+	color: #7A797A;
+}
+
+body {
+	margin: 0px;
+	background-color: #FFF4F4;
+	color: #FFC7D4;
+}
+
+#choice {
+	float: left;
+	text-align: center;
+	line-height: 58px;
+	margin-left: 40px;
+	color: #EA70A7;
+	font-size: 18px;
+	font-family: 'Lato', sans-serif;
+}
+
+#left-button {
+	float: right;
+	font-size: 18px;
+	line-height: 62px;
+	color: #EA70A7;
+	font-family: 'Lato', sans-serif;
+	margin-right: 35px;
+}
+
+#right-button {
+	float: right;
+	font-size: 18px;
+	line-height: 60px;
+	color: #EA70A7;
+	margin-left: 0px;
+	font-family: 'Lato', sans-serif;
+}
+
+#search {
+	float: left;
+	line-height: 60px;
+	text-align: center;
+	margin-left: 30px;
+	position: relative;
+}
+
+#input {
+	width: 450px;
+	height: 33px;
+	border-radius: 20px;
+	padding-right: 30px;
+}
+
+.form-control::-webkit-input-placeholder {
+	font-family: 'Public Sans', sans-serif;
+	color: #D3D3D3;
+}
+
+#search #icon {
+	position: absolute;
+	padding-right: 10px;
+	padding-top: 22px;
+	pointer-events: none;
+}
+
+#search:hover>#icon {
+	color: #EA70A7;
+}
+
+#search .glyphicon {
+	right: 0px;
+}
+
+.radio {
+	margin-right: 15px;
+	font-weight: normal;
+	font-family: 'Lato', sans-serif;
+}
+
+#home-icon-div img {
+	float: left;
+	height: 35px;
+	margin-top: 13px;
+	margin-left: 30px;
+}
+
+#main {
+	margin-left: auto;
+	margin-right: auto;
+	width: 800px;
+	color: grey;
+}
+
+#course-info {
+	padding-top: 20px;
+}
+
+.clear-float {
+	clear: both;
+}
+
+#course-name {
+	font-family: 'Lato', sans-serif;
+	font-weight: bold;
+	color: #336699;
+}
+
+#course-description {
+	font-family: 'Lato', sans-serif;
+	font-size: 18px;
+}
+
+.right-professor {
+	margin-left: 30px;
+}
+
+#term-div, #professor-div {
+	border: 1px solid white;
+	border-radius: 20px;
+	text-align: center;
+	background: white;
+	margin-bottom: 10px;
+	height: 37px;
+}
+
+#noselect {
+	font-family: 'Lato', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#average {
+	font-family: 'Lato', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#specificGPA {
+	border-radius: 40px;
+	height: 70px;
+	width: 160px;
+	background: #336699;
+	color: #FFC7D4;
+	font-family: 'Lato', sans-serif;
+	font-size: 40px;
+	font-weight: bold;
+	margin-left: 320px;
+	padding-top: 5px;
+	margin-top: 20px;
+}
+
+#challenging {
+	font-family: 'Lato', sans-serif;
+	font-size: 20px;
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+#recommendRate {
+	font-family: 'Lato', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#columnchart_values {
+	width: 600px;
+	height: 400px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 10px;
+}
+
+#myModal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 200px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+#modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 40px;
+	border: 1px solid #888;
+	width: 40%;
+	font-size: 150%;
+	color: #FFC7D4;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
 	</head>
 <body>
 	<div id="header">
@@ -501,11 +544,50 @@ function select(){
 	      	chart.draw(view, options);
 }		 
 }
-
-
-
 </script>
 
 </div><!-- main -->
+
+<%if(n!=null){ %>
+<script>
+		var webSocketUri =  'ws://localhost:8080/SeCurethatA/ws';
+		var socket = new WebSocket(webSocketUri);
+		socket.onopen = function(event) {
+			console.log("Connected!");
+		};
+			
+		socket.onmessage = function(event){
+				//alert(event.data);
+			document.getElementById("modal-text").innerHTML = event.data;
+			document.getElementById("myModal").style.display = "block";
+			console.log(event.data);
+		};
+			
+		socket.onclose = function(event) {
+			console.log("Disconnected!");
+		};
+</script>	
+<%} %>	
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div id="modal-content">
+    <span class="close">&times;</span>
+    <p><strong id="modal-text"></strong></p>
+  </div>
+</div>	
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+</script>
+
 </body>
 </html>

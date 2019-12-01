@@ -12,7 +12,7 @@
 
     	<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-		
+
 		<style>
 	      #header{
 	      background-image: url(images/background1.jpg);
@@ -132,7 +132,48 @@
 	
 	      #top-bar a:hover {
 	        color: #7A797A;
-	      }		
+	      }	
+	      
+	      #myModal {
+			  display: none; /* Hidden by default */
+			  position: fixed; /* Stay in place */
+			  z-index: 1; /* Sit on top */
+			  padding-top: 200px; /* Location of the box */
+			  left: 0;
+			  top: 0;
+			  width: 100%; /* Full width */
+			  height: 100%; /* Full height */
+			  overflow: auto; /* Enable scroll if needed */
+			  background-color: rgb(0,0,0); /* Fallback color */
+			  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+			}
+
+			/* Modal Content */
+			#modal-content {
+			  background-color: #fefefe;
+			  margin: auto;
+			  padding: 40px;
+			  border: 1px solid #888;
+			  width: 40%;
+			  font-size: 150%;
+			  color: #FFC7D4;
+			}
+
+			/* The Close Button */
+			.close {
+			  color: #aaaaaa;
+			  float: right;
+			  font-size: 28px;
+			  font-weight: bold;
+			}
+			
+			.close:hover,
+			.close:focus {
+			  color: #000;
+			  text-decoration: none;
+			  cursor: pointer;
+			}
+	      	
 		</style>
 	</head>
 	<body>
@@ -148,6 +189,7 @@
 			<a href="Upload.jsp"><div id="left-button"> Upload GPA </div></a> -->
 			<a href="LogoutServlet"><div id="right-button"> Sign out </div></a>
 			<a href="Upload.jsp"><div id="left-button"> Upload GPA </div></a>
+			
 	<%
 		}else{
 	%>		
@@ -268,5 +310,47 @@
 		    // Start the typing effect on load
 		    _INTERVAL_VAL = setInterval(Type, 100);
 		</script>
+
+<%if(n!=null){ %>
+<script>
+		var webSocketUri =  'ws://localhost:8080/SeCurethatA/ws';
+		var socket = new WebSocket(webSocketUri);
+		socket.onopen = function(event) {
+			console.log("Connected!");
+		};
+			
+		socket.onmessage = function(event){
+				//alert(event.data);
+			document.getElementById("modal-text").innerHTML = event.data;
+			document.getElementById("myModal").style.display = "block";
+			console.log(event.data);
+		};
+			
+		socket.onclose = function(event) {
+			console.log("Disconnected!");
+		};
+</script>	
+<%} %>	
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div id="modal-content">
+    <span class="close">&times;</span>
+    <p><strong id="modal-text"></strong></p>
+  </div>
+</div>	
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+</script>	
 	</body>
 </html>
