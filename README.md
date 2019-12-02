@@ -6,7 +6,7 @@ Prof. Olivera Grujic
 # Project name: SeCurethatA!
 # Project contributor: 
 * Xiaoyang Qiao xiaoyanq@usc.edu
-* Yuhua Hu  yuhuahu@usc.edu*
+* Yuhua Hu  yuhuahu@usc.edu
 * Shuyang Zhang  zhan270@usc.edu
 * Zixuan Li zixuanli@usc.edu
 * Yining Zhang yzhang39@usc.edu 
