@@ -489,7 +489,7 @@ span.onclick = function() {
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == modal) {
+  if (event.target == document.getElementById("loginModal")) {
 	  document.getElementById("loginModal").style.display = "none";
   }
 }
@@ -500,20 +500,20 @@ window.onclick = function(event) {
 <div id="myModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
-    <span class="myclose">&times;</span>
+    <span class="close" id="myclose">&times;</span>
     <p><strong id="modal-text"></strong></p>
   </div>
 </div>	
 <script>
 // Get the modal
-var modal = document.getElementById("myModal");
+//var modal = document.getElementById("myModal");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("myclose")[0];
+//var span = document.getElementsByClassName("myclose")[0];
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
+document.getElementsById("myclose").onclick = function() {
+	document.getElementById("myModal").style.display = "none";
 }
 </script>
 
