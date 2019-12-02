@@ -228,8 +228,8 @@ body {
 }
 
 #columnchart_values {
-	width: 600px;
-	height: 400px;
+	width: 750px;
+	height: 500px;
 	margin-right: auto;
 	margin-left: auto;
 	margin-top: 10px;
@@ -534,8 +534,8 @@ function select(){
 
 	        var options = {
 	        	title: "GPA of " + "<%=request.getParameter("courseName")%>" + " in " + document.getElementById("term").innerHTML,
-	        	width: 600,
-	        	height: 400,
+	        	width: 750,
+	        	height: 500,
 	        	bar: {groupWidth: "90%"},
 	        	legend: { position: "none" },
 	        	backgroundColor: '#FFF4F4',

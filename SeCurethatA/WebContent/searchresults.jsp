@@ -206,6 +206,47 @@
 	#no-result-div {
 		width: 80%;
 	}
+	
+	
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 200px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); 
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 40px;
+  border: 1px solid #888;
+  width: 40%;
+  font-size: 150%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 </style>
 </head>
@@ -419,12 +460,12 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p><strong>Please log in to view course details</strong></p>
+    <p><strong id="loginmodal-text">Please log in to view course details</strong></p>
   </div>
 </div>	
 <script>
 // Get the modal
-var modal = document.getElementById("loginModal");
+//var modal = document.getElementById("loginModal");
 
 // Get the button that opens the modal
 //var btn = document.getElementById("myBtn");
@@ -436,19 +477,20 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal 
 for(var i=0; i<btns.length; i++){
 	btns[i].onclick = function() {
-	  modal.style.display = "block";
+	  document.getElementById("loginmodal-text").innerHTML='Please log in to view course details';
+	  document.getElementById("loginModal").style.display = "block";
 	}
 }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-  modal.style.display = "none";
+	 document.getElementById("loginModal").style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
-    modal.style.display = "none";
+	  document.getElementById("loginModal").style.display = "none";
   }
 }
 </script>
