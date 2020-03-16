@@ -7,6 +7,19 @@
   * Seeing if a certain course with a certain professor is challenging rated by past students
 * Help you decide which corresponding course to choose
 
+## Screenshots
+![Home page](images/home.png "Home Page")                
+                  
+![Search result](images/searchresult.png "search result")             
+                     
+![Details page](images/details.png "Details page")
+
+![Register page](images/register.png "Register page")                
+                  
+![Upload page](images/upload.png "Upload GPA")             
+                     
+![Notification](images/notification.png "Notification")
+
 ## What works:
 * Showing search results to users intuitively by professors or by classes
 * Recommending higher-level classes
